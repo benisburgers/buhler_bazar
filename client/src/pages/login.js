@@ -9,6 +9,7 @@ class Login extends Component {
           <h2>Login</h2>
           <LoginText />
           <LoginForm />
+          <RegisterButton />
       </section>
     );
   };
@@ -21,7 +22,6 @@ class LoginForm extends Component {
         <input type="text" name="email" placeholder="jusärnejm" />
         <input type="text" name="email" placeholder="●●●●●●●"/>
         <input type="submit" value="LOG DI I" />
-        <button>Registrierä</button>
       </form>
     )
   }
@@ -35,6 +35,14 @@ class LoginText extends Component {
         <p>Mit m BüehlermärtApp...</p>
         <p>Log di ii...</p>
       </div>
+    )
+  }
+}
+
+class RegisterButton extends Component {
+  render() {
+    return (
+      <button>Registrierä</button>
     )
   }
 }
