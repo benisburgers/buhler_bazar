@@ -7,6 +7,8 @@ class Overview extends Component {
         <h2>Overview</h2>
         <TopBar />
         <OverviewInfo />
+        <OverviewButtons />
+        <VotingModal />
       </section>
     );
   };
@@ -66,6 +68,18 @@ class OverviewInfo extends Component {
   }
 }
 
+
+class CountDown extends Component {
+  render() {
+    return (
+      <div class="countDown">
+        <span>Dä nöchschti Ichauf folgt in</span>
+        <span>FOIF TÄG</span>
+      </div>
+    )
+  }
+}
+
 class PreviousOrder extends Component {
   render() {
     return (
@@ -90,18 +104,7 @@ class PreviousOrder extends Component {
   }
 }
 
-class CountDown extends Component {
-  render() {
-    return (
-      <div class="countDown">
-        <span>Dä nöchschti Ichauf folgt in</span>
-        <span>FOIF TÄG</span>
-      </div>
-    )
-  }
-}
-
-class overviewButtons extends Component {
+class OverviewButtons extends Component {
   render() {
     return (
       <div class="overviewButtons">
@@ -111,5 +114,63 @@ class overviewButtons extends Component {
     )
   }
 }
+
+class VotingModal extends Component {
+  render() {
+    return (
+      <div class="votingModal">
+        <h3>VOTING MODAL</h3>
+        <h4>Vout für dini Lieblings</h4>
+        <CreditScore />
+        <FoodList />
+        <ModalButtons />
+      </div>
+    )
+  }
+}
+
+class CreditScore extends Component {
+  render() {
+    return (
+      <div class="creditScore">
+        <span>3</span>
+        <span>CRÄDITS</span>
+      </div>
+    )
+  }
+}
+
+class FoodList extends Component {
+  render() {
+    return (
+      <ul class="foodList">
+        <li>
+          <span>Mango.Image</span>
+          <span>Mango.Name</span>
+        </li>
+        <li>
+          <span>Banana.Image</span>
+          <span>Banan.Name</span>
+        </li>
+        <li>
+          <span>Kiwi.Image</span>
+          <span>Kiwi.Name</span>
+        </li>
+      </ul>
+    )
+  }
+}
+
+class ModalButtons extends Component {
+  render() {
+    return (
+      <div>
+        <button>VOUTÄ</button>
+        <button>X</button>
+      </div>
+    )
+  }
+}
+
 
 export default Overview;
