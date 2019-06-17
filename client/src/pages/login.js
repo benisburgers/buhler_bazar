@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+
 class Login extends Component {
 
 
@@ -19,9 +20,20 @@ class LoginForm extends Component {
   render() {
     return (
       <form>
-        <input type="text" name="email" placeholder="jusärnejm" />
-        <input type="text" name="email" placeholder="●●●●●●●"/>
-        <input type="submit" value="LOG DI I" />
+        <input
+          type="text"
+          name="email"
+          placeholder="jusärnejm"
+        />
+        <input
+          type="text"
+          name="email"
+          placeholder="●●●●●●●"
+        />
+        <input
+          type="submit"
+          value="LOG DI I"
+        />
       </form>
     )
   }
