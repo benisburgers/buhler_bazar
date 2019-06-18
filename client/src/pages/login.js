@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 
-
 class Login extends Component {
-
-
   render() {
     return (
       <section class="login">
@@ -17,6 +14,21 @@ class Login extends Component {
 }
 
 class LoginForm extends Component {
+
+  state = {
+    value: 'lol',
+    email: '',
+    password: '',
+  }
+
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+  }
+
   render() {
     return (
       <form>
@@ -24,11 +36,15 @@ class LoginForm extends Component {
           type="text"
           name="email"
           placeholder="jusärnejm"
+          value={this.state.email}
+          onChange={this.handleChange}
         />
         <input
           type="text"
-          name="email"
+          name="password"
           placeholder="●●●●●●●"
+          value={this.state.password}
+          onChange={this.handleChange}
         />
         <input
           type="submit"
