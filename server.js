@@ -26,10 +26,15 @@ connection.connect((err) => {
   })
 })
 
-
 app.get('/api/customers', (req, res) => {
   res.json(customerData);
 })
+
+app.post('/api/addUser', function(request, response){
+  var userInput = request.body;
+  console.log(userInput);
+});
+
 
 const port = 5000;
 

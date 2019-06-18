@@ -14,57 +14,82 @@ class Register extends Component {
   }
 }
 
-const Basic = () => {
-  const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(2)
-      .max(50)
-      .required(),
-    lastName: Yup.string()
-      .min(2)
-      .max(50)
-      .required(),
-    email: Yup.string()
-      .email()
-      .required(),
-    password: Yup.string()
-      .min(2)
-      .max(20)
-      .required()
-  })
-  return (
-    <div>
-      <Formik
-        initialValues = {{
-          firstName: '',
-          lastName: '',
-          email: '',
-          password: ''
-        }}
-        validationSchema = {SignupSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            resetForm();
-            setSubmitting(false);
-          }, 2000);
-        }}
-        render = {({ errors, touched, isSubmitting }) => (
-          <Form>
-            <Field type="text" name="firstName" placeholder="Vorname" />
-            <ErrorMessage name="firstName" />
-            <Field type="text" name="lastName" placeholder="Nachname" />
-            <ErrorMessage name="lastName" />
-            <Field type="email" name="email" placeholder="du@buehler-buehler.ch" />
-            <ErrorMessage name="email" />
-            <Field type="password" name="password" placeholder="●●●●●●●●●●" />
-            <ErrorMessage name="password" />
-            <button type="submit" disabled={isSubmitting}>Submit</button>
-          </Form>
-        )}
-      />
-    </div>
-  )
+class Basic extends Component {
+
+  pushData = (input) => {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        const rawResponse = await fetch('/api/addUser', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(input)
+        });
+        const content = await rawResponse.json();
+
+        console.log(content);
+        resolve();
+      })();
+    })
+  }
+
+  render() {
+    const SignupSchema = Yup.object().shape({
+      firstName: Yup.string()
+        .min(2)
+        .max(50)
+        .required(),
+      lastName: Yup.string()
+        .min(2)
+        .max(50)
+        .required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      password: Yup.string()
+        .min(2)
+        .max(20)
+        .required()
+    })
+
+    return (
+      <div>
+        <Formik
+          initialValues = {{
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: ''
+          }}
+          validationSchema = {SignupSchema}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setTimeout(() => {
+              console.log(JSON.stringify(values, null, 2));
+              resetForm();
+              setSubmitting(false);
+              //check if email exists in database
+              this.pushData(values);
+            }, 200);
+          }}
+          render = {({ errors, touched, isSubmitting }) => (
+            <Form>
+              <Field type="text" name="firstName" placeholder="Vorname" />
+              <ErrorMessage name="firstName" />
+              <Field type="text" name="lastName" placeholder="Nachname" />
+              <ErrorMessage name="lastName" />
+              <Field type="email" name="email" placeholder="du@buehler-buehler.ch" />
+              <ErrorMessage name="email" />
+              <Field type="password" name="password" placeholder="●●●●●●●●●●" />
+              <ErrorMessage name="password" />
+              <button type="submit" disabled={isSubmitting}>Submit</button>
+            </Form>
+          )}
+        />
+      </div>
+    )
+  }
 }
 
 class BackButton extends Component {
