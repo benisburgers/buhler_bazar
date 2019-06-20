@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
 import Login from './pages/login';
 import Register from './pages/register';
 import Overview from './pages/overview';
@@ -10,21 +12,32 @@ import Results from './pages/results';
 
 class App extends Component {
 
+  state = {
+    joke: "lol"
+  }
+
   render() {
 
     return (
       <div className="App">
-        <ul>
-          <li><Login /></li>
-            <p>-------------------------------------------------</p>
-          <li><Register /></li>
-            <p>-------------------------------------------------</p>
-          <li><Overview /></li>
-            <p>-------------------------------------------------</p>
-          <li><Profile /></li>
-            <p>-------------------------------------------------</p>
-          <li><Results /></li>
-        </ul>
+        <Router>
+          <nav>
+            <ul>
+              <li><Link to={'/'}>Login</Link></li>
+              <li><Link to={'/register'}>Register</Link></li>
+              <li><Link to={'/overview'}>Overview</Link></li>
+              <li><Link to={'/profile'}>Profile</Link></li>
+              <li><Link to={'/results'}>Results</Link></li>
+            </ul>
+          </nav>
+          <Switch>
+            <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
+            <Route exact path="/register" component={ () => <Register joke={this.state.joke} /> } />
+            <Route exact path="/overview" component={ () => <Overview joke={this.state.joke} /> } />
+            <Route exact path="/profile" component={ () => <Profile joke={this.state.joke} /> } />
+            <Route exact path="/results" component={ () => <Results joke={this.state.joke} /> } />
+          </Switch>
+        </Router>
       </div>
     );
   }

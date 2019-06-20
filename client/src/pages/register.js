@@ -14,6 +14,8 @@ class Register extends Component {
   }
 }
 
+var userExists;
+
 class Basic extends Component {
 
   pushData = (input) => {
@@ -30,10 +32,20 @@ class Basic extends Component {
         const content = await rawResponse.json();
 
         console.log(content);
+        console.log(content.userExists);
+        userExists = content.userExists;
+        if (userExists) {
+          alert("Someone has already used this email.")
+        }
+        else {
+          alert("New account created.")
+        }
         resolve();
       })();
     })
   }
+
+
 
   render() {
     const SignupSchema = Yup.object().shape({
