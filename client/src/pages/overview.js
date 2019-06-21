@@ -1,14 +1,28 @@
 import React, {Component} from 'react';
 
 class Overview extends Component {
+
+  state = {
+    modalOpen: false,
+  }
+
+  toggleModal = () => {
+    var modalOpen = this.state.modalOpen;
+    this.setState({
+      modalOpen: !modalOpen,
+    })
+  }
+
   render() {
+    const { userinfo, fruits} = this.props;
+    const { modalOpen } = this.state;
     return (
-      <section class="overview">
+      <section className="overview">
         <h2>Overview</h2>
-        <TopBar />
-        <OverviewInfo />
-        <OverviewButtons />
-        <VotingModal />
+        <TopBar userinfo={userinfo} />
+        <OverviewInfo userinfo={userinfo} fruits={fruits} />
+        <OverviewButtons toggleModal={this.toggleModal} />
+        <VotingModal fruits={fruits} modalOpen={modalOpen} toggleModal={this.toggleModal} />
       </section>
     );
   };
@@ -16,9 +30,10 @@ class Overview extends Component {
 
 class TopBar extends Component {
   render() {
+    const { userinfo } = this.props;
     return (
-      <div class="topBar">
-        <ProfileButton />
+      <div className="topBar">
+        <ProfileButton userinfo={userinfo} />
       </div>
     )
   }
@@ -26,9 +41,10 @@ class TopBar extends Component {
 
 class ProfileButton extends Component {
   render() {
+    const { userinfo } = this.props;
     return (
-      <div class="profileButton">
-        <ProfileThumbnail />
+      <div className="profileButton" userinfo={userinfo}>
+        <ProfileThumbnail userinfo={userinfo} />
         <span>Fuud</span>
         <Hamburger />
       </div>
@@ -38,10 +54,12 @@ class ProfileButton extends Component {
 
 class ProfileThumbnail extends Component {
   render() {
+    const { userinfo } = this.props;
     return (
-      <div class="profileThumbnail">
-        <span>User Image</span>
-        <span>User Name</span>
+      <div className="profileThumbnail">
+        <span>{ userinfo.data.picturePath }</span>
+        <br></br>
+        <span>{`${userinfo.data.firstName} ${userinfo.data.lastName}`}</span>
       </div>
     )
   }
@@ -50,7 +68,7 @@ class ProfileThumbnail extends Component {
 class Hamburger extends Component {
   render() {
     return (
-      <div class="hamburger">
+      <div className="hamburger">
         <span>Hamburger</span>
       </div>
     )
@@ -59,10 +77,11 @@ class Hamburger extends Component {
 
 class OverviewInfo extends Component {
   render() {
+    const { userinfo, fruits } = this.props;
     return (
-      <div class="overviewInfo">
+      <div className="overviewInfo">
         <CountDown />
-        <PreviousOrder />
+        <PreviousOrder userinfo={userinfo} fruits={fruits} />
       </div>
     )
   }
@@ -72,32 +91,54 @@ class OverviewInfo extends Component {
 class CountDown extends Component {
   render() {
     return (
-      <div class="countDown">
+      <div className="countDown">
         <span>Dä nöchschti Ichauf folgt in</span>
-        <span>FOIF TÄG</span>
+        <br></br>
+        <span> <DaysLeft /> TÄG</span>
       </div>
     )
   }
 }
 
+function DaysLeft(props) {
+  var nextMonday = new Date();
+  var today = new Date();
+  nextMonday.setDate(nextMonday.getDate() + (1 + 7 - nextMonday.getDay()) % 7);
+  const diffTime = Math.abs(nextMonday.getTime() - today.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
+
+function findProperFruit(array, entry) {
+  return(array.find(fruit => fruit.id === entry));
+}
+
+
 class PreviousOrder extends Component {
   render() {
+    const { userinfo, fruits } = this.props;
+
+    const dateString = (() => {
+      var previousOrderDate = new Date(userinfo.order.lastOrderDate);
+      var options = { month: 'long', day: 'numeric' };
+      return previousOrderDate.toLocaleDateString('de-DE', options);
+    })
+
+    const previousOrder = userinfo.order.lastOrder.map((entry, index) => {
+      return (
+        <li key={index}>
+          <span>{findProperFruit(fruits, entry).name}</span>
+          <br></br>
+          <span>{findProperFruit(fruits, entry).picturePath}</span>
+        </li>
+      )
+    })
+
     return (
-      <div class="previousOrder">
-        <span>Dini Votings am 21. Juni</span>
-        <ul class="previousOrderList">
-          <li>
-            <span>Mango Image</span>
-            <span>Mango</span>
-          </li>
-          <li>
-            <span>Banana Image</span>
-            <span>Bananä</span>
-          </li>
-          <li>
-            <span>Cashew Image</span>
-            <span>Cäschju</span>
-          </li>
+      <div className="previousOrder">
+        <span>Dis Voting am {dateString}</span>
+        <ul className="previousOrderList">
+          {previousOrder}
         </ul>
       </div>
     )
@@ -106,10 +147,11 @@ class PreviousOrder extends Component {
 
 class OverviewButtons extends Component {
   render() {
+    const  { toggleModal } = this.props;
     return (
-      <div class="overviewButtons">
+      <div className="overviewButtons">
         <button>TSCHARTS</button>
-        <button>VOUTÄ</button>
+        <button onClick={toggleModal}>VOUTÄ</button>
       </div>
     )
   }
@@ -117,22 +159,27 @@ class OverviewButtons extends Component {
 
 class VotingModal extends Component {
   render() {
-    return (
-      <div class="votingModal">
-        <h3>VOTING MODAL</h3>
-        <h4>Vout für dini Lieblings</h4>
-        <CreditScore />
-        <FoodList />
-        <ModalButtons />
-      </div>
-    )
+    const { fruits, toggleModal, modalOpen } = this.props;
+    if (false) {
+      return (
+        <div className="votingModal">
+          <h4>Vout für dini Lieblings</h4>
+          <CreditScore />
+          <FoodList fruits={fruits} />
+          <ModalButtons />
+        </div>
+      )
+    }
+    else {
+      return null;
+    }
   }
 }
 
 class CreditScore extends Component {
   render() {
     return (
-      <div class="creditScore">
+      <div className="creditScore">
         <span>3</span>
         <span>CRÄDITS</span>
       </div>
@@ -142,20 +189,22 @@ class CreditScore extends Component {
 
 class FoodList extends Component {
   render() {
+    const { fruits } = this.props;
+    const fruitItems = fruits.map((entry, index) => {
+      return (
+        <li key={index}>
+          <span>{entry.name}</span>
+          <br></br>
+          <span>{entry.picturePath}</span>
+          <br></br>
+          <br></br>
+        </li>
+      )
+    })
+
     return (
-      <ul class="foodList">
-        <li>
-          <span>Mango.Image</span>
-          <span>Mango.Name</span>
-        </li>
-        <li>
-          <span>Banana.Image</span>
-          <span>Banan.Name</span>
-        </li>
-        <li>
-          <span>Kiwi.Image</span>
-          <span>Kiwi.Name</span>
-        </li>
+      <ul className="foodList">
+        {fruitItems}
       </ul>
     )
   }

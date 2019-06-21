@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 class Register extends Component {
   render() {
     return (
-      <section class="registration">
+      <section className="registration">
         <h2>Register</h2>
         <Basic />
         <BackButton />

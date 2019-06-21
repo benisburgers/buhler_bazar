@@ -4,7 +4,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <section class="profile">
+      <section className="profile">
         <h2>Profile</h2>
         <ProfileForm />
       </section>

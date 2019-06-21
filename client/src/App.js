@@ -13,7 +13,62 @@ import Results from './pages/results';
 class App extends Component {
 
   state = {
-    joke: "lol"
+    joke: "lol",
+    user: {
+      data: {
+        //get from userList
+        id: 1,
+        admin: false,
+        firstName: "Marko",
+        lastName: "Lukac",
+        email: "marko@buehler-buehler.ch",
+        picturePath: "/marko69.jpg",
+      },
+      order: {
+        //get from userOrderTable_Marko
+        lastOrderDate: "2019-06-21T13:46:03.995Z",
+        lastOrder: [1, 2, 3],
+        favoriteProduct: 3
+      }
+    },
+    fruits: [
+      {
+        id: 1,
+        name: "Banane",
+        type: "fruit",
+        picturePath: "banane.jpeg"
+      },
+      {
+        id: 2,
+        name: "Apfel",
+        type: "fruit",
+        picturePath: "apfel.jpeg"
+      },
+      {
+        id: 3,
+        name: "Birre",
+        type: "fruit",
+        picturePath: "birre.jpeg"
+      },
+      {
+        id: 4,
+        name: "Pfirsich",
+        type: "fruit",
+        picturePath: "pfirsich.jpeg"
+      },
+      {
+        id: 5,
+        name: "Truube",
+        type: "fruit",
+        picturePath: "truube.jpeg"
+      },
+      {
+        id: 6,
+        name: "Avocado",
+        type: "fruit",
+        picturePath: "avocado.jpeg"
+      }
+    ]
   }
 
   render() {
@@ -33,7 +88,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
             <Route exact path="/register" component={ () => <Register joke={this.state.joke} /> } />
-            <Route exact path="/overview" component={ () => <Overview joke={this.state.joke} /> } />
+            <Route exact path="/overview" component={ () => <Overview joke={this.state.joke} userinfo={this.state.user} fruits={this.state.fruits}/> } />
             <Route exact path="/profile" component={ () => <Profile joke={this.state.joke} /> } />
             <Route exact path="/results" component={ () => <Results joke={this.state.joke} /> } />
           </Switch>

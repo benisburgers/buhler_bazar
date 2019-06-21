@@ -1,73 +1,86 @@
 import React, {Component} from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-class Login extends Component {
+class Register extends Component {
   render() {
     return (
-      <section class="login">
-          <h2>Login</h2>
-          <LoginText />
-          <LoginForm />
-          <RegisterButton />
+      <section className="login">
+        <h2>Login</h2>
+        <Basic />
+        <RegistrationButton />
       </section>
-    );
-  };
-}
-
-class LoginForm extends Component {
-
-  state = {
-    value: 'lol',
-    email: '',
-    password: '',
-  }
-
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      <form>
-        <input
-          type="text"
-          name="email"
-          placeholder="jusärnejm"
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
-        <input
-          type="text"
-          name="password"
-          placeholder="●●●●●●●"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <input
-          type="submit"
-          value="LOG DI I"
-        />
-      </form>
     )
   }
 }
 
-class LoginText extends Component {
+class Basic extends Component {
+
+  pushData = (input) => {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        const rawResponse = await fetch('/api/Login', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(input)
+        });
+        const content = await rawResponse.json();
+
+        console.log(content);
+        resolve();
+      })();
+    })
+  }
+
+
+
   render() {
+    const LoginSchema = Yup.object().shape({
+      email: Yup.string()
+        .email()
+        .required(),
+      password: Yup.string()
+        .min(2)
+        .max(20)
+        .required()
+    })
+
     return (
       <div>
-        <h3>Büehlerbazar</h3>
-        <p>Mit m BüehlermärtApp...</p>
-        <p>Log di ii...</p>
+        <Formik
+          initialValues = {{
+            email: '',
+            password: ''
+          }}
+          validationSchema = {LoginSchema}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setTimeout(() => {
+              console.log(JSON.stringify(values, null, 2));
+              resetForm();
+              setSubmitting(false);
+              //check if email exists in database
+              this.pushData(values);
+            }, 200);
+          }}
+          render = {({ errors, touched, isSubmitting }) => (
+            <Form>
+              <Field type="email" name="email" placeholder="du@buehler-buehler.ch" />
+              <ErrorMessage name="email" />
+              <Field type="password" name="password" placeholder="●●●●●●●●●●" />
+              <ErrorMessage name="password" />
+              <button type="submit" disabled={isSubmitting}>LOG DI I</button>
+            </Form>
+          )}
+        />
       </div>
     )
   }
 }
 
-class RegisterButton extends Component {
+class RegistrationButton extends Component {
   render() {
     return (
       <button>Registrierä</button>
@@ -75,4 +88,4 @@ class RegisterButton extends Component {
   }
 }
 
-export default Login;
+export default Register;
