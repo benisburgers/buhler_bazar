@@ -31,7 +31,7 @@ class App extends Component {
         favoriteProduct: 3
       }
     },
-    fruits: [
+    food: [
       {
         id: 1,
         name: "Banane",
@@ -67,6 +67,24 @@ class App extends Component {
         name: "Avocado",
         type: "fruit",
         picturePath: "avocado.jpeg"
+      },
+      {
+        id: 7,
+        name: "Chips",
+        type: "snack",
+        picturePath: "chips.jpeg"
+      },
+      {
+        id: 8,
+        name: "Cashew",
+        type: "snack",
+        picturePath: "cashew.jpeg"
+      },
+      {
+        id: 9,
+        name: "Troche Ananas",
+        type: "snack",
+        picturePath: "trocheananas.jpeg"
       }
     ]
   }
@@ -88,7 +106,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
             <Route exact path="/register" component={ () => <Register joke={this.state.joke} /> } />
-            <Route exact path="/overview" component={ () => <Overview joke={this.state.joke} userinfo={this.state.user} fruits={this.state.fruits}/> } />
+            <Route exact path="/overview" component={ () => <Overview joke={this.state.joke} userinfo={this.state.user} food={this.state.food}/> } />
             <Route exact path="/profile" component={ () => <Profile joke={this.state.joke} /> } />
             <Route exact path="/results" component={ () => <Results joke={this.state.joke} /> } />
           </Switch>

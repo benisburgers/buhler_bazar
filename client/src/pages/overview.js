@@ -15,15 +15,15 @@ class Overview extends Component {
   }
 
   render() {
-    const { userinfo, fruits} = this.props;
+    const { userinfo, food} = this.props;
     const { modalOpen } = this.state;
     return (
       <section className="overview">
         <h2>Overview</h2>
         <TopBar userinfo={userinfo} />
-        <OverviewInfo userinfo={userinfo} fruits={fruits} />
+        <OverviewInfo userinfo={userinfo} food={food} />
         <OverviewButtons toggleModal={this.toggleModal} />
-        <VotingModal fruits={fruits} modalOpen={modalOpen} toggleModal={this.toggleModal} />
+        <VotingModal food={food} modalOpen={modalOpen} toggleModal={this.toggleModal} />
       </section>
     );
   };
@@ -78,11 +78,11 @@ class Hamburger extends Component {
 
 class OverviewInfo extends Component {
   render() {
-    const { userinfo, fruits } = this.props;
+    const { userinfo, food } = this.props;
     return (
       <div className="overviewInfo">
         <CountDown />
-        <PreviousOrder userinfo={userinfo} fruits={fruits} />
+        <PreviousOrder userinfo={userinfo} food={food} />
       </div>
     )
   }
@@ -110,14 +110,14 @@ function DaysLeft(props) {
   return diffDays;
 }
 
-function findProperFruit(array, entry) {
+function findProperItem(array, entry) {
   return(array.find(fruit => fruit.id === entry));
 }
 
 
 class PreviousOrder extends Component {
   render() {
-    const { userinfo, fruits } = this.props;
+    const { userinfo, food } = this.props;
 
     const dateString = (() => {
       var previousOrderDate = new Date(userinfo.order.lastOrderDate);
@@ -128,9 +128,9 @@ class PreviousOrder extends Component {
     const previousOrder = userinfo.order.lastOrder.map((entry, index) => {
       return (
         <li key={index}>
-          <span>{findProperFruit(fruits, entry).name}</span>
+          <span>{findProperItem(food, entry).name}</span>
           <br></br>
-          <span>{findProperFruit(fruits, entry).picturePath}</span>
+          <span>{findProperItem(food, entry).picturePath}</span>
         </li>
       )
     })
@@ -161,7 +161,7 @@ class OverviewButtons extends Component {
 class VotingModal extends Component {
 
   state = {
-    fruit: [],
+    selectedProducts: [],
     credits: 4,
     creditClassName: 'creditScore'
   }
@@ -187,14 +187,14 @@ class VotingModal extends Component {
 
     //is this product activated? I.e does it exist in selectedProducts?
       //yes: this product has been selected (unchoose it)
-      if (this.state[productType].includes(product.id)) {
+      if (this.state.selectedProducts.includes(product)) {
         console.log('this fruit has alreay been selected');
 
         // ==> remove fruit from selectedProducts
-        let selectedProducts = this.state[productType];
-        let newSelectedProducts = selectedProducts.filter(item => item !== product.id)
+        let selectedProducts = this.state.selectedProducts;
+        let newSelectedProducts = selectedProducts.filter(item => item !== product)
         this.setState({
-          [productType]: newSelectedProducts
+          selectedProducts: newSelectedProducts
         })
 
         // ==> increase credit
@@ -216,10 +216,10 @@ class VotingModal extends Component {
         //yes (there are credits left) ==>
         if (this.state.credits > 0) {
             // ==> add fruit to selectedProducts
-            let selectedProducts = this.state[productType];
-            let newSelectedProducts = [...selectedProducts, product.id];
+            let selectedProducts = this.state.selectedProducts;
+            let newSelectedProducts = [...selectedProducts, product];
             this.setState({
-              [productType]: newSelectedProducts
+              selectedProducts: newSelectedProducts
             })
 
             // ==> decrease credits
@@ -247,14 +247,14 @@ class VotingModal extends Component {
   }
 
   render() {
-    const { fruits, toggleModal, modalOpen } = this.props;
+    const { food, toggleModal, modalOpen } = this.props;
     const { credits, creditClassName } = this.state;
     if (modalOpen) {
       return (
         <div className="votingModal">
           <h4>Vout für dini Lieblings</h4>
           <CreditScore credits={credits} creditClassName={creditClassName} />
-          <FoodList fruits={fruits} chooseProduct={this.chooseProduct} />
+          <FoodList food={food} chooseProduct={this.chooseProduct} />
           <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal}/>
         </div>
       )
@@ -279,8 +279,8 @@ class CreditScore extends Component {
 
 class FoodList extends Component {
   render() {
-    const { fruits, chooseProduct } = this.props;
-    const fruitItems = fruits.map((entry, index) => {
+    const { food, chooseProduct } = this.props;
+    const foodItems = food.map((entry, index) => {
       return (
         <li key={index} onClick={ (e) => chooseProduct(e, entry) }>
           <span>{entry.name}</span>
@@ -294,7 +294,7 @@ class FoodList extends Component {
 
     return (
       <ul className="foodList">
-        {fruitItems}
+        {foodItems}
       </ul>
     )
   }
