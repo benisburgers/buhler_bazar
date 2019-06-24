@@ -188,7 +188,6 @@ class VotingModal extends Component {
     //is this product activated? I.e does it exist in selectedProducts?
       //yes: this product has been selected (unchoose it)
       if (this.state.selectedProducts.includes(product)) {
-        console.log('this fruit has alreay been selected');
 
         // ==> remove fruit from selectedProducts
         let selectedProducts = this.state.selectedProducts;
@@ -210,7 +209,6 @@ class VotingModal extends Component {
 
       //no: this product has not been selcted (choose it)
       else {
-        console.log('this fruit has not been selected');
 
         //are there any more credits left?
         //yes (there are credits left) ==>
@@ -236,7 +234,6 @@ class VotingModal extends Component {
         //no (there are no credits left) ==>
         else {
             // ==> highlight credits for a second
-            console.log('no more credits left');
             this.highlightCredit();
         }
       }
@@ -244,18 +241,26 @@ class VotingModal extends Component {
 
   submitVote = () => {
     console.log('submitVote');
+    //push selected fruits to database -- what format?
+    let chosenProductIDs = [];
+    this.state.selectedProducts.map((entry, index) => {
+      chosenProductIDs = [...chosenProductIDs, entry.id];
+    })
+    // close voting modal
+    this.props.toggleModal();
+    //refresh overview page (update/fetch 'previous voting')
   }
 
   render() {
     const { food, toggleModal, modalOpen } = this.props;
-    const { credits, creditClassName } = this.state;
+    const { credits, creditClassName, selectedProducts } = this.state;
     if (modalOpen) {
       return (
         <div className="votingModal">
           <h4>Vout für dini Lieblings</h4>
           <CreditScore credits={credits} creditClassName={creditClassName} />
           <FoodList food={food} chooseProduct={this.chooseProduct} />
-          <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal}/>
+          <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal} selectedProducts={selectedProducts}/>
         </div>
       )
     }
@@ -302,13 +307,22 @@ class FoodList extends Component {
 
 class ModalButtons extends Component {
   render() {
-    const { submitVote, toggleModal } = this.props;
-    return (
-      <div>
-        <button onClick={submitVote}>VOUTÄ</button>
-        <button onClick={toggleModal}>X</button>
-      </div>
-    )
+    const { submitVote, toggleModal, selectedProducts } = this.props;
+    if ( selectedProducts.length > 0 ) {
+      return (
+        <div>
+          <button onClick={submitVote}>VOUTÄ</button>
+          <button onClick={toggleModal}>X</button>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div>
+          <button onClick={toggleModal}>X</button>
+        </div>
+      )
+    }
   }
 }
 
