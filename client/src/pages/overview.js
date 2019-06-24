@@ -160,13 +160,13 @@ class OverviewButtons extends Component {
 class VotingModal extends Component {
   render() {
     const { fruits, toggleModal, modalOpen } = this.props;
-    if (false) {
+    if (modalOpen) {
       return (
         <div className="votingModal">
           <h4>Vout für dini Lieblings</h4>
           <CreditScore />
           <FoodList fruits={fruits} />
-          <ModalButtons />
+          <ModalButtons toggleModal={toggleModal} />
         </div>
       )
     }
@@ -212,10 +212,11 @@ class FoodList extends Component {
 
 class ModalButtons extends Component {
   render() {
+    const { toggleModal } = this.props;
     return (
       <div>
         <button>VOUTÄ</button>
-        <button>X</button>
+        <button onClick={toggleModal}>X</button>
       </div>
     )
   }
