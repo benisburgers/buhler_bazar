@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './css/overview.css'
 
 class Overview extends Component {
 
@@ -158,15 +159,103 @@ class OverviewButtons extends Component {
 }
 
 class VotingModal extends Component {
+
+  state = {
+    fruit: [],
+    credits: 4,
+    creditClassName: 'creditScore'
+  }
+
+  highlightCredit = () => {
+    console.log('highlightCredit');
+    const { creditClassName } = this.state;
+    this.setState({
+      creditClassName: 'creditScore highlight'
+    })
+    setTimeout(() => {
+      this.setState({
+        creditClassName: "creditScore"
+      })
+    }, 500);
+  }
+
+  chooseProduct = (e, product) => {
+    console.log('chooseProduct');
+
+    let productType = product.type
+    let clickedTarget = e.currentTarget
+
+    //is this product activated? I.e does it exist in selectedProducts?
+      //yes: this product has been selected (unchoose it)
+      if (this.state[productType].includes(product.id)) {
+        console.log('this fruit has alreay been selected');
+
+        // ==> remove fruit from selectedProducts
+        let selectedProducts = this.state[productType];
+        let newSelectedProducts = selectedProducts.filter(item => item !== product.id)
+        this.setState({
+          [productType]: newSelectedProducts
+        })
+
+        // ==> increase credit
+        this.setState((state) => {
+          return {
+            credits: state.credits + 1
+          }
+        })
+
+        // ==> deactivate fruit (visually)
+        clickedTarget.classList.remove("active")
+      }
+
+      //no: this product has not been selcted (choose it)
+      else {
+        console.log('this fruit has not been selected');
+
+        //are there any more credits left?
+        //yes (there are credits left) ==>
+        if (this.state.credits > 0) {
+            // ==> add fruit to selectedProducts
+            let selectedProducts = this.state[productType];
+            let newSelectedProducts = [...selectedProducts, product.id];
+            this.setState({
+              [productType]: newSelectedProducts
+            })
+
+            // ==> decrease credits
+            this.setState((state => {
+              return {
+                credits: state.credits - 1
+              }
+            }))
+
+            // ==> activate fruit (visually)
+            clickedTarget.classList.add("active")
+        }
+
+        //no (there are no credits left) ==>
+        else {
+            // ==> highlight credits for a second
+            console.log('no more credits left');
+            this.highlightCredit();
+        }
+      }
+  }
+
+  submitVote = () => {
+    console.log('submitVote');
+  }
+
   render() {
     const { fruits, toggleModal, modalOpen } = this.props;
+    const { credits, creditClassName } = this.state;
     if (modalOpen) {
       return (
         <div className="votingModal">
           <h4>Vout für dini Lieblings</h4>
-          <CreditScore />
-          <FoodList fruits={fruits} />
-          <ModalButtons toggleModal={toggleModal} />
+          <CreditScore credits={credits} creditClassName={creditClassName} />
+          <FoodList fruits={fruits} chooseProduct={this.chooseProduct} />
+          <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal}/>
         </div>
       )
     }
@@ -178,9 +267,10 @@ class VotingModal extends Component {
 
 class CreditScore extends Component {
   render() {
+    const { credits, creditClassName } = this.props;
     return (
-      <div className="creditScore">
-        <span>3</span>
+      <div className={creditClassName}>
+        <span>{credits}</span>
         <span>CRÄDITS</span>
       </div>
     )
@@ -189,10 +279,10 @@ class CreditScore extends Component {
 
 class FoodList extends Component {
   render() {
-    const { fruits } = this.props;
+    const { fruits, chooseProduct } = this.props;
     const fruitItems = fruits.map((entry, index) => {
       return (
-        <li key={index}>
+        <li key={index} onClick={ (e) => chooseProduct(e, entry) }>
           <span>{entry.name}</span>
           <br></br>
           <span>{entry.picturePath}</span>
@@ -212,10 +302,10 @@ class FoodList extends Component {
 
 class ModalButtons extends Component {
   render() {
-    const { toggleModal } = this.props;
+    const { submitVote, toggleModal } = this.props;
     return (
       <div>
-        <button>VOUTÄ</button>
+        <button onClick={submitVote}>VOUTÄ</button>
         <button onClick={toggleModal}>X</button>
       </div>
     )
