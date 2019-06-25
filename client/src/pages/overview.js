@@ -58,9 +58,9 @@ class ProfileThumbnail extends Component {
     const { userinfo } = this.props;
     return (
       <div className="profileThumbnail">
-        <span>{ userinfo.data.picturePath }</span>
+        <span>{ userinfo.picturePath }</span>
         <br></br>
-        <span>{`${userinfo.data.firstName} ${userinfo.data.lastName}`}</span>
+        <span>{`${userinfo.firstName} ${userinfo.lastName}`}</span>
       </div>
     )
   }
@@ -120,12 +120,12 @@ class PreviousOrder extends Component {
     const { userinfo, food } = this.props;
 
     const dateString = (() => {
-      var previousOrderDate = new Date(userinfo.order.lastOrderDate);
+      var previousOrderDate = new Date(userinfo.lastOrderDate);
       var options = { month: 'long', day: 'numeric' };
       return previousOrderDate.toLocaleDateString('de-DE', options);
     })
 
-    const previousOrder = userinfo.order.lastOrder.map((entry, index) => {
+    const previousOrder = userinfo.lastOrder.map((entry, index) => {
       return (
         <li key={index}>
           <span>{findProperItem(food, entry).name}</span>

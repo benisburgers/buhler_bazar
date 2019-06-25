@@ -15,21 +15,17 @@ class App extends Component {
   state = {
     joke: "lol",
     user: {
-      data: {
-        //get from userList
-        id: 1,
-        admin: false,
-        firstName: "Marko",
-        lastName: "Lukac",
-        email: "marko@buehler-buehler.ch",
-        picturePath: "/marko69.jpg",
-      },
-      order: {
-        //get from userOrderTable_Marko
-        lastOrderDate: "2019-06-21T13:46:03.995Z",
-        lastOrder: [1, 2, 3],
-        favoriteProduct: 3
-      }
+      //get from userList
+      id: 1,
+      admin: false,
+      firstName: "Marko",
+      lastName: "Lukac",
+      email: "marko@buehler-buehler.ch",
+      picturePath: "/marko69.jpg",
+      //get from userOrderTable_Marko
+      lastOrderDate: "2019-06-21T13:46:03.995Z",
+      lastOrder: [1, 2, 3],
+      favoriteProduct: 3
     },
     food: [
       {
@@ -105,10 +101,10 @@ class App extends Component {
           </nav>
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
-            <Route exact path="/register" component={ () => <Register joke={this.state.joke} /> } />
-            <Route exact path="/overview" component={ () => <Overview joke={this.state.joke} userinfo={this.state.user} food={this.state.food}/> } />
-            <Route exact path="/profile" component={ () => <Profile joke={this.state.joke} /> } />
-            <Route exact path="/results" component={ () => <Results joke={this.state.joke} /> } />
+            <Route exact path="/register" component={ () => <Register /> } />
+            <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} food={this.state.food}/> } />
+            <Route exact path="/profile" component={ () => <Profile userinfo={this.state.user} /> } />
+            <Route exact path="/results" component={ () => <Results /> } />
           </Switch>
         </Router>
       </div>
