@@ -48,6 +48,10 @@ class ToggleButton extends Component {
     console.log('toggleInputField');
     console.log(event.currentTarget);
     console.log(event.currentTarget.previousSibling);
+    var matches = document.querySelectorAll('input[conditional]');
+    matches.forEach((element) => {
+      element.disabled = true;
+    })
     event.currentTarget.previousSibling.disabled = false;
   }
 
@@ -128,22 +132,16 @@ class Basic extends Component {
                   }}
                 />
               </label>
-              <label>
-                <Field type="email" name="email" placeholder="du@buehler-buehler.ch" disabled />
-                <ToggleButton />
-                <ErrorMessage name="email" />
-              </label>
-              <label>
-                <Field type="text" name="firstName" placeholder="Vorname" disabled />
-                <ToggleButton />
-                <ErrorMessage name="firstName" />
-              </label>
-              <label>
-                <Field type="text" name="lastName" placeholder="Nachname" disabled />
-                <ToggleButton />
-                <ErrorMessage name="lastName" />
-              </label>
-              <button type="submit" disabled={isSubmitting}>LOG DI I</button>
+              <Field type="email" name="email" placeholder="du@buehler-buehler.ch" conditional="" disabled />
+              <ToggleButton />
+              <ErrorMessage name="email" />
+              <Field type="text" name="firstName" placeholder="Vorname" conditional="" disabled />
+              <ToggleButton />
+              <ErrorMessage name="firstName" />
+              <Field type="text" name="lastName" placeholder="Nachname" conditional="" disabled />
+              <ToggleButton />
+              <ErrorMessage name="lastName" />
+              <button type="submit" disabled={isSubmitting}>ok</button>
             </Form>
           )}
         />
