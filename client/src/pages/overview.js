@@ -15,13 +15,13 @@ class Overview extends Component {
   }
 
   render() {
-    const { userinfo, food} = this.props;
+    const { userinfo, food, findProperItem } = this.props;
     const { modalOpen } = this.state;
     return (
       <section className="overview">
         <h2>Overview</h2>
         <TopBar userinfo={userinfo} />
-        <OverviewInfo userinfo={userinfo} food={food} />
+        <OverviewInfo userinfo={userinfo} food={food} findProperItem={findProperItem} />
         <OverviewButtons toggleModal={this.toggleModal} />
         <VotingModal food={food} modalOpen={modalOpen} toggleModal={this.toggleModal} />
       </section>
@@ -78,11 +78,11 @@ class Hamburger extends Component {
 
 class OverviewInfo extends Component {
   render() {
-    const { userinfo, food } = this.props;
+    const { userinfo, food, findProperItem } = this.props;
     return (
       <div className="overviewInfo">
         <CountDown />
-        <PreviousOrder userinfo={userinfo} food={food} />
+        <PreviousOrder userinfo={userinfo} food={food} findProperItem={findProperItem} />
       </div>
     )
   }
@@ -110,14 +110,9 @@ function DaysLeft(props) {
   return diffDays;
 }
 
-function findProperItem(array, entry) {
-  return(array.find(fruit => fruit.id === entry));
-}
-
-
 class PreviousOrder extends Component {
   render() {
-    const { userinfo, food } = this.props;
+    const { userinfo, food, findProperItem } = this.props;
 
     const dateString = (() => {
       var previousOrderDate = new Date(userinfo.lastOrderDate);

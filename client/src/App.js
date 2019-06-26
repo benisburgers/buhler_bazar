@@ -85,8 +85,11 @@ class App extends Component {
     ]
   }
 
-  render() {
+  findProperItem(array, entry) {
+    return(array.find(fruit => fruit.id === entry));
+  }
 
+  render() {
     return (
       <div className="App">
         <Router>
@@ -102,9 +105,9 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
             <Route exact path="/register" component={ () => <Register /> } />
-            <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} food={this.state.food}/> } />
+            <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} food={this.state.food} findProperItem={this.findProperItem}/> } />
             <Route exact path="/profile" component={ () => <Profile userinfo={this.state.user} /> } />
-            <Route exact path="/results" component={ () => <Results /> } />
+            <Route exact path="/results" component={ () => <Results food={this.state.food} findProperItem={this.findProperItem} /> } />
           </Switch>
         </Router>
       </div>
