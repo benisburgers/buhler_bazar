@@ -13,19 +13,27 @@ class Results extends Component {
       7: 2,
       8: 7,
       9: 8
-    }
+    },
+    rawResults:
+    [
+      [1, 7, 5],
+      [3, 9, 5],
+      [4, 3, 1],
+      [9, 1, 5]
+    ]
   }
 
   render() {
-    const { food, findProperItem } = this.props;
+    const { food, findProperItem, rawResults } = this.props;
+
     return (
-      <section class="results">
-        <div class="topBar">
+      <section className="results">
+        <div className="topBar">
           <h2>Results</h2>
           <WeekNumber />
         </div>
-        <div class="results">
-          <FoodList orderNumbers={this.state.orderNumbers} food={food} findProperItem={findProperItem} />
+        <div className="results">
+          <FoodList orderNumbers={this.state.orderNumbers} food={food} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
         </div>
       </section>
     )
@@ -43,11 +51,11 @@ class WeekNumber extends Component {
       return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
     };
     return (
-      <div class="weekNumberContainer">
-        <div class="weekNumberCircle">
-          <span class="weekNumber">{new Date().getWeekNumber()}</span>
+      <div className="weekNumberContainer">
+        <div className="weekNumberCircle">
+          <span className="weekNumber">{new Date().getWeekNumber()}</span>
         </div>
-        <span class="weekNumberDescription">Kalenderwoche</span>
+        <span className="weekNumberDescription">Kalenderwoche</span>
       </div>
 
     )
@@ -56,31 +64,34 @@ class WeekNumber extends Component {
 
 class FoodList extends Component {
   render() {
-    const { food, orderNumbers, findProperItem } = this.props;
-    console.log(orderNumbers);
-    var sortedResults = [];
+    const { food, orderNumbers, findProperItem, rawResults } = this.props;
 
-    for (var product in orderNumbers) {
-      sortedResults.push([product, orderNumbers[product]]);
+    var mergedResults = [].concat.apply([], rawResults);
+    var counts = {};
+    var sortedCounts = [];
+
+    for (let vote of mergedResults) {
+      counts[vote] = counts[vote] ? counts[vote] + 1 : 1;
     }
 
-    sortedResults.sort((a, b) => {
-      return b[1] - a[1];
-    })
+    for (let eachCount in counts) {
+      sortedCounts.push([parseInt(eachCount), counts[eachCount]])
+    };
 
-    let foodList = sortedResults.map((entry, index) => {
+    console.log(rawResults);
+
+    console.log(sortedCounts);
+
+    sortedCounts.sort((a, b) => b[1] - a[1]);
+
+    let foodList = sortedCounts.map((entry, index) => {
         return (
-          <li>
-            <span>{findProperItem(food, parseInt(entry[0])).name}: {entry[1]}</span>
+          <li key={index}>
+            <span>{findProperItem(food, entry[0]).name}: {entry[1]}</span>
             <br></br>
-          </li>          
+          </li>
         )
     })
-
-    sortedResults.map((entry, index) => {
-      console.log(entry);
-    })
-
 
     return (
       <div>
