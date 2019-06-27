@@ -72,7 +72,7 @@ class UserList extends Component {
     const { userList } = this.props;
     let userItems = userList.map((entry, index) => {
       return (
-        <li>
+        <li key={index}>
           <span>{entry.firstName} {entry.lastName}</span>
           <br></br>
           <span>{entry.picturePath}</span>

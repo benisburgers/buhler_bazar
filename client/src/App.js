@@ -113,7 +113,7 @@ class App extends Component {
             <Route exact path="/profile" component={ () => <Profile userinfo={this.state.user} /> } />
             <Route exact path="/results" component={ () => <Results food={this.state.food} findProperItem={this.findProperItem} /> } />
             <Route exact path="/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
-            <Route exact path="/admin_productList" component={ () => <AdminProductList food={this.state.food} /> } />
+            <Route exact path="/admin_productList" component={ () => <AdminProductList food={this.state.food} userinfo={this.state.user} /> } />
           </Switch>
         </Router>
       </div>
