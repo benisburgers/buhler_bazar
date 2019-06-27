@@ -11,6 +11,7 @@ import Profile from './pages/profile';
 import Results from './pages/results';
 import AdminUserList from './pages/admin_userList';
 import AdminProductList from './pages/admin_productList';
+import AdminProductPage from './pages/admin_productPage';
 
 class App extends Component {
 
@@ -104,6 +105,7 @@ class App extends Component {
               <li><Link to={'/results'}>Results</Link></li>
               <li><Link to={'/admin_userList'}>AdminUserList</Link></li>
               <li><Link to={'/admin_productList'}>AdminProductList</Link></li>
+              <li><Link to={'/admin_productPage'}>AdminProductPage</Link></li>
             </ul>
           </nav>
           <Switch>
@@ -114,6 +116,7 @@ class App extends Component {
             <Route exact path="/results" component={ () => <Results food={this.state.food} findProperItem={this.findProperItem} /> } />
             <Route exact path="/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
             <Route exact path="/admin_productList" component={ () => <AdminProductList food={this.state.food} userinfo={this.state.user} /> } />
+            <Route exact path="/admin_productPage" component={ () => <AdminProductPage food={this.state.food} /> } />
           </Switch>
         </Router>
       </div>
