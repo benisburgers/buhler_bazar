@@ -9,6 +9,8 @@ import Register from './pages/register';
 import Overview from './pages/overview';
 import Profile from './pages/profile';
 import Results from './pages/results';
+import AdminUserList from './pages/admin_userList';
+import AdminProductList from './pages/admin_productList';
 
 class App extends Component {
 
@@ -100,6 +102,8 @@ class App extends Component {
               <li><Link to={'/overview'}>Overview</Link></li>
               <li><Link to={'/profile'}>Profile</Link></li>
               <li><Link to={'/results'}>Results</Link></li>
+              <li><Link to={'/admin_userList'}>AdminUserList</Link></li>
+              <li><Link to={'/admin_productList'}>AdminProductList</Link></li>
             </ul>
           </nav>
           <Switch>
@@ -108,6 +112,8 @@ class App extends Component {
             <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} food={this.state.food} findProperItem={this.findProperItem}/> } />
             <Route exact path="/profile" component={ () => <Profile userinfo={this.state.user} /> } />
             <Route exact path="/results" component={ () => <Results food={this.state.food} findProperItem={this.findProperItem} /> } />
+            <Route exact path="/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
+            <Route exact path="/admin_productList" component={ () => <AdminProductList food={this.state.food} /> } />
           </Switch>
         </Router>
       </div>

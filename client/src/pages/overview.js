@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './css/overview.css'
+import TopBar from '../components/topbar.js'
 
 class Overview extends Component {
 
@@ -20,60 +21,13 @@ class Overview extends Component {
     return (
       <section className="overview">
         <h2>Overview</h2>
-        <TopBar userinfo={userinfo} />
+        <TopBar userinfo={userinfo} title="FUUD" />
         <OverviewInfo userinfo={userinfo} food={food} findProperItem={findProperItem} />
         <OverviewButtons toggleModal={this.toggleModal} />
         <VotingModal food={food} modalOpen={modalOpen} toggleModal={this.toggleModal} />
       </section>
     );
   };
-}
-
-class TopBar extends Component {
-  render() {
-    const { userinfo } = this.props;
-    return (
-      <div className="topBar">
-        <ProfileButton userinfo={userinfo} />
-      </div>
-    )
-  }
-}
-
-class ProfileButton extends Component {
-  render() {
-    const { userinfo } = this.props;
-    return (
-      <div className="profileButton" userinfo={userinfo}>
-        <ProfileThumbnail userinfo={userinfo} />
-        <span>Fuud</span>
-        <Hamburger />
-      </div>
-    )
-  }
-}
-
-class ProfileThumbnail extends Component {
-  render() {
-    const { userinfo } = this.props;
-    return (
-      <div className="profileThumbnail">
-        <span>{ userinfo.picturePath }</span>
-        <br></br>
-        <span>{`${userinfo.firstName} ${userinfo.lastName}`}</span>
-      </div>
-    )
-  }
-}
-
-class Hamburger extends Component {
-  render() {
-    return (
-      <div className="hamburger">
-        <span>Hamburger</span>
-      </div>
-    )
-  }
 }
 
 class OverviewInfo extends Component {
@@ -87,7 +41,6 @@ class OverviewInfo extends Component {
     )
   }
 }
-
 
 class CountDown extends Component {
   render() {
