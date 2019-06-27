@@ -78,10 +78,6 @@ class FoodList extends Component {
       sortedCounts.push([parseInt(eachCount), counts[eachCount]])
     };
 
-    console.log(rawResults);
-
-    console.log(sortedCounts);
-
     sortedCounts.sort((a, b) => b[1] - a[1]);
 
     let foodList = sortedCounts.map((entry, index) => {
