@@ -62,6 +62,18 @@ class WeekNumber extends Component {
   }
 }
 
+function voteScore(score) {
+  let scoreArray = [];
+  for (let i = 0; i < score; i++) {
+    scoreArray.push(
+      <li>
+        <span>hand</span>
+      </li>
+    )
+  }
+  return scoreArray
+}
+
 class FoodList extends Component {
   render() {
     const { food, orderNumbers, findProperItem, rawResults } = this.props;
@@ -83,7 +95,10 @@ class FoodList extends Component {
     let foodList = sortedCounts.map((entry, index) => {
         return (
           <li key={index}>
-            <span>{findProperItem(food, entry[0]).name}: {entry[1]}</span>
+            <span>{findProperItem(food, entry[0]).name}</span>
+            <ul>
+              {voteScore(entry[1])}
+            </ul>
             <br></br>
           </li>
         )
