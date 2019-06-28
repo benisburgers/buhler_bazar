@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import TopBar from '../components/topbar.js'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-// import AdminProductPage from './admin_productPage';
 
 class AdminProductList extends Component {
   render() {

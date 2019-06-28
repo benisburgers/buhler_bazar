@@ -42,9 +42,9 @@ class ProfileForm extends Component {
   }
 }
 
-class ToggleButton extends Component {
+function ToggleButton(props){
 
-  toggleInputField = (event) => {
+  function toggleInputField(event) {
     console.log('toggleInputField');
     console.log(event.currentTarget);
     console.log(event.currentTarget.previousSibling);
@@ -55,13 +55,11 @@ class ToggleButton extends Component {
     event.currentTarget.previousSibling.disabled = false;
   }
 
-  render() {
-    return (
-      <span onClick={(event) => { this.toggleInputField(event) }}>
-        enable
-      </span>
-    )
-  }
+  return (
+    <span onClick={(event) => { toggleInputField(event) }}>
+      enable
+    </span>
+  )
 }
 
 class Basic extends Component {
