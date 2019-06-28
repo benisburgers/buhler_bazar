@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import ToggleButton from '../components/toggleButton.js'
 
 class Profile extends Component {
 
@@ -40,26 +41,6 @@ class ProfileForm extends Component {
       </form>
     )
   }
-}
-
-function ToggleButton(props){
-
-  function toggleInputField(event) {
-    console.log('toggleInputField');
-    console.log(event.currentTarget);
-    console.log(event.currentTarget.previousSibling);
-    var matches = document.querySelectorAll('input[conditional]');
-    matches.forEach((element) => {
-      element.disabled = true;
-    })
-    event.currentTarget.previousSibling.disabled = false;
-  }
-
-  return (
-    <span onClick={(event) => { toggleInputField(event) }}>
-      enable
-    </span>
-  )
 }
 
 class Basic extends Component {
