@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import TopBar from '../components/topbar.js'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+// import AdminProductPage from './admin_productPage';
 
 class AdminProductList extends Component {
   render() {
@@ -12,6 +14,8 @@ class AdminProductList extends Component {
     )
   }
 }
+
+const User = ({ match }) => <p>{match.params.id}</p>
 
 class ProductList extends Component {
   openProduct = (productId) => {
@@ -28,16 +32,40 @@ class ProductList extends Component {
           <br></br>
           <span>{entry.picturePath}</span>
           <br></br>
-          <span onClick={ () => this.openProduct(entry.id) }>Open fruit</span>
+          <Link to={{
+              pathname: `/admin_productPage/${entry.id}`,
+              state: {
+                food: food
+              }
+          }}>
+            Check it out
+          </Link>
+
           <br></br>
           <br></br>
         </li>
       )
     })
     return (
-      <ul>{foodItems}</ul>
+        <div>
+          <ul>{foodItems}</ul>
+        </div>
     )
   }
 }
+
+class AdminProductPage extends Component {
+  render() {
+    const { match } = this.props;
+    console.log(match);
+    console.log(match.params.id);
+    return (
+      <section className="admin_productPage">
+        <h2>AdminProductPage</h2>
+      </section>
+    )
+  }
+}
+
 
 export default AdminProductList

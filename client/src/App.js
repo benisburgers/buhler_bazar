@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import Login from './pages/login';
 import Register from './pages/register';
@@ -105,7 +105,6 @@ class App extends Component {
               <li><Link to={'/results'}>Results</Link></li>
               <li><Link to={'/admin_userList'}>AdminUserList</Link></li>
               <li><Link to={'/admin_productList'}>AdminProductList</Link></li>
-              <li><Link to={'/admin_productPage'}>AdminProductPage</Link></li>
             </ul>
           </nav>
           <Switch>
@@ -116,7 +115,7 @@ class App extends Component {
             <Route exact path="/results" component={ () => <Results food={this.state.food} findProperItem={this.findProperItem} /> } />
             <Route exact path="/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
             <Route exact path="/admin_productList" component={ () => <AdminProductList food={this.state.food} userinfo={this.state.user} /> } />
-            <Route exact path="/admin_productPage" component={ () => <AdminProductPage food={this.state.food} /> } />
+            <Route exact path="/admin_productPage/:id" component={AdminProductPage} />
           </Switch>
         </Router>
       </div>
