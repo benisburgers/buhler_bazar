@@ -5,10 +5,11 @@ import ToggleButton from '../components/toggleButton.js'
 
 class AdminProductPage extends Component {
   render() {
-    const { findProperItem, food, match } = this.props;
+    const { findProperItem, food, match, history } = this.props;
     var product = findProperItem(food, parseInt(match.params.id));
     return (
       <section className="admin_productPage">
+        <button onClick={history.goBack}>back</button>
         <Basic product={product} />
       </section>
     )

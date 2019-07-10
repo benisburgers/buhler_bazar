@@ -14,7 +14,8 @@ class adminProfilePage extends Component {
     }
   }
   componentDidMount () {
-    const { handle } = this.props.match.params.id;
+    const { match } = this.props;
+    const handle = match.params.id;
 
     // fetch(`https://api.twitter.com/user/${handle}`)
     //   .then((user) => {
@@ -23,8 +24,10 @@ class adminProfilePage extends Component {
   }
   render() {
     const userinfo = this.state.user;
+    const { history } = this.props;
     return (
       <section className="profile">
+        <button onClick={history.goBack}>back</button>
         <h2>adminProfilePage</h2>
         <ProfileForm userinfo={userinfo} />
       </section>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './css/overview.css'
 import TopBar from '../components/topbar.js'
+import { Link } from 'react-router-dom'
 
 class Overview extends Component {
 
@@ -16,6 +17,7 @@ class Overview extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { userinfo, food, findProperItem } = this.props;
     const { modalOpen } = this.state;
     return (
@@ -99,8 +101,9 @@ class OverviewButtons extends Component {
     const  { toggleModal } = this.props;
     return (
       <div className="overviewButtons">
-        <button>TSCHARTS</button>
-        <button onClick={toggleModal}>VOUTÄ</button>
+        <Link to={'/results'}>TSCHARTS</Link>
+        <br></br>
+        <Link onClick={toggleModal}>VOUTÄ</Link>
       </div>
     )
   }

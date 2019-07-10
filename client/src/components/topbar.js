@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 class TopBar extends Component {
   render() {
@@ -28,13 +29,15 @@ class ProfileButton extends Component {
   render() {
     const { userinfo } = this.props;
     return (
-      <div className="profileButton" userinfo={userinfo}>
-        <div className="profileThumbnail">
-          <span>{ userinfo.picturePath }</span>
-          <br></br>
-          <span>{`${userinfo.firstName} ${userinfo.lastName}`}</span>
+      <Link to={'/profile'}>
+        <div className="profileButton" userinfo={userinfo}>
+          <div className="profileThumbnail">
+            <span>{ userinfo.picturePath }</span>
+            <br></br>
+            <span>{`${userinfo.firstName} ${userinfo.lastName}`}</span>
+          </div>
         </div>
-      </div>
+      </Link>
     )
   }
 }

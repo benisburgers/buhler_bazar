@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom'
 
 class Results extends Component {
 
@@ -24,7 +25,7 @@ class Results extends Component {
   }
 
   render() {
-    const { food, findProperItem, rawResults } = this.props;
+    const { food, findProperItem, rawResults, history } = this.props;
 
     return (
       <section className="results">
@@ -32,7 +33,8 @@ class Results extends Component {
           <h2>Results</h2>
           <WeekNumber />
         </div>
-        <div className="results">
+        <button onClick={history.goBack}>back</button>
+        <div className="statistics">
           <FoodList orderNumbers={this.state.orderNumbers} food={food} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
         </div>
       </section>
