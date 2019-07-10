@@ -27,5 +27,14 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benisburgers/buhler_bazar.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/benisburgers/buhler_bazar/issues"
+  },
+  "homepage": "https://github.com/benisburgers/buhler_bazar#readme"
 }

@@ -12,6 +12,7 @@ import Results from './pages/results';
 import AdminUserList from './pages/admin_userList';
 import AdminProductList from './pages/admin_productList';
 import AdminProductPage from './pages/admin_productPage';
+import AdminProfilePage from './pages/admin_profilePage';
 
 class App extends Component {
 
@@ -103,8 +104,8 @@ class App extends Component {
               <li><Link to={'/overview'}>Overview</Link></li>
               <li><Link to={'/profile'}>Profile</Link></li>
               <li><Link to={'/results'}>Results</Link></li>
-              <li><Link to={'/admin_userList'}>AdminUserList</Link></li>
-              <li><Link to={'/admin_productList'}>AdminProductList</Link></li>
+              <li><Link to={'/admin/admin_userList'}>AdminUserList</Link></li>
+              <li><Link to={'/admin/admin_productList'}>AdminProductList</Link></li>
             </ul>
           </nav>
           <Switch>
@@ -113,9 +114,10 @@ class App extends Component {
             <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} food={this.state.food} findProperItem={this.findProperItem}/> } />
             <Route exact path="/profile" component={ () => <Profile userinfo={this.state.user} /> } />
             <Route exact path="/results" component={ () => <Results food={this.state.food} findProperItem={this.findProperItem} /> } />
-            <Route exact path="/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
-            <Route exact path="/admin_productList" component={ () => <AdminProductList food={this.state.food} userinfo={this.state.user} /> } />
-            <Route path="/admin_productPage/:id" render={({match}) => <AdminProductPage findProperItem={this.findProperItem} food={this.state.food} match={match} />} />
+            <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
+            <Route path="/admin/admin_profilePage/:id" render={({match}) => <AdminProfilePage match={match} />} />
+            <Route exact path="/admin/admin_productList" component={ () => <AdminProductList food={this.state.food} userinfo={this.state.user} /> } />
+            <Route path="/admin/admin_productPage/:id" render={({match}) => <AdminProductPage findProperItem={this.findProperItem} food={this.state.food} match={match} />} />
           </Switch>
         </Router>
       </div>

@@ -32,7 +32,7 @@ class ProductList extends Component {
           <span>{entry.picturePath}</span>
           <br></br>
           <Link to={{
-              pathname: `/admin_productPage/${entry.id}`,
+              pathname: `/admin/admin_productPage/${entry.id}`,
               state: {
                 food: food
               }

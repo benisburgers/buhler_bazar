@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import TopBar from '../components/topbar.js'
+import { Link } from 'react-router-dom';
+
 
 
 class AdminUserList extends Component {
@@ -63,11 +65,6 @@ class AdminUserList extends Component {
 }
 
 class UserList extends Component {
-  openProfile = (userId) => {
-    console.log('openProfile');
-    console.log(userId);
-  }
-
   render() {
     const { userList } = this.props;
     let userItems = userList.map((entry, index) => {
@@ -77,7 +74,11 @@ class UserList extends Component {
           <br></br>
           <span>{entry.picturePath}</span>
           <br></br>
-          <span onClick={ () => this.openProfile(entry.id) }>Open profile</span>
+          <Link to={{
+              pathname: `/admin/admin_profilePage/${entry.id}`
+          }}>
+            Open profie
+          </Link>
           <br></br>
           <br></br>
         </li>
