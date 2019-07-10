@@ -86,7 +86,8 @@ class App extends Component {
         type: "snack",
         picturePath: "trocheananas.jpeg"
       }
-    ]
+    ],
+    productTypes: ['fruit', 'snack']
   }
 
   findProperItem(array, entry) {
@@ -111,7 +112,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
             <Route exact path="/register" component={ () => <Register /> } />
-            <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} food={this.state.food} findProperItem={this.findProperItem}/> } />
+            <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} food={this.state.food} findProperItem={this.findProperItem} productTypes={this.state.productTypes} /> } />
             <Route path="/profile" render={({history}) => <Profile history={history} userinfo={this.state.user} />} />
             <Route path="/results" render={({history}) => <Results history={history} food={this.state.food} findProperItem={this.findProperItem} />} />
             <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
