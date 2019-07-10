@@ -21,7 +21,7 @@ class App extends Component {
     user: {
       //get from userList
       id: 1,
-      admin: false,
+      admin: true,
       firstName: "Marko",
       lastName: "Lukac",
       email: "marko@buehler-buehler.ch",
