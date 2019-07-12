@@ -6,7 +6,8 @@ class VotingModal extends Component {
     selectedProducts: [],
     credits: 4,
     creditClassName: 'creditScore',
-    filteredProducts: []
+    filteredProducts: [],
+    selectedTypes: []
   }
 
   highlightCredit = () => {
@@ -95,7 +96,24 @@ class VotingModal extends Component {
   }
 
   filterProducts = (type) => {
-    console.log(type);
+    console.log('filterProducts');
+    var selectedTypes = this.state.selectedTypes;
+    var newSelectedTypes;
+    //has this type selected?
+    //yes:
+    if (selectedTypes.includes(type)) {
+      //==>unselect this type
+      newSelectedTypes = selectedTypes.filter(item => item !== type)
+    }
+    //no:
+    else {
+      //==>select this type
+      newSelectedTypes = [...selectedTypes, type]
+    }
+    //update selectedTypes in state
+    this.setState({
+      selectedTypes: newSelectedTypes
+    })
   }
 
   render() {
