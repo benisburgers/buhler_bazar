@@ -95,8 +95,8 @@ class VotingModal extends Component {
     //refresh overview page (update/fetch 'previous voting')
   }
 
-  filterProducts = (type) => {
-    console.log('filterProducts');
+  selectType = (type) => {
+    console.log('selectType');
     var selectedTypes = this.state.selectedTypes;
     var newSelectedTypes;
     //has this type selected?
@@ -124,7 +124,7 @@ class VotingModal extends Component {
         <div className="votingModal">
           <h4>Vout für dini Lieblings</h4>
           <CreditScore credits={credits} creditClassName={creditClassName} />
-          <TypeSelection food={food} selectedProducts={selectedProducts} productTypes={productTypes} filterProducts={this.filterProducts} />
+          <TypeSelection food={food} selectedProducts={selectedProducts} productTypes={productTypes} selectType={this.selectType} />
           <FoodList food={food} chooseProduct={this.chooseProduct} />
           <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal} selectedProducts={selectedProducts}/>
         </div>
@@ -150,11 +150,11 @@ class CreditScore extends Component {
 
 class TypeSelection extends Component {
   render() {
-    const { productTypes, filterProducts } = this.props;
+    const { productTypes, selectType } = this.props;
     const types = productTypes.map((entry, index) => {
       return (
         <li key={index}>
-          <button onClick={(e) => filterProducts(entry)}>
+          <button onClick={(e) => selectType(entry)}>
             {entry}
           </button>
         </li>
