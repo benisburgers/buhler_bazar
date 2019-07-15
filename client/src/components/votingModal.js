@@ -46,9 +46,6 @@ class VotingModal extends Component {
             credits: state.credits + 1
           }
         })
-
-        // ==> deactivate fruit (visually)
-        clickedTarget.classList.remove("active")
       }
 
       //no: this product has not been selcted (choose it)
@@ -70,9 +67,6 @@ class VotingModal extends Component {
                 credits: state.credits - 1
               }
             }))
-
-            // ==> activate fruit (visually)
-            clickedTarget.classList.add("active")
         }
 
         //no (there are no credits left) ==>
@@ -161,7 +155,7 @@ class VotingModal extends Component {
           <h4>Vout für dini Lieblings</h4>
           <CreditScore credits={credits} creditClassName={creditClassName} />
           <TypeSelection food={food} selectedProducts={selectedProducts} productTypes={productTypes} selectType={this.selectType} selectedTypes={selectedTypes} />
-          <FoodList chooseProduct={this.chooseProduct} filteredProducts={filteredProducts} />
+          <FoodList chooseProduct={this.chooseProduct} filteredProducts={filteredProducts} selectedProducts={selectedProducts} />
           <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal} selectedProducts={selectedProducts}/>
         </div>
       )
@@ -211,10 +205,14 @@ class TypeSelection extends Component {
 
 class FoodList extends Component {
   render() {
-    const { filteredProducts, chooseProduct } = this.props;
+    const { filteredProducts, chooseProduct, selectedProducts } = this.props;
     const foodItems = filteredProducts.map((entry, index) => {
       return (
-        <li key={index} onClick={ (e) => chooseProduct(e, entry) }>
+        <li
+          key={index}
+          onClick={ (e) => chooseProduct(e, entry) }
+          className={(selectedProducts.includes(entry) ? 'active' : null)}
+        >
           <span>{entry.name}</span>
           <br></br>
           <span>{entry.picturePath}</span>
