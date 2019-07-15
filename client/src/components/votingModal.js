@@ -214,7 +214,7 @@ class FoodList extends Component {
     const { filteredProducts, chooseProduct } = this.props;
     const foodItems = filteredProducts.map((entry, index) => {
       return (
-        <li key={index} onClick={ (e) => chooseProduct(this, entry) }>
+        <li key={index} onClick={ (e) => chooseProduct(e, entry) }>
           <span>{entry.name}</span>
           <br></br>
           <span>{entry.picturePath}</span>
