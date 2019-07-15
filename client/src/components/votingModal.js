@@ -95,38 +95,73 @@ class VotingModal extends Component {
     //refresh overview page (update/fetch 'previous voting')
   }
 
-  selectType = (e, type) => {
-    console.log(e);
-    console.log('selectType');
-    var selectedTypes = this.state.selectedTypes;
-    var newSelectedTypes;
-    //has this type selected?
-    //yes:
-    if (selectedTypes.includes(type)) {
-      //==>unselect this type (i.e remove from selectedTypes)
-      newSelectedTypes = selectedTypes.filter(item => item !== type)
+  updateSelectedTypes = (type) => {
+    return new Promise((resolve, reject) => {
+      console.log('updateSelectedTypes');
+      var selectedTypes = this.state.selectedTypes;
+      var newSelectedTypes;
+      //has this type selected?
+      //yes:
+      if (selectedTypes.includes(type)) {
+        //==>unselect this type (i.e remove from selectedTypes)
+        newSelectedTypes = selectedTypes.filter(item => item !== type)
+      }
+      //no:
+      else {
+        //==>select this type (i.e. add to selectedTypes)
+        newSelectedTypes = [...selectedTypes, type]
+      }
+      //update selectedTypes in state
+      this.setState({
+        selectedTypes: newSelectedTypes
+      })
+      resolve();
+    })
+  }
+
+  filterProducts = () => {
+    console.log('filterProducts');
+    let products = this.props.food;
+    let selectedTypes = this.state.selectedTypes;
+    let filteredProducts;
+    //if no types are selected ==> return ALL products as filteredProducts
+    if (selectedTypes.length == 0) {
+      filteredProducts = products;
     }
-    //no:
+    //else, if types have been selected:
     else {
-      //==>select this type (i.e. add to selectedTypes)
-      newSelectedTypes = [...selectedTypes, type]
+      //for each product, check if its type is included in selectedTypes. If yes, return this product
+      filteredProducts = products.filter(product => selectedTypes.includes(product.type))
     }
-    //update selectedTypes in state
     this.setState({
-      selectedTypes: newSelectedTypes
+      filteredProducts: filteredProducts
+    })
+  }
+
+  selectType = async (type) => {
+    await this.updateSelectedTypes(type);
+    this.filterProducts();
+  }
+
+  componentDidMount() {
+    this.setState({
+      filteredProducts: this.props.food
     })
   }
 
   render() {
     const { food, toggleModal, modalOpen, productTypes } = this.props;
-    const { credits, creditClassName, selectedProducts, selectedTypes } = this.state;
+    const { credits, creditClassName, selectedProducts, selectedTypes, filteredProducts } = this.state;
     if (modalOpen) {
       return (
         <div className="votingModal">
+          <h4 onClick={this.filterProducts}>
+            hello
+          </h4>
           <h4>Vout für dini Lieblings</h4>
           <CreditScore credits={credits} creditClassName={creditClassName} />
           <TypeSelection food={food} selectedProducts={selectedProducts} productTypes={productTypes} selectType={this.selectType} selectedTypes={selectedTypes} />
-          <FoodList food={food} chooseProduct={this.chooseProduct} />
+          <FoodList chooseProduct={this.chooseProduct} filteredProducts={filteredProducts} />
           <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal} selectedProducts={selectedProducts}/>
         </div>
       )
@@ -156,7 +191,7 @@ class TypeSelection extends Component {
       return (
         <li key={index}>
           <button
-            onClick={(e) => selectType(e, entry)}
+            onClick={(e) => selectType(entry)}
             className={(selectedTypes.includes(entry) ? 'active' : null)}
           >
             {entry}
@@ -176,8 +211,8 @@ class TypeSelection extends Component {
 
 class FoodList extends Component {
   render() {
-    const { food, chooseProduct } = this.props;
-    const foodItems = food.map((entry, index) => {
+    const { filteredProducts, chooseProduct } = this.props;
+    const foodItems = filteredProducts.map((entry, index) => {
       return (
         <li key={index} onClick={ (e) => chooseProduct(this, entry) }>
           <span>{entry.name}</span>
