@@ -39,13 +39,6 @@ class VotingModal extends Component {
         this.setState({
           selectedProducts: newSelectedProducts
         })
-
-        // ==> increase credit
-        this.setState((state) => {
-          return {
-            credits: state.credits + 1
-          }
-        })
       }
 
       //no: this product has not been selcted (choose it)
@@ -53,20 +46,13 @@ class VotingModal extends Component {
 
         //are there any more credits left?
         //yes (there are credits left) ==>
-        if (this.state.credits > 0) {
+        if (this.state.selectedProducts.length < this.state.credits) {
             // ==> add fruit to selectedProducts
             let selectedProducts = this.state.selectedProducts;
             let newSelectedProducts = [...selectedProducts, product];
             this.setState({
               selectedProducts: newSelectedProducts
             })
-
-            // ==> decrease credits
-            this.setState((state => {
-              return {
-                credits: state.credits - 1
-              }
-            }))
         }
 
         //no (there are no credits left) ==>
@@ -153,7 +139,7 @@ class VotingModal extends Component {
             hello
           </h4>
           <h4>Vout für dini Lieblings</h4>
-          <CreditScore credits={credits} creditClassName={creditClassName} />
+          <CreditScore credits={credits} creditClassName={creditClassName} selectedProducts={selectedProducts} />
           <TypeSelection food={food} selectedProducts={selectedProducts} productTypes={productTypes} selectType={this.selectType} selectedTypes={selectedTypes} />
           <FoodList chooseProduct={this.chooseProduct} filteredProducts={filteredProducts} selectedProducts={selectedProducts} />
           <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal} selectedProducts={selectedProducts}/>
@@ -168,10 +154,10 @@ class VotingModal extends Component {
 
 class CreditScore extends Component {
   render() {
-    const { credits, creditClassName } = this.props;
+    const { credits, creditClassName, selectedProducts } = this.props;
     return (
       <div className={creditClassName}>
-        <span>{credits}</span>
+        <span>{credits - selectedProducts.length}</span>
         <span>CRÄDITS</span>
       </div>
     )
