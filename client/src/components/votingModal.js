@@ -95,19 +95,20 @@ class VotingModal extends Component {
     //refresh overview page (update/fetch 'previous voting')
   }
 
-  selectType = (type) => {
+  selectType = (e, type) => {
+    console.log(e);
     console.log('selectType');
     var selectedTypes = this.state.selectedTypes;
     var newSelectedTypes;
     //has this type selected?
     //yes:
     if (selectedTypes.includes(type)) {
-      //==>unselect this type
+      //==>unselect this type (i.e remove from selectedTypes)
       newSelectedTypes = selectedTypes.filter(item => item !== type)
     }
     //no:
     else {
-      //==>select this type
+      //==>select this type (i.e. add to selectedTypes)
       newSelectedTypes = [...selectedTypes, type]
     }
     //update selectedTypes in state
@@ -118,13 +119,13 @@ class VotingModal extends Component {
 
   render() {
     const { food, toggleModal, modalOpen, productTypes } = this.props;
-    const { credits, creditClassName, selectedProducts } = this.state;
+    const { credits, creditClassName, selectedProducts, selectedTypes } = this.state;
     if (modalOpen) {
       return (
         <div className="votingModal">
           <h4>Vout für dini Lieblings</h4>
           <CreditScore credits={credits} creditClassName={creditClassName} />
-          <TypeSelection food={food} selectedProducts={selectedProducts} productTypes={productTypes} selectType={this.selectType} />
+          <TypeSelection food={food} selectedProducts={selectedProducts} productTypes={productTypes} selectType={this.selectType} selectedTypes={selectedTypes} />
           <FoodList food={food} chooseProduct={this.chooseProduct} />
           <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal} selectedProducts={selectedProducts}/>
         </div>
@@ -150,11 +151,14 @@ class CreditScore extends Component {
 
 class TypeSelection extends Component {
   render() {
-    const { productTypes, selectType } = this.props;
+    const { productTypes, selectType, selectedTypes } = this.props;
     const types = productTypes.map((entry, index) => {
       return (
         <li key={index}>
-          <button onClick={(e) => selectType(entry)}>
+          <button
+            onClick={(e) => selectType(e, entry)}
+            className={(selectedTypes.includes(entry) ? 'active' : null)}
+          >
             {entry}
           </button>
         </li>
@@ -175,7 +179,7 @@ class FoodList extends Component {
     const { food, chooseProduct } = this.props;
     const foodItems = food.map((entry, index) => {
       return (
-        <li key={index} onClick={ (e) => chooseProduct(e, entry) }>
+        <li key={index} onClick={ (e) => chooseProduct(this, entry) }>
           <span>{entry.name}</span>
           <br></br>
           <span>{entry.picturePath}</span>
