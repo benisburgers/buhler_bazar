@@ -119,6 +119,10 @@ class VotingModal extends Component {
   }
 
   selectType = async (type) => {
+    //reset selectedProducts to 0 to avoid bugs and confusion for the user
+    this.setState({
+      selectedProducts: []
+    });    
     await this.updateSelectedTypes(type);
     this.filterProducts();
   }
