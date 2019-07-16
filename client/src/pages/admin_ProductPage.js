@@ -81,7 +81,7 @@ class Basic extends Component {
                   }}
                 />
               </label>
-              <Field type="text" name="productName" placeholder="du@buehler-buehler.ch" conditional="" disabled />
+              <Field type="text" name="productName" placeholder="Product Name" conditional="" disabled />
               <ToggleButton />
               <ErrorMessage name="productName" />
               <Field component="select" name="productType" placeholder="Product Type" conditional="" disabled>
