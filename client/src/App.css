@@ -42,3 +42,7 @@ form {
 label {
   margin-bottom: 20px;
 }
+
+img {
+  max-width: 100px;
+}

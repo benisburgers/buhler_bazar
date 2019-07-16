@@ -36,7 +36,7 @@ class App extends Component {
         id: 1,
         name: "Banane",
         type: "fruit",
-        picturePath: "banane.jpeg"
+        picturePath: "https://bit.ly/2FxkRIR"
       },
       {
         id: 2,

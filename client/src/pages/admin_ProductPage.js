@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import ToggleButton from '../components/toggleButton.js'
+import ToggleButton from '../components/toggleButton.js';
+import ImageUpload from '../components/imageUpload.js';
 
 class AdminProductPage extends Component {
   render() {
@@ -38,8 +39,12 @@ class Basic extends Component {
   }
 
   render() {
+    const updateImage = function(file) {
+      console.log('updateImage');
+      console.log(file);
+    }
     const { product } = this.props;
-    const { id, name, type } = product || '';
+    const { id, name, type, picturePath } = product || '';
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
 
@@ -60,7 +65,8 @@ class Basic extends Component {
           initialValues = {{
             id: id,
             productName: name,
-            productType: type
+            productType: type,
+            file: picturePath,
           }}
           validationSchema = {LoginSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -72,14 +78,17 @@ class Basic extends Component {
               this.pushData(values);
             }, 200);
           }}
-          render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField }) => (
+          render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values, handleChange }) => (
             <Form>
               <label>
-                <input id="image" name="image" type="file"
-                  onChange={(event) => {
-                  setFieldValue("image", event.currentTarget.files[0]);
+                <input
+                  type="file"
+                  onChange={e => {
+                     setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                   }}
+                  name="file"
                 />
+              <img src={values.file} />
               </label>
               <Field type="text" name="productName" placeholder="Product Name" conditional="" disabled />
               <ToggleButton />
