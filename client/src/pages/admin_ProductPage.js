@@ -39,6 +39,7 @@ class Basic extends Component {
 
   render() {
     const { product } = this.props;
+    const { id, name, type } = product || '';
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
 
@@ -57,8 +58,9 @@ class Basic extends Component {
       <div>
         <Formik
           initialValues = {{
-            productName: product.name,
-            productType: product.type
+            id: id,
+            productName: name,
+            productType: type
           }}
           validationSchema = {LoginSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {

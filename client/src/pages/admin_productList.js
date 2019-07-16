@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TopBar from '../components/topbar.js'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class AdminProductList extends Component {
   render() {
@@ -8,13 +8,21 @@ class AdminProductList extends Component {
     return (
       <section className="admin_productList">
         <TopBar title="PRODÜKT" userinfo={userinfo} />
+        <NewProductButton />
         <ProductList food={food}/>
       </section>
     )
   }
 }
 
-const User = ({ match }) => <p>{match.params.id}</p>
+
+function NewProductButton (props) {
+  return (
+    <Link to={'/admin/admin_productPage/new'}>
+      <button>Add New Product</button>
+    </Link>
+  )
+}
 
 class ProductList extends Component {
   openProduct = (productId) => {
@@ -33,6 +41,7 @@ class ProductList extends Component {
           <br></br>
           <Link to={{
               pathname: `/admin/admin_productPage/${entry.id}`,
+
           }}>
             Check it out
           </Link>
