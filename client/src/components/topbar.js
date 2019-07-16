@@ -88,27 +88,49 @@ class MenuOptions extends Component {
     return (
       <div>
           {isAdmin ? (
-            <ul>
-              <li>
-                <Link to={'/overview'}>Overview</Link>
-              </li>
-              <li>
-                <Link to={'/admin/admin_userList'}>AdminUserList</Link>
-              </li>
-              <li>
-                <Link to={'/admin/admin_productList'}>AdminProductList</Link>
-              </li>
-            </ul>
+            <div>
+              <AdminMenuOptions />
+            </div>
           ) : (
-            <ul>
-              <li>
-                <Link to={'/overview'}>Overview</Link>
-              </li>
-            </ul>
+            <div>
+              <BasicMenuOptions />
+            </div>
           )}
       </div>
     )
   }
+}
+
+function BasicMenuOptions(props) {
+  return (
+    <ul>
+      <li>
+        <Link to={'/overview'}>Overview</Link>
+      </li>
+      <li>
+        <Link to={'/logout'}>Logout</Link>
+      </li>
+    </ul>
+  )
+}
+
+function AdminMenuOptions(props) {
+  return (
+    <ul>
+      <li>
+        <Link to={'/overview'}>Overview</Link>
+      </li>
+      <li>
+        <Link to={'/admin/admin_userList'}>AdminUserList</Link>
+      </li>
+      <li>
+        <Link to={'/admin/admin_productList'}>AdminProductList</Link>
+      </li>
+      <li>
+        <Link to={'/logout'}>Logout</Link>
+      </li>
+    </ul>
+  )
 }
 
 export default TopBar;

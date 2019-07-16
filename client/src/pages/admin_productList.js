@@ -33,9 +33,6 @@ class ProductList extends Component {
           <br></br>
           <Link to={{
               pathname: `/admin/admin_productPage/${entry.id}`,
-              state: {
-                food: food
-              }
           }}>
             Check it out
           </Link>
