@@ -4,12 +4,12 @@ import * as Yup from 'yup';
 
 class AdminProductPage extends Component {
   render() {
-    const { findProperItem, food, match, history } = this.props;
+    const { findProperItem, food, match, history, toggleFields } = this.props;
     var product = findProperItem(food, parseInt(match.params.id));
     return (
       <section className="admin_productPage">
         <button onClick={history.goBack}>back</button>
-        <Basic product={product} />
+        <Basic product={product} toggleFields={toggleFields} />
       </section>
     )
   }
@@ -43,18 +43,8 @@ class Basic extends Component {
     })
   }
 
-  toggleFields = (fieldName) => {
-    console.log('toggleFields');
-    let origDisabledFields = this.state.disabledFields;
-    let newDisabledFields = Object.assign({}, ...Object.keys(origDisabledFields).map(k => ({[k]: true})));
-    newDisabledFields[fieldName] = false;
-    this.setState({
-      disabledFields: newDisabledFields
-    })
-  }
-
   render() {
-    const { product } = this.props;
+    const { product, toggleFields } = this.props;
     const { id, name, type, picturePath } = product || '';
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
@@ -103,7 +93,7 @@ class Basic extends Component {
               </label>
               <label>
                 <Field type="text" name="productName" placeholder="Product Name" disabled={this.state.disabledFields.productName} />
-                <span onClick={e => this.toggleFields("productName")}>toggle</span>
+                <span onClick={e => toggleFields(this, "productName")}>toggle</span>
                 <ErrorMessage name="productName" />
               </label>
               <label>
@@ -111,7 +101,7 @@ class Basic extends Component {
                   <option value="fruit">fruit</option>
                   <option value="snack">snack</option>
                 </Field>
-                <span onClick={e => this.toggleFields("productType")}>toggle</span>
+                <span onClick={e => toggleFields(this, "productType")}>toggle</span>
                 <ErrorMessage name="productType" />
               </label>
               <button type="submit" disabled={isSubmitting}>ok</button>

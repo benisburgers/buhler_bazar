@@ -94,6 +94,16 @@ class App extends Component {
     return(array.find(fruit => fruit.id === entry));
   }
 
+  toggleFields(context, fieldName) {
+    console.log('toggleFields');
+    let origDisabledFields = context.state.disabledFields;
+    let newDisabledFields = Object.assign({}, ...Object.keys(origDisabledFields).map(k => ({[k]: true})));
+    newDisabledFields[fieldName] = false;
+    context.setState({
+      disabledFields: newDisabledFields
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -118,7 +128,7 @@ class App extends Component {
             <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
             <Route path="/admin/admin_profilePage/:id" render={({match, history}) => <AdminProfilePage match={match} history={history} />} />
             <Route exact path="/admin/admin_productList" component={ () => <AdminProductList food={this.state.food} userinfo={this.state.user} /> } />
-            <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage findProperItem={this.findProperItem} food={this.state.food} match={match} history={history} />} />
+            <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage toggleFields={this.toggleFields} findProperItem={this.findProperItem} food={this.state.food} match={match} history={history} />} />
           </Switch>
         </Router>
       </div>
