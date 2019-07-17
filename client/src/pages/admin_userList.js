@@ -18,7 +18,7 @@ class AdminUserList extends Component {
         id: 2,
         firstName: "Beni",
         lastName: "Bar-Gera",
-        picturePath: "beni2.jpeg"
+        picturePath: "https://benibargera.com/assets/images/headshot-7d571b0d4ed696cd327956ab44c4adf9.jpg"
       },
       {
         id: 3,

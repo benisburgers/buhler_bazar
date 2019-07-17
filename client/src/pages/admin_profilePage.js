@@ -10,7 +10,7 @@ class adminProfilePage extends Component {
       firstName: "Beni",
       lastName: "Bar-Gera",
       email: "beni@buehler-buehler.ch",
-      picturePath: "/beni.jpg"
+      picturePath: "https://benibargera.com/assets/images/headshot-7d571b0d4ed696cd327956ab44c4adf9.jpg"
     }
   }
   componentDidMount () {

@@ -59,7 +59,8 @@ class ProfileForm extends Component {
       <div>
         <Formik
           initialValues = {{
-            image: userinfo.picturePath,
+            id: userinfo.id,
+            file: userinfo.picturePath,
             email: userinfo.email,
             firstName: userinfo.firstName,
             lastName: userinfo.lastName
@@ -74,14 +75,17 @@ class ProfileForm extends Component {
               this.pushData(values);
             }, 200);
           }}
-          render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField }) => (
+          render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values }) => (
             <Form>
               <label>
-                <input id="image" name="image" type="file"
-                  onChange={(event) => {
-                  setFieldValue("image", event.currentTarget.files[0]);
+                <input
+                  type="file"
+                  onChange={e => {
+                     setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                   }}
+                  name="file"
                 />
+                <img src={values.file} alt={`Image of ${values.productName}`} />
               </label>
               <label>
                 <Field type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
@@ -97,7 +101,7 @@ class ProfileForm extends Component {
                 <Field type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
                 <span onClick={e => toggleFields(this, "lastName")}>toggle</span>
                 <ErrorMessage name="lastName" />
-              </label>                        
+              </label>
               <div className="buttons">
                 <button type="button" onClick={ (e) => deleteUser() }>LÖSCHÄ</button>
                 <button type="submit" disabled={isSubmitting}>SPEICHERÄ</button>
