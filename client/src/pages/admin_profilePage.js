@@ -24,12 +24,12 @@ class adminProfilePage extends Component {
   }
   render() {
     const userinfo = this.state.user;
-    const { history } = this.props;
+    const { history, toggleFields } = this.props;
     return (
       <section className="profile">
         <button onClick={history.goBack}>back</button>
         <h2>adminProfilePage</h2>
-        <ProfileForm userinfo={userinfo} />
+        <ProfileForm userinfo={userinfo} toggleFields={toggleFields} />
       </section>
     )
   }
