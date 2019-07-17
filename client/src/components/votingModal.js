@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import OverviewProductList from '../components/overviewProductList.js'
+
 
 class VotingModal extends Component {
 
@@ -122,7 +124,7 @@ class VotingModal extends Component {
     //reset selectedProducts to 0 to avoid bugs and confusion for the user
     this.setState({
       selectedProducts: []
-    });    
+    });
     await this.updateSelectedTypes(type);
     this.filterProducts();
   }
@@ -139,13 +141,13 @@ class VotingModal extends Component {
     if (modalOpen) {
       return (
         <div className="votingModal">
-          <h4 onClick={this.filterProducts}>
-            hello
-          </h4>
           <h4>Vout für dini Lieblings</h4>
           <CreditScore credits={credits} creditClassName={creditClassName} selectedProducts={selectedProducts} />
-          <TypeSelection food={food} selectedProducts={selectedProducts} productTypes={productTypes} selectType={this.selectType} selectedTypes={selectedTypes} />
-          <FoodList chooseProduct={this.chooseProduct} filteredProducts={filteredProducts} selectedProducts={selectedProducts} />
+          {/*
+            <TypeSelection food={food} productTypes={productTypes} selectType={this.selectType} selectedTypes={selectedTypes} />
+            <FoodList chooseProduct={this.chooseProduct} filteredProducts={filteredProducts} selectedProducts={selectedProducts} />
+          */}
+          <OverviewProductList productTypes={productTypes} products={food} />
           <ModalButtons submitVote={this.submitVote} toggleModal={toggleModal} selectedProducts={selectedProducts}/>
         </div>
       )
