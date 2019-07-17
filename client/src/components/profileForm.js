@@ -83,15 +83,21 @@ class ProfileForm extends Component {
                   }}
                 />
               </label>
-              <Field type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
-              <span onClick={e => toggleFields(this, "email")}>toggle</span>
-              <ErrorMessage name="email" />
-              <Field type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
-              <span onClick={e => toggleFields(this, "firstName")}>toggle</span>
-              <ErrorMessage name="firstName" />
-              <Field type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
-              <span onClick={e => toggleFields(this, "lastName")}>toggle</span>
-              <ErrorMessage name="lastName" />
+              <label>
+                <Field type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
+                <span onClick={e => toggleFields(this, "email")}>toggle</span>
+                <ErrorMessage name="email" />
+              </label>
+              <label>
+                <Field type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
+                <span onClick={e => toggleFields(this, "firstName")}>toggle</span>
+                <ErrorMessage name="firstName" />
+              </label>
+              <label>
+                <Field type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
+                <span onClick={e => toggleFields(this, "lastName")}>toggle</span>
+                <ErrorMessage name="lastName" />
+              </label>                        
               <div className="buttons">
                 <button type="button" onClick={ (e) => deleteUser() }>LÖSCHÄ</button>
                 <button type="submit" disabled={isSubmitting}>SPEICHERÄ</button>
