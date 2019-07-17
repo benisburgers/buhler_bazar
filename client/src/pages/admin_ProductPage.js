@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import ToggleButton from '../components/toggleButton.js';
-import ImageUpload from '../components/imageUpload.js';
 
 class AdminProductPage extends Component {
   render() {
@@ -18,6 +16,13 @@ class AdminProductPage extends Component {
 }
 
 class Basic extends Component {
+
+  state = {
+    disabledFields: {
+      productName: true,
+      productType: true
+    }
+  }
 
   pushData = (input) => {
     return new Promise((resolve, reject) => {
@@ -38,11 +43,17 @@ class Basic extends Component {
     })
   }
 
+  toggleFields = (fieldName) => {
+    console.log('toggleFields');
+    let origDisabledFields = this.state.disabledFields;
+    let newDisabledFields = Object.assign({}, ...Object.keys(origDisabledFields).map(k => ({[k]: true})));
+    newDisabledFields[fieldName] = false;
+    this.setState({
+      disabledFields: newDisabledFields
+    })
+  }
+
   render() {
-    const updateImage = function(file) {
-      console.log('updateImage');
-      console.log(file);
-    }
     const { product } = this.props;
     const { id, name, type, picturePath } = product || '';
     const LoginSchema = Yup.object().shape({
@@ -88,17 +99,21 @@ class Basic extends Component {
                   }}
                   name="file"
                 />
-              <img src={values.file} />
+                <img src={values.file} alt={`Image of ${values.productName}`} />
               </label>
-              <Field type="text" name="productName" placeholder="Product Name" conditional="" disabled />
-              <ToggleButton />
-              <ErrorMessage name="productName" />
-              <Field component="select" name="productType" placeholder="Product Type" conditional="" disabled>
-                <option value="fruit">fruit</option>
-                <option value="snack">snack</option>
-              </Field>
-              <ToggleButton />
-              <ErrorMessage name="productType" />
+              <label>
+                <Field type="text" name="productName" placeholder="Product Name" disabled={this.state.disabledFields.productName} />
+                <span onClick={e => this.toggleFields("productName")}>toggle</span>
+                <ErrorMessage name="productName" />
+              </label>
+              <label>
+                <Field component="select" name="productType" placeholder="Product Type" disabled={this.state.disabledFields.productType} >
+                  <option value="fruit">fruit</option>
+                  <option value="snack">snack</option>
+                </Field>
+                <span onClick={e => this.toggleFields("productType")}>toggle</span>
+                <ErrorMessage name="productType" />
+              </label>
               <button type="submit" disabled={isSubmitting}>ok</button>
             </Form>
           )}
