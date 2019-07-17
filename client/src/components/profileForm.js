@@ -5,6 +5,14 @@ import ToggleButton from '../components/toggleButton.js'
 
 class ProfileForm extends Component {
 
+  state = {
+    disabledFields: {
+      email: true,
+      firstName: true,
+      lastName: true
+    }
+  }
+
   pushData = (input) => {
     return new Promise((resolve, reject) => {
       (async () => {
@@ -25,7 +33,7 @@ class ProfileForm extends Component {
   }
 
   render() {
-    const { userinfo } = this.props;
+    const { userinfo, toggleFields } = this.props;
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
       email: Yup.string()
@@ -75,14 +83,14 @@ class ProfileForm extends Component {
                   }}
                 />
               </label>
-              <Field type="email" name="email" placeholder="du@buehler-buehler.ch" conditional="" disabled />
-              <ToggleButton />
+              <Field type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
+              <span onClick={e => toggleFields(this, "email")}>toggle</span>
               <ErrorMessage name="email" />
-              <Field type="text" name="firstName" placeholder="Vorname" conditional="" disabled />
-              <ToggleButton />
+              <Field type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
+              <span onClick={e => toggleFields(this, "firstName")}>toggle</span>
               <ErrorMessage name="firstName" />
-              <Field type="text" name="lastName" placeholder="Nachname" conditional="" disabled />
-              <ToggleButton />
+              <Field type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
+              <span onClick={e => toggleFields(this, "lastName")}>toggle</span>
               <ErrorMessage name="lastName" />
               <div className="buttons">
                 <button type="button" onClick={ (e) => deleteUser() }>LÖSCHÄ</button>

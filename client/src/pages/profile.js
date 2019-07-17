@@ -5,11 +5,11 @@ import {withRouter} from 'react-router-dom';
 class Profile extends Component {
   render() {
 
-    const { userinfo, history } = this.props;
+    const { userinfo, history, toggleFields } = this.props;
     return (
       <section className="profile">
         <button onClick={history.goBack}>back</button>
-        <ProfileForm userinfo={userinfo} />
+        <ProfileForm userinfo={userinfo} toggleFields={toggleFields} />
       </section>
     )
   }
