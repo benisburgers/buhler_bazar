@@ -78,6 +78,7 @@ const withFilter = (WrappedComponent, test) => {
         <div>
           <TypeSelection selectType={this.selectType} selectedTypes={this.state.selectedTypes} productTypes={productTypes} products={products} />
           <WrappedComponent
+            filteredProducts={this.state.filteredProducts}
             {... this.props}
           />
         </div>
