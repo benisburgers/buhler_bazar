@@ -25,7 +25,7 @@ class App extends Component {
       firstName: "Marko",
       lastName: "Lukac",
       email: "marko@buehler-buehler.ch",
-      picturePath: "/marko69.jpg",
+      picturePath: "https://pbs.twimg.com/profile_images/966014949377085440/4Ttk9Ose_400x400.jpg",
       //get from userOrderTable_Marko
       lastOrderDate: "2019-06-21T13:46:03.995Z",
       lastOrder: [1, 2, 3],
