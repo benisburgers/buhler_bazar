@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Thumbnail from '../components/thumbnail'
 
 class AdminProductPage extends Component {
   render() {
@@ -89,11 +90,11 @@ class Basic extends Component {
                   }}
                   name="file"
                 />
-                <img src={values.file} alt={`Image of ${values.productName}`} />
+              <Thumbnail values={values} />
               </label>
               <label>
                 <Field type="text" name="productName" placeholder="Product Name" disabled={this.state.disabledFields.productName} />
-                <span onClick={e => toggleFields(this, "productName")}>toggle</span>
+                <span onClick={e => toggleFields(this, "productName")}>{ values.productName ? "Name ändere" : "Deklarierä" }</span>
                 <ErrorMessage name="productName" />
               </label>
               <label>
@@ -101,7 +102,7 @@ class Basic extends Component {
                   <option value="fruit">fruit</option>
                   <option value="snack">snack</option>
                 </Field>
-                <span onClick={e => toggleFields(this, "productType")}>toggle</span>
+                <span onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</span>
                 <ErrorMessage name="productType" />
               </label>
               <button type="submit" disabled={isSubmitting}>ok</button>

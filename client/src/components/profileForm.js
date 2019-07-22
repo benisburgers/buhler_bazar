@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import ToggleButton from '../components/toggleButton.js'
+import ToggleButton from '../components/toggleButton.js';
+import Thumbnail from '../components/thumbnail';
 
 class ProfileForm extends Component {
 
@@ -85,21 +86,21 @@ class ProfileForm extends Component {
                   }}
                   name="file"
                 />
-                <img src={values.file} alt={`Image of ${values.productName}`} />
+              <Thumbnail values={values} />
               </label>
               <label>
                 <Field type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
-                <span onClick={e => toggleFields(this, "email")}>toggle</span>
+                <span onClick={e => toggleFields(this, "email")}>{ values.email ? "ändere" : "hinzuefüege" }</span>
                 <ErrorMessage name="email" />
               </label>
               <label>
                 <Field type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
-                <span onClick={e => toggleFields(this, "firstName")}>toggle</span>
+                <span onClick={e => toggleFields(this, "firstName")}>{ values.firstName ? "ändere" : "hinzuefüege" }</span>
                 <ErrorMessage name="firstName" />
               </label>
               <label>
                 <Field type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
-                <span onClick={e => toggleFields(this, "lastName")}>toggle</span>
+                <span onClick={e => toggleFields(this, "lastName")}>{ values.lastName ? "ändere" : "hinzuefüege" }</span>
                 <ErrorMessage name="lastName" />
               </label>
               <div className="buttons">
