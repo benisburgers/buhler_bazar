@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import thumbnail_icon from '../components/images/thumbnail-icon.svg';
 
 function Thumbnail(props) {
   const { values } = props;
   if (values.file) {
     return (
-      <img src={values.file} alt={`Image of ${values.productName}`} />
+      <img src={values.file} alt={values.productName} />
     )
   }
   else {

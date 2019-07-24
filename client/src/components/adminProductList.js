@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import withFilter from '../components/withFilter'
 
-class AdminProductList_List extends Component {
+class AdminProductList extends Component {
   openProduct = (productId) => {
     console.log('productId');
     console.log(productId);
@@ -37,4 +37,4 @@ class AdminProductList_List extends Component {
   }
 }
 
-export default withFilter(AdminProductList_List)
+export default withFilter(AdminProductList)

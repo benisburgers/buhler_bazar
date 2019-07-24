@@ -13,8 +13,8 @@ class VotingModal extends Component {
     console.log('submitVote');
     //push selected fruits to database -- what format?
     let chosenProductIDs = [];
-    this.state.selectedProducts.map((entry, index) => {
-      chosenProductIDs = [...chosenProductIDs, entry.id];
+    this.state.selectedProducts.forEach((entry, index) => {
+      chosenProductIDs = [...chosenProductIDs, entry.id]
     })
     // close voting modal
     this.props.toggleModal();
@@ -24,21 +24,19 @@ class VotingModal extends Component {
   highlightCredit = () => {
     console.log('highlightCredit');
     const { creditClassName } = this.state;
+    console.log(creditClassName);
     this.setState({
-      creditClassName: 'creditScore highlight'
+      creditClassName: `${creditClassName} + highlight`
     })
     setTimeout(() => {
       this.setState({
-        creditClassName: "creditScore"
+        creditClassName: `${creditClassName}`
       })
     }, 500);
   }
 
   chooseProduct = (e, product) => {
     console.log('chooseProduct');
-
-    let productType = product.type
-    let clickedTarget = e.currentTarget
 
     //is this product activated? I.e does it exist in selectedProducts?
       //yes: this product has been selected (unchoose it)

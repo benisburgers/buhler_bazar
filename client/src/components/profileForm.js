@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import ToggleButton from '../components/toggleButton.js';
 import Thumbnail from '../components/thumbnail';
 
 class ProfileForm extends Component {

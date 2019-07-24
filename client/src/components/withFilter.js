@@ -52,7 +52,7 @@ const withFilter = (WrappedComponent, test) => {
       let selectedTypes = this.state.selectedTypes;
       let filteredProducts;
       //if no types are selected ==> return ALL products as filteredProducts
-      if (selectedTypes.length == 0) {
+      if (selectedTypes.length === 0) {
         filteredProducts = products;
       }
       //else, if types have been selected:

@@ -10,7 +10,7 @@ import Overview from './pages/overview';
 import Profile from './pages/profile';
 import Results from './pages/results';
 import AdminUserList from './pages/admin_userList';
-import AdminProductList from './pages/admin_productList';
+import AdminProducts from './pages/admin_productList';
 import AdminProductPage from './pages/admin_productPage';
 import AdminProfilePage from './pages/admin_profilePage';
 
@@ -116,7 +116,7 @@ class App extends Component {
               <li><Link to={'/profile'}>Profile</Link></li>
               <li><Link to={'/results'}>Results</Link></li>
               <li><Link to={'/admin/admin_userList'}>AdminUserList</Link></li>
-              <li><Link to={'/admin/admin_productList'}>AdminProductList</Link></li>
+              <li><Link to={'/admin/admin_productList'}>AdminProducts</Link></li>
             </ul>
           </nav>
           <Switch>
@@ -127,7 +127,7 @@ class App extends Component {
             <Route path="/results" render={({history}) => <Results history={history} food={this.state.food} findProperItem={this.findProperItem} />} />
             <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
             <Route path="/admin/admin_profilePage/:id" render={({match, history}) => <AdminProfilePage match={match} history={history} toggleFields={this.toggleFields} />} />
-            <Route exact path="/admin/admin_productList" component={ () => <AdminProductList products={this.state.food} productTypes={this.state.productTypes} userinfo={this.state.user} /> } />
+            <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.food} productTypes={this.state.productTypes} userinfo={this.state.user} /> } />
             <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage toggleFields={this.toggleFields} findProperItem={this.findProperItem} food={this.state.food} match={match} history={history} />} />
           </Switch>
         </Router>

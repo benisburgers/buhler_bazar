@@ -1,20 +1,8 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom'
 
 class Results extends Component {
 
   state = {
-    orderNumbers: {
-      1: 6,
-      2: 3,
-      3: 12,
-      4: 2,
-      5: 19,
-      6: 2,
-      7: 2,
-      8: 7,
-      9: 8
-    },
     rawResults:
     [
       [1, 7, 5],
@@ -25,7 +13,7 @@ class Results extends Component {
   }
 
   render() {
-    const { food, findProperItem, rawResults, history } = this.props;
+    const { food, findProperItem, history } = this.props;
 
     return (
       <section className="results">
@@ -35,7 +23,7 @@ class Results extends Component {
         </div>
         <button onClick={history.goBack}>back</button>
         <div className="statistics">
-          <FoodList orderNumbers={this.state.orderNumbers} food={food} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
+          <ProductList products={food} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
         </div>
       </section>
     )
@@ -68,7 +56,7 @@ function voteScore(score) {
   let scoreArray = [];
   for (let i = 0; i < score; i++) {
     scoreArray.push(
-      <li>
+      <li key={i}>
         <span>hand</span>
       </li>
     )
@@ -76,28 +64,35 @@ function voteScore(score) {
   return scoreArray
 }
 
-class FoodList extends Component {
+class ProductList extends Component {
+
   render() {
-    const { food, orderNumbers, findProperItem, rawResults } = this.props;
+    // access raw results from state (each array represents one user's choice for the week) (rawResults)
+    const { products, findProperItem, rawResults } = this.props;
 
+    //merge all these choices into one array (mergedResults)
     var mergedResults = [].concat.apply([], rawResults);
-    var counts = {};
-    var sortedCounts = [];
 
+    // create an object with each key representing one product id and the value representing how often it was chosen (mergedResults => counts)
+    var counts = {};
     for (let vote of mergedResults) {
       counts[vote] = counts[vote] ? counts[vote] + 1 : 1;
     }
 
+    // create an array of sub-array pairs [product.id, votes for this product] (sortedCounts)
+    var sortedCounts = [];
     for (let eachCount in counts) {
       sortedCounts.push([parseInt(eachCount), counts[eachCount]])
     };
 
+    //sort this array by votes (the more votes a product has, the earlier it is in the arrray)
     sortedCounts.sort((a, b) => b[1] - a[1]);
 
-    let foodList = sortedCounts.map((entry, index) => {
+    //map through each product in sortedCounts and return the number of hands for each of its votes
+    let productItems = sortedCounts.map((entry, index) => {
         return (
           <li key={index}>
-            <span>{findProperItem(food, entry[0]).name}</span>
+            <span>{findProperItem(products, entry[0]).name}</span>
             <ul>
               {voteScore(entry[1])}
             </ul>
@@ -109,7 +104,7 @@ class FoodList extends Component {
     return (
       <div>
         <ul>
-          {foodList}
+          {productItems}
         </ul>
       </div>
     )

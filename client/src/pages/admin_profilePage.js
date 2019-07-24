@@ -14,8 +14,8 @@ class adminProfilePage extends Component {
     }
   }
   componentDidMount () {
-    const { match } = this.props;
-    const handle = match.params.id;
+    // const { match } = this.props;
+    // const handle = match.params.id;
 
     // fetch(`https://api.twitter.com/user/${handle}`)
     //   .then((user) => {

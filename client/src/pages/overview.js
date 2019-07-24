@@ -75,19 +75,20 @@ class PreviousOrder extends Component {
       return previousOrderDate.toLocaleDateString('de-DE', options);
     })
 
+
     const previousOrder = userinfo.lastOrder.map((entry, index) => {
       return (
         <li key={index}>
-          <span>{findProperItem(food, entry).name}</span>
+          <span>{ findProperItem(food, entry).name }</span>
           <br></br>
-          <span>{findProperItem(food, entry).picturePath}</span>
+          <span>{ findProperItem(food, entry).picturePath }</span>
         </li>
       )
     })
 
     return (
       <div className="previousOrder">
-        <span>Dis Voting am {dateString}</span>
+        <span>Dis Voting am {dateString()}</span>
         <ul className="previousOrderList">
           {previousOrder}
         </ul>
@@ -103,7 +104,7 @@ class OverviewButtons extends Component {
       <div className="overviewButtons">
         <Link to={'/results'}>TSCHARTS</Link>
         <br></br>
-        <Link onClick={toggleModal}>VOUTÄ</Link>
+        <button onClick={toggleModal}>VOUTÄ</button>
       </div>
     )
   }

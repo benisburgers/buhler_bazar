@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import TopBar from '../components/topbar.js'
-import AdminProductList_List from '../components/admin_productList_list.js'
+import AdminProductList from '../components/adminProductList.js'
 import { Link } from 'react-router-dom';
 
 
-class AdminProductList extends Component {
+class AdminProducts extends Component {
   render() {
-    const { products, productTypes, userinfo, filteredProducts, Test } = this.props;
+    const { products, productTypes, userinfo } = this.props;
     return (
       <section className="admin_productList">
         <TopBar title="PRODÜKT" userinfo={userinfo} />
         <NewProductButton />
-        <AdminProductList_List productTypes={productTypes} products={products} />
+        <AdminProductList productTypes={productTypes} products={products} />
       </section>
     )
   }
@@ -25,4 +25,4 @@ function NewProductButton (props) {
   )
 }
 
-export default AdminProductList
+export default AdminProducts
