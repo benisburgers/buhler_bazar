@@ -24,7 +24,6 @@ class VotingModal extends Component {
   highlightCredit = () => {
     console.log('highlightCredit');
     const { creditClassName } = this.state;
-    console.log(creditClassName);
     this.setState({
       creditClassName: `${creditClassName} + highlight`
     })

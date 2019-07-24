@@ -60,7 +60,6 @@ const withFilter = (WrappedComponent, test) => {
         //for each product, check if its type is included in selectedTypes. If yes, return this product
         filteredProducts = products.filter(product => selectedTypes.includes(product.type))
       }
-      console.log(filteredProducts);
       this.setState({
         filteredProducts: filteredProducts,
       })
