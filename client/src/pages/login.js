@@ -2,20 +2,34 @@ import React, {Component} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+import { PrimaryButtonPositive } from "../components/mini-components/Button"
 
 class Register extends Component {
   render() {
     return (
       <section className="login">
-        <h2>Login</h2>
-        <Basic />
+        <LogInText />
+        <LogInForm />
         <RegistrationButton />
       </section>
     )
   }
 }
 
-class Basic extends Component {
+function LogInText(props) {
+  return (
+    <div>
+      <p>
+        mit de bühlerbazar-äpp chasch du diär frücht und snacks wünschä. für jedä iichauf häsch du 3 credits zur verfüegig. so chönd mir d'nachfrag uf alli wünsch abstimme und de iichauf besser planä. cool hä?
+      </p>
+      <p>
+        logg di äfach ii oder regischtriär di wänn no keis konto häsch:
+      </p>
+    </div>
+  )
+}
+
+class LogInForm extends Component {
 
   pushData = (input) => {
     return new Promise((resolve, reject) => {
@@ -72,7 +86,7 @@ class Basic extends Component {
               <ErrorMessage name="email" />
               <Field type="password" name="password" placeholder="●●●●●●●●●●" />
               <ErrorMessage name="password" />
-              <button type="submit" disabled={isSubmitting}>LOG DI I</button>
+              <PrimaryButtonPositive primary type="submit" disabled={isSubmitting}>LOG DI I</PrimaryButtonPositive>
             </Form>
           )}
         />
@@ -84,7 +98,7 @@ class Basic extends Component {
 class RegistrationButton extends Component {
   render() {
     return (
-      <button>Registrierä</button>
+      <button secondary>Registrierä</button>
     )
   }
 }

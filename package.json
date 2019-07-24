@@ -13,6 +13,8 @@
   "author": "beni",
   "license": "MIT",
   "dependencies": {
+    "@emotion/core": "^10.0.14",
+    "@emotion/styled": "^10.0.14",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "concurrently": "^4.1.0",

@@ -108,6 +108,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
+{
           <nav>
             <ul>
               <li><Link to={'/'}>Login</Link></li>
@@ -119,6 +120,8 @@ class App extends Component {
               <li><Link to={'/admin/admin_productList'}>AdminProducts</Link></li>
             </ul>
           </nav>
+
+}
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
             <Route exact path="/register" component={ () => <Register /> } />
