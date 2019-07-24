@@ -13,7 +13,7 @@ class Results extends Component {
   }
 
   render() {
-    const { food, findProperItem, history } = this.props;
+    const { products, findProperItem, history } = this.props;
 
     return (
       <section className="results">
@@ -23,7 +23,7 @@ class Results extends Component {
         </div>
         <button onClick={history.goBack}>back</button>
         <div className="statistics">
-          <ProductList products={food} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
+          <ProductList products={products} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
         </div>
       </section>
     )

@@ -31,7 +31,7 @@ class App extends Component {
       lastOrder: [1, 2, 3],
       favoriteProduct: 3
     },
-    food: [
+    products: [
       {
         id: 1,
         name: "Banane",
@@ -122,13 +122,13 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
             <Route exact path="/register" component={ () => <Register /> } />
-            <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} food={this.state.food} findProperItem={this.findProperItem} productTypes={this.state.productTypes} /> } />
+            <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} products={this.state.products} findProperItem={this.findProperItem} productTypes={this.state.productTypes} /> } />
             <Route path="/profile" render={({history}) => <Profile history={history} userinfo={this.state.user} toggleFields={this.toggleFields} />} />
-            <Route path="/results" render={({history}) => <Results history={history} food={this.state.food} findProperItem={this.findProperItem} />} />
+            <Route path="/results" render={({history}) => <Results history={history} products={this.state.products} findProperItem={this.findProperItem} />} />
             <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
             <Route path="/admin/admin_profilePage/:id" render={({match, history}) => <AdminProfilePage match={match} history={history} toggleFields={this.toggleFields} />} />
-            <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.food} productTypes={this.state.productTypes} userinfo={this.state.user} /> } />
-            <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage toggleFields={this.toggleFields} findProperItem={this.findProperItem} food={this.state.food} match={match} history={history} />} />
+            <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userinfo={this.state.user} /> } />
+            <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage toggleFields={this.toggleFields} findProperItem={this.findProperItem} products={this.state.products} match={match} history={history} />} />
           </Switch>
         </Router>
       </div>

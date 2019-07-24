@@ -5,8 +5,8 @@ import Thumbnail from '../components/thumbnail'
 
 class AdminProductPage extends Component {
   render() {
-    const { findProperItem, food, match, history, toggleFields } = this.props;
-    var product = findProperItem(food, parseInt(match.params.id));
+    const { findProperItem, products, match, history, toggleFields } = this.props;
+    var product = findProperItem(products, parseInt(match.params.id));
     return (
       <section className="admin_productPage">
         <button onClick={history.goBack}>back</button>

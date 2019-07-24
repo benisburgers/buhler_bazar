@@ -18,15 +18,15 @@ class Overview extends Component {
   }
 
   render() {
-    const { userinfo, food, findProperItem, productTypes } = this.props;
+    const { userinfo, products, findProperItem, productTypes } = this.props;
     const { modalOpen } = this.state;
     return (
       <section className="overview">
         <h2>Overview</h2>
         <TopBar userinfo={userinfo} title="FUUD" />
-        <OverviewInfo userinfo={userinfo} food={food} findProperItem={findProperItem} />
+        <OverviewInfo userinfo={userinfo} products={products} findProperItem={findProperItem} />
         <OverviewButtons toggleModal={this.toggleModal} />
-        <VotingModal food={food} modalOpen={modalOpen} toggleModal={this.toggleModal} productTypes={productTypes} />
+        <VotingModal products={products} modalOpen={modalOpen} toggleModal={this.toggleModal} productTypes={productTypes} />
       </section>
     );
   };
@@ -34,11 +34,11 @@ class Overview extends Component {
 
 class OverviewInfo extends Component {
   render() {
-    const { userinfo, food, findProperItem } = this.props;
+    const { userinfo, products, findProperItem } = this.props;
     return (
       <div className="overviewInfo">
         <CountDown />
-        <PreviousOrder userinfo={userinfo} food={food} findProperItem={findProperItem} />
+        <PreviousOrder userinfo={userinfo} products={products} findProperItem={findProperItem} />
       </div>
     )
   }
@@ -67,7 +67,7 @@ function DaysLeft(props) {
 
 class PreviousOrder extends Component {
   render() {
-    const { userinfo, food, findProperItem } = this.props;
+    const { userinfo, products, findProperItem } = this.props;
 
     const dateString = (() => {
       var previousOrderDate = new Date(userinfo.lastOrderDate);
@@ -79,9 +79,9 @@ class PreviousOrder extends Component {
     const previousOrder = userinfo.lastOrder.map((entry, index) => {
       return (
         <li key={index}>
-          <span>{ findProperItem(food, entry).name }</span>
+          <span>{ findProperItem(products, entry).name }</span>
           <br></br>
-          <span>{ findProperItem(food, entry).picturePath }</span>
+          <span>{ findProperItem(products, entry).picturePath }</span>
         </li>
       )
     })

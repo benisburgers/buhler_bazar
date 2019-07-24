@@ -29,7 +29,7 @@ class TypeSelection extends Component  {
 
       filterProducts = () => {
         console.log('filterProducts');
-        let products = this.props.food;
+        let products = this.props.products;
         let selectedTypes = this.state.selectedTypes;
         let filteredProducts;
         //if no types are selected ==> return ALL products as filteredProducts

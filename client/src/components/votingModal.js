@@ -73,7 +73,7 @@ class VotingModal extends Component {
   }
 
   render() {
-    const { food, toggleModal, modalOpen, productTypes } = this.props;
+    const { products, toggleModal, modalOpen, productTypes } = this.props;
     const { credits, selectedProducts, creditClassName } = this.state;
     const { chooseProduct, submitVote } = this;
     if (modalOpen) {
@@ -81,7 +81,7 @@ class VotingModal extends Component {
         <div className="votingModal">
           <h4>Vout für dini Lieblings</h4>
           <CreditScore credits={credits} selectedProducts={selectedProducts} creditClassName={creditClassName} />
-          <OverviewProductList selectedProducts={selectedProducts} productTypes={productTypes} products={food} toggleModal={toggleModal} chooseProduct={chooseProduct}/>
+          <OverviewProductList selectedProducts={selectedProducts} productTypes={productTypes} products={products} toggleModal={toggleModal} chooseProduct={chooseProduct}/>
           <ModalButtons submitVote={submitVote} toggleModal={toggleModal} selectedProducts={selectedProducts}/>
         </div>
       )
