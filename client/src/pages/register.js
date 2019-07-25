@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { PrimaryButton, BackLink, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../components/mini-components/theme"
+
 
 class Register extends Component {
   render() {
+    const { history } = this.props
     return (
       <section className="registration">
-        <h2>Register</h2>
         <Basic />
-        <BackButton />
+        <BackButton history={history} />
       </section>
     )
   }
@@ -48,22 +50,23 @@ class Basic extends Component {
 
 
   render() {
+    const requiredError = 'Musch usfülle!'
     const SignupSchema = Yup.object().shape({
       firstName: Yup.string()
-        .min(2)
-        .max(50)
-        .required(),
+        .min(2, 'Mindestens zwei Zeiche')
+        .max(50, 'Maximal 50 Zeiche')
+        .required(requiredError),
       lastName: Yup.string()
-        .min(2)
-        .max(50)
-        .required(),
+        .min(2, 'Mindestens zwei Zeiche')
+        .max(50, 'Maximal 50 Zeiche')
+        .required(requiredError),
       email: Yup.string()
-        .email()
-        .required(),
+        .email('Muss gültig email sie')
+        .required(requiredError),
       password: Yup.string()
-        .min(2)
-        .max(20)
-        .required()
+        .min(2, 'Mindestens zwei Zeiche')
+        .max(20, 'Maximal 20 Zeiche')
+        .required(requiredError)
     })
 
     return (
@@ -87,15 +90,23 @@ class Basic extends Component {
           }}
           render = {({ errors, touched, isSubmitting }) => (
             <Form>
-              <Field type="text" name="firstName" placeholder="Vorname" />
-              <ErrorMessage name="firstName" />
-              <Field type="text" name="lastName" placeholder="Nachname" />
-              <ErrorMessage name="lastName" />
-              <Field type="email" name="email" placeholder="du@buehler-buehler.ch" />
-              <ErrorMessage name="email" />
-              <Field type="password" name="password" placeholder="●●●●●●●●●●" />
-              <ErrorMessage name="password" />
-              <button type="submit" disabled={isSubmitting}>Submit</button>
+              <ExplicitLabel>
+                <ExplicitField type="text" name="firstName" placeholder="Vorname" />
+                <ExplicitErrorMessage component="p" name="firstName" />
+              </ExplicitLabel>
+              <ExplicitLabel>
+                <ExplicitField type="text" name="lastName" placeholder="Nachname" />
+                <ExplicitErrorMessage component="p" name="lastName" />
+              </ExplicitLabel>
+              <ExplicitLabel>
+                <ExplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" />
+                <ExplicitErrorMessage component="p" name="email" />
+              </ExplicitLabel>
+              <ExplicitLabel>
+                <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
+                <ExplicitErrorMessage component="p" name="password" />
+              </ExplicitLabel>
+              <PrimaryButton positive type="submit" disabled={isSubmitting}>Submit</PrimaryButton>
             </Form>
           )}
         />
@@ -106,8 +117,9 @@ class Basic extends Component {
 
 class BackButton extends Component {
   render() {
+    const { history } = this.props;
     return (
-      <button>Zrugg</button>
+      <BackLink onClick={history.goBack}>back</BackLink>
     )
   }
 }

@@ -29,6 +29,7 @@
     "react-validation": "^3.0.7"
   },
   "devDependencies": {
+    "babel-plugin-emotion": "^10.0.14",
     "nodemon": "^1.19.1"
   },
   "repository": {

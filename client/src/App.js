@@ -124,7 +124,7 @@ class App extends Component {
 }
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
-            <Route exact path="/register" component={ () => <Register /> } />
+            <Route exact path="/register" render={({history}) => <Register history={history} />} />
             <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} products={this.state.products} findProperItem={this.findProperItem} productTypes={this.state.productTypes} /> } />
             <Route path="/profile" render={({history}) => <Profile history={history} userinfo={this.state.user} toggleFields={this.toggleFields} />} />
             <Route path="/results" render={({history}) => <Results history={history} products={this.state.products} findProperItem={this.findProperItem} />} />

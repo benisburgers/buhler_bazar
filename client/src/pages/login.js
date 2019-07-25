@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { PrimaryButtonPositive } from "../components/mini-components/Button"
+import { PrimaryButton, StyledRouterLink, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../components/mini-components/theme"
 
 class Register extends Component {
   render() {
@@ -55,12 +55,12 @@ class LogInForm extends Component {
   render() {
     const LoginSchema = Yup.object().shape({
       email: Yup.string()
-        .email()
-        .required(),
+        .email('Muss gültig email sie')
+        .required('Musch usfülle!'),
       password: Yup.string()
-        .min(2)
-        .max(20)
-        .required()
+        .min(6, 'Mindestent 6 Zeiche')
+        .max(20, 'Maximal 20 Zeiche')
+        .required('Musch usfülle!')
     })
 
     return (
@@ -82,11 +82,15 @@ class LogInForm extends Component {
           }}
           render = {({ errors, touched, isSubmitting }) => (
             <Form>
-              <Field type="email" name="email" placeholder="du@buehler-buehler.ch" />
-              <ErrorMessage name="email" />
-              <Field type="password" name="password" placeholder="●●●●●●●●●●" />
-              <ErrorMessage name="password" />
-              <PrimaryButtonPositive primary type="submit" disabled={isSubmitting}>LOG DI I</PrimaryButtonPositive>
+                <ExplicitLabel>
+                  <ExplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" />
+                  <ExplicitErrorMessage component="p" name="email" />
+                </ExplicitLabel>
+                <ExplicitLabel>
+                  <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
+                  <ExplicitErrorMessage component="p" name="password" />
+                </ExplicitLabel>
+              <PrimaryButton positive type="submit" disabled={isSubmitting}>LOG DI I</PrimaryButton>
             </Form>
           )}
         />
@@ -98,7 +102,7 @@ class LogInForm extends Component {
 class RegistrationButton extends Component {
   render() {
     return (
-      <button secondary>Registrierä</button>
+      <StyledRouterLink to={'/register'}>Registrierä</StyledRouterLink>
     )
   }
 }
