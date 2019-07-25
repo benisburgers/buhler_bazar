@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
 
 class TopBar extends Component {
 
@@ -31,7 +33,14 @@ class TopBarHeader extends Component {
   render() {
     const { title } = this.props;
     return (
-      <div>
+      <div
+        css={css`
+          font-size: 22px;
+          font-weight: 900;
+          line-height: 30px;
+          color: #F1F1F1;
+        `}
+      >
         <span>{title}</span>
       </div>
     )
@@ -45,7 +54,7 @@ class ProfileButton extends Component {
       <Link to={'/profile'}>
         <div className="profileButton" userinfo={userinfo}>
           <div className="profileThumbnail">
-            <span>{ userinfo.picturePath }</span>
+            <img src={ userinfo.picturePath } alt="user portrait" />
             <br></br>
             <span>{`${userinfo.firstName} ${userinfo.lastName}`}</span>
           </div>
@@ -59,9 +68,36 @@ class Hamburger extends Component {
   render() {
     const {toggleMenu} = this.props;
     return (
-      <div className="hamburger">
-        <span onClick={toggleMenu}>Hamburger</span>
+      <div
+        className="hamburger"
+        onClick={toggleMenu}
+        css={css`
+          height: 9px;
+          width: 25px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        `}
+        >
+        <HamburgerBar/>
+        <HamburgerBar/>
       </div>
+    )
+  }
+}
+
+class HamburgerBar extends Component {
+  render() {
+    return(
+      <span
+        css={css`
+          height: 3px;
+          width: 100%;
+          border-radius: 1.5px;
+          background-color: #A9EEC2;
+          display: block;
+        `}
+      />
     )
   }
 }

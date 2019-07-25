@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { PrimaryButton, StyledRouterLink, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../components/mini-components/theme"
+import { PrimaryButton, StyledRouterLink, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../styling/theme"
 
 class Register extends Component {
   render() {
