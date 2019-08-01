@@ -19,7 +19,16 @@ class TopBar extends Component {
   render() {
     const { userinfo, title } = this.props;
     return (
-      <div className="topBar">
+      <div className="topBar"
+        css={css`
+        display: flex;
+        align-items: center;
+        height: 55px;
+        border-radius: 27.5px;
+        background-color: #363636;
+        margin-left: 20px;
+        `}
+      >
         <ProfileButton userinfo={userinfo} />
         <TopBarHeader title={title} />
         <Hamburger toggleMenu={this.toggleMenu} />
@@ -29,37 +38,72 @@ class TopBar extends Component {
   }
 }
 
-class TopBarHeader extends Component {
+class ProfileButton extends Component {
   render() {
-    const { title } = this.props;
+    const { userinfo } = this.props;
     return (
-      <div
+      <div className="profileButton" userinfo={userinfo}
         css={css`
-          font-size: 22px;
-          font-weight: 900;
-          line-height: 30px;
-          color: #F1F1F1;
-        `}
-      >
-        <span>{title}</span>
+          margin-right auto;
+          flex: 1;
+          display: flex;
+          margin-left: -20px;
+        `}>
+        <Link to={'/profile'}
+            css={css`
+            text-decoration: none
+            `}
+          >
+          <div className="profileThumbnail">
+            <img src={ userinfo.picturePath } alt="user portrait"
+              css={css`
+                height: 89px;
+                width: 89px;
+                border-radius: 100%;
+                box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+                border: 2px solid black;
+                `}
+            />
+            <br></br>
+            <span
+              css={css`
+                background: grey;
+                color: green;
+                font-size: 13px;
+                line-height: 18px;
+                padding: 1px 10px;
+                border-radius: 11px;
+              `}
+            >
+            {`${userinfo.firstName} ${userinfo.lastName}`}
+          </span>
+          </div>
+        </Link>
       </div>
     )
   }
 }
 
-class ProfileButton extends Component {
+class TopBarHeader extends Component {
   render() {
-    const { userinfo } = this.props;
+    const { title } = this.props;
     return (
-      <Link to={'/profile'}>
-        <div className="profileButton" userinfo={userinfo}>
-          <div className="profileThumbnail">
-            <img src={ userinfo.picturePath } alt="user portrait" />
-            <br></br>
-            <span>{`${userinfo.firstName} ${userinfo.lastName}`}</span>
-          </div>
-        </div>
-      </Link>
+      <div className="TopBarHeader"
+        css={css`
+          flex: 1;
+        `}
+      >
+        <span
+          css={css`
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 30px;
+            color: #F1F1F1;
+          `}
+        >
+          {title}
+        </span>
+      </div>
     )
   }
 }
@@ -68,19 +112,28 @@ class Hamburger extends Component {
   render() {
     const {toggleMenu} = this.props;
     return (
-      <div
-        className="hamburger"
-        onClick={toggleMenu}
+      <div className="HamburgerContainer"
         css={css`
-          height: 9px;
-          width: 25px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        margin-left: auto;
         `}
-        >
-        <HamburgerBar/>
-        <HamburgerBar/>
+      >
+        <div
+          className="hamburger"
+          onClick={toggleMenu}
+          css={css`
+            height: 9px;
+            width: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          `}
+          >
+          <HamburgerBar/>
+          <HamburgerBar/>
+        </div>
       </div>
     )
   }
