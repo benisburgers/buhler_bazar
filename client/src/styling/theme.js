@@ -4,32 +4,6 @@ import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 import { Field, ErrorMessage } from 'formik';
 
-
-// const Button = props => (
-//   <button
-//     css={{}}
-//     {...props}
-//   />
-// )
-//
-// const PrimaryButton = props => (
-//   <Button
-//     css={{
-//         fontSize: 16,
-//         padding: 15,
-//         borderRadius: 25
-//     }}
-//     {...props}
-//   />
-// )
-
-// export const InputField = styled('div')`
-//   background: blue;
-//   & > input (
-//     background: green;
-//   )
-// `
-
 //Buttons and Links
 export const Button = styled.button`
   cursor: pointer;
@@ -51,6 +25,12 @@ export const StyledLink = styled('a')`
   cursor: pointer;
 `
 
+export const NakedLink = styled(Link)`
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+`
+
 export const BackLink = StyledLink.withComponent('a')
 
 export const StyledRouterLink = StyledLink.withComponent(Link)
@@ -63,6 +43,8 @@ export const StyledMenuLink = styled(StyledRouterLink)`
   margin: 25px 0;
   display: block;
 `
+
+export const StyledRouterButton = PrimaryButton.withComponent(NakedLink)
 
 
 const ExitButtonLine = styled('span')(
@@ -115,4 +97,15 @@ export const ExplicitErrorMessage = styled (ErrorMessage) `
   font-size: 12px;
   color: red;
   margin-top: 10px;
+`
+
+// other components
+
+export const InfoText = styled('span') `
+  font-size: 17px;
+  border-radius: 17px;
+  background-color: #F1F1F1;
+  padding: 5px 35px;
+  line-height: 23px;
+  display: inline-block;
 `

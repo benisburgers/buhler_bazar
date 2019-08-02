@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
 import './css/overview.css'
 import TopBar from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
-import { Link } from 'react-router-dom'
-import { PrimaryButton } from "../styling/theme"
+import { PrimaryButton, StyledRouterButton, InfoText } from "../styling/theme"
 
 class Overview extends Component {
 
@@ -24,12 +25,24 @@ class Overview extends Component {
     return (
       <section className="overview">
         <TopBar userinfo={userinfo} title="FUUD" />
-        <OverviewInfo userinfo={userinfo} products={products} findProperItem={findProperItem} />
         <OverviewButtons toggleModal={this.toggleModal} />
+        <OverviewInfo userinfo={userinfo} products={products} findProperItem={findProperItem} />
         <VotingModal products={products} modalOpen={modalOpen} toggleModal={this.toggleModal} productTypes={productTypes} />
       </section>
     );
   };
+}
+
+class OverviewButtons extends Component {
+  render() {
+    const  { toggleModal } = this.props;
+    return (
+      <div className="overviewButtons">
+        <StyledRouterButton to={'/results'}>WUCHEVOITING</StyledRouterButton>
+        <PrimaryButton onClick={toggleModal}>VOUTÄ</PrimaryButton>
+      </div>
+    )
+  }
 }
 
 class OverviewInfo extends Component {
@@ -48,9 +61,22 @@ class CountDown extends Component {
   render() {
     return (
       <div className="countDown">
-        <span>Dä nöchschti Ichauf folgt in</span>
-        <br></br>
-        <span> <DaysLeft /> TÄG</span>
+        <div>
+          <InfoText>Dä nöchschti Ichauf folgt in</InfoText>
+        </div>
+        <div>
+          <span
+            css={css`
+            	color: #515151;
+            	font-family: "Avenir Next";
+            	font-size: 34px;
+            	font-weight: bold;
+            	line-height: 46px;
+            `}
+            >
+            <DaysLeft /> TÄG
+          </span>
+        </div>
       </div>
     )
   }
@@ -79,32 +105,35 @@ class PreviousOrder extends Component {
     const previousOrder = userinfo.lastOrder.map((entry, index) => {
       return (
         <li key={index}>
-          <span>{ findProperItem(products, entry).name }</span>
-          <br></br>
-          <span>{ findProperItem(products, entry).picturePath }</span>
+          <img src={ findProperItem(products, entry).picturePath } alt={ findProperItem(products, entry).name }
+            css={css`
+              height: 100px;
+              width: 100px;
+              `
+            }
+          />
+          <span
+            css={css`
+            display: block;
+          `}
+          >{ findProperItem(products, entry).name }</span>
         </li>
       )
     })
 
     return (
       <div className="previousOrder">
-        <span>Dis Voting am {dateString()}</span>
-        <ul className="previousOrderList">
+        <InfoText>Dis Voting am {dateString()}</InfoText>
+        <ul className="previousOrderList"
+          css={css`
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            padding-left: 0;
+            `
+          }>
           {previousOrder}
         </ul>
-      </div>
-    )
-  }
-}
-
-class OverviewButtons extends Component {
-  render() {
-    const  { toggleModal } = this.props;
-    return (
-      <div className="overviewButtons">
-        <Link to={'/results'}>TSCHARTS</Link>
-        <br></br>
-        <button onClick={toggleModal}>VOUTÄ</button>
       </div>
     )
   }

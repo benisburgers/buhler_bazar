@@ -35,19 +35,19 @@ class App extends Component {
         id: 1,
         name: "Banane",
         type: "fruit",
-        picturePath: "https://bit.ly/2FxkRIR"
+        picturePath: "https://bit.ly/2OAYdUz"
       },
       {
         id: 2,
         name: "Apfel",
         type: "fruit",
-        picturePath: "apfel.jpeg"
+        picturePath: "https://bit.ly/2FxkRIR"
       },
       {
         id: 3,
         name: "Birre",
         type: "fruit",
-        picturePath: "birre.jpeg"
+        picturePath: "https://bit.ly/2LWtD5A"
       },
       {
         id: 4,
