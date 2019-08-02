@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
@@ -202,7 +202,7 @@ class HamburgerBar extends Component {
 class Menu extends Component {
   render() {
     const isAdmin = this.props.userinfo.admin
-    const { menuOpen, toggleMenu } = this.props;
+    const { toggleMenu } = this.props;
     return (
       <div
         css={css`
