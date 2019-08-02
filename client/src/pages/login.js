@@ -90,7 +90,7 @@ class LogInForm extends Component {
                   <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
                   <ExplicitErrorMessage component="p" name="password" />
                 </ExplicitLabel>
-              <PrimaryButton positive type="submit" disabled={isSubmitting}>LOG DI I</PrimaryButton>
+              <PrimaryButton type="submit" disabled={isSubmitting}>LOG DI I</PrimaryButton>
             </Form>
           )}
         />

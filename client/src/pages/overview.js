@@ -3,6 +3,7 @@ import './css/overview.css'
 import TopBar from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
 import { Link } from 'react-router-dom'
+import { PrimaryButton } from "../styling/theme"
 
 class Overview extends Component {
 

@@ -40,9 +40,8 @@ export const PrimaryButton = styled(Button)`
   padding: 15px;
   border-radius: 25px;
   background-color: ${props =>
-    props.positive ? 'green'
-  : props.negative ? 'red'
-  : 'initial'
+  props.negative ? 'red'
+  : 'green'
 };
 `
 

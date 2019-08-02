@@ -106,7 +106,7 @@ class Basic extends Component {
                 <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
                 <ExplicitErrorMessage component="p" name="password" />
               </ExplicitLabel>
-              <PrimaryButton positive type="submit" disabled={isSubmitting}>Submit</PrimaryButton>
+              <PrimaryButton type="submit" disabled={isSubmitting}>Submit</PrimaryButton>
             </Form>
           )}
         />
