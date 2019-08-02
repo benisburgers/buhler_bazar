@@ -63,12 +63,12 @@ class TopBar extends Component {
         <div>
           <div className="topBar"
             css={css`
-            display: flex;
-            align-items: center;
-            height: 55px;
-            border-radius: 27.5px;
-            background-color: grey;
-            margin-left: 20px;
+              display: flex;
+              align-items: center;
+              height: 55px;
+              border-radius: 27.5px;
+              background-color: #363636;
+              margin-left: 20px;
             `}
           >
             <ProfileButton userinfo={userinfo} />
@@ -87,10 +87,9 @@ class ProfileButton extends Component {
     return (
       <div className="profileButton" userinfo={userinfo}
         css={css`
-          margin-right auto;
+          margin-left: -20px;
           flex: 1;
           display: flex;
-          margin-left: -20px;
         `}>
         <Link to={'/profile'}
             css={css`
@@ -105,9 +104,9 @@ class ProfileButton extends Component {
                 border-radius: 100%;
                 box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
                 border: 2px solid black;
+                margin-top: 20px;
                 `}
             />
-            <br></br>
             <span
               css={css`
                 background: grey;
@@ -116,6 +115,7 @@ class ProfileButton extends Component {
                 line-height: 18px;
                 padding: 1px 10px;
                 border-radius: 11px;
+                display: block;
               `}
             >
             {`${userinfo.firstName} ${userinfo.lastName}`}
@@ -172,6 +172,7 @@ class Hamburger extends Component {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            margin-right: 20px;
           `}
           >
           <HamburgerBar/>

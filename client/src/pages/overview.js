@@ -22,7 +22,6 @@ class Overview extends Component {
     const { modalOpen } = this.state;
     return (
       <section className="overview">
-        <h2>Overview</h2>
         <TopBar userinfo={userinfo} title="FUUD" />
         <OverviewInfo userinfo={userinfo} products={products} findProperItem={findProperItem} />
         <OverviewButtons toggleModal={this.toggleModal} />
