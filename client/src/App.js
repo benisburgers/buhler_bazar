@@ -17,7 +17,6 @@ import AdminProfilePage from './pages/admin_profilePage';
 class App extends Component {
 
   state = {
-    joke: "lol",
     user: {
       //get from userList
       id: 1,
@@ -108,7 +107,6 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-{
           <nav>
             <ul>
               <li><Link to={'/'}>Login</Link></li>
@@ -121,7 +119,6 @@ class App extends Component {
             </ul>
           </nav>
 
-}
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
             <Route exact path="/register" render={({history}) => <Register history={history} />} />

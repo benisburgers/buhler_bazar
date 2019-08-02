@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import ExitButtonContainer from '../components/exitButton.js'
+import { StyledMenuLink } from "../styling/theme"
 
 class TopBar extends Component {
 
@@ -44,9 +45,12 @@ class TopBar extends Component {
             left: 0;
             width: 100%;
             height: 100%;
+            box-sizing: border-box;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding-top: 60px;
+            padding-bottom: 100px;
           `}
           >
             <Menu userinfo={userinfo} menuOpen={this.state.menuOpen} toggleMenu={this.toggleMenu} />
@@ -201,13 +205,14 @@ class Menu extends Component {
     return (
       <div
         css={css`
-        width: 75%;
-        height: 75%;
+        width: 100%;
+        height: 100%;
         border: 1px solid black;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         background: grey;
+        padding: 20px 15px 60px;
         `}
         >
         <div onClick={e => toggleMenu()}
@@ -217,14 +222,33 @@ class Menu extends Component {
           width: 21px;
         `}
           >
-          <ExitButtonContainer/>
+          <ExitButtonContainer lineColor="green" />
         </div>
         {isAdmin ? (
             <AdminMenuOptions />
         ) : (
             <BasicMenuOptions />
         )}
-        <Link to={'/logout'}>Logout</Link>
+        <Link to={'/logout'}
+          css={css`
+            text-decoration: none;
+            color: inherit;
+          `}
+        >
+          <span
+            css={css`
+              background-color: red;
+              font-size: 13px;
+              font-weight: bold;
+              line-height: 18px;
+              padding: 1px 15px;
+              border-radius: 11px;
+              `
+            }
+          >
+          Logout
+          </span>
+        </Link>
       </div>
     )
   }
@@ -234,7 +258,7 @@ function BasicMenuOptions(props) {
   return (
     <ul>
       <li>
-        <Link to={'/overview'}>Overview</Link>
+        <StyledMenuLink to={'/overview'}>Overview</StyledMenuLink>
       </li>
     </ul>
   )
@@ -242,15 +266,19 @@ function BasicMenuOptions(props) {
 
 function AdminMenuOptions(props) {
   return (
-    <ul>
+    <ul
+      css={css`
+        list-style: none;
+      `}
+    >
       <li>
-        <Link to={'/overview'}>Overview</Link>
+        <StyledMenuLink to={'/overview'}>Overview</StyledMenuLink>
       </li>
       <li>
-        <Link to={'/admin/admin_userList'}>AdminUserList</Link>
+        <StyledMenuLink to={'/admin/admin_userList'}>AdminUserList</StyledMenuLink>
       </li>
       <li>
-        <Link to={'/admin/admin_productList'}>AdminProductList</Link>
+        <StyledMenuLink to={'/admin/admin_productList'}>AdminProductList</StyledMenuLink>
       </li>
     </ul>
   )

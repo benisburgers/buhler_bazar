@@ -4,10 +4,11 @@ import { ExitButton, PosExitButtonLine, NegExitButtonLine } from "../styling/the
 
 class ExitButtonContainer extends Component {
   render() {
+  const { lineColor } = this.props
     return (
       <ExitButton>
-        <NegExitButtonLine/>
-        <PosExitButtonLine/>
+        <NegExitButtonLine color={lineColor}/>
+        <PosExitButtonLine color={lineColor}/>
       </ExitButton>
     )
   }

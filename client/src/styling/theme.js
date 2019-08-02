@@ -56,12 +56,24 @@ export const BackLink = StyledLink.withComponent('a')
 
 export const StyledRouterLink = StyledLink.withComponent(Link)
 
-const ExitButtonLine = styled('span')`
-  width: 100%;
-  height: 2px;
-  background-color: blue;
+export const StyledMenuLink = styled(StyledRouterLink)`
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2.15px;
+  line-height: 38px;
+  margin: 25px 0;
   display: block;
 `
+
+
+const ExitButtonLine = styled('span')(
+  {
+    width: "100%",
+    height: 2,
+    display: "block",
+  },
+  props => ({ background: props.color })
+)
 
 export const PosExitButtonLine = styled(ExitButtonLine)`
   transform: rotate(-45deg) translateY(-50%);
@@ -71,13 +83,16 @@ export const NegExitButtonLine = styled (ExitButtonLine)`
   transform: rotate(45deg) translateY(50%);
 `
 
-export const ExitButton = styled('div')`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-`
+export const ExitButton = styled('div')(
+  {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+  },
+  props => ({ background: props.color })
+)
 
 
 
