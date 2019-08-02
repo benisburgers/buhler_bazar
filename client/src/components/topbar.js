@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
+import ExitButtonContainer from '../components/exitButton.js'
 
 class TopBar extends Component {
 
@@ -18,23 +19,61 @@ class TopBar extends Component {
 
   render() {
     const { userinfo, title } = this.props;
-    return (
-      <div className="topBar"
-        css={css`
-        display: flex;
-        align-items: center;
-        height: 55px;
-        border-radius: 27.5px;
-        background-color: #363636;
-        margin-left: 20px;
-        `}
-      >
-        <ProfileButton userinfo={userinfo} />
-        <TopBarHeader title={title} />
-        <Hamburger toggleMenu={this.toggleMenu} />
-        <Menu userinfo={userinfo} menuOpen={this.state.menuOpen} />
-    </div>
-    )
+    const { menuOpen } = this.state;
+    if (menuOpen) {
+      return (
+        <div>
+          <div className="topBar"
+            css={css`
+            display: flex;
+            align-items: center;
+            height: 55px;
+            border-radius: 27.5px;
+            background-color: #363636;
+            margin-left: 20px;
+            `}
+          >
+            <ProfileButton userinfo={userinfo} />
+            <TopBarHeader title={title} />
+            <Hamburger toggleMenu={this.toggleMenu} />
+          </div>
+          <div className="menuModal"
+            css={css`
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          `}
+          >
+            <Menu userinfo={userinfo} menuOpen={this.state.menuOpen} toggleMenu={this.toggleMenu} />
+          </div>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div>
+          <div className="topBar"
+            css={css`
+            display: flex;
+            align-items: center;
+            height: 55px;
+            border-radius: 27.5px;
+            background-color: grey;
+            margin-left: 20px;
+            `}
+          >
+            <ProfileButton userinfo={userinfo} />
+            <TopBarHeader title={title} />
+            <Hamburger toggleMenu={this.toggleMenu} />
+          </div>
+        </div>
+      )
+    }
   }
 }
 
@@ -158,33 +197,34 @@ class HamburgerBar extends Component {
 class Menu extends Component {
   render() {
     const isAdmin = this.props.userinfo.admin
-    const { menuOpen } = this.props;
-
-    if (menuOpen) {
-      return (
-        <MenuOptions isAdmin={isAdmin} />
-      )
-    }
-    else {
-      return null;
-    }
-  }
-}
-
-class MenuOptions extends Component {
-  render() {
-    const {isAdmin} = this.props
+    const { menuOpen, toggleMenu } = this.props;
     return (
-      <div>
-          {isAdmin ? (
-            <div>
-              <AdminMenuOptions />
-            </div>
-          ) : (
-            <div>
-              <BasicMenuOptions />
-            </div>
-          )}
+      <div
+        css={css`
+        width: 75%;
+        height: 75%;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: grey;
+        `}
+        >
+        <div onClick={e => toggleMenu()}
+          css={css`
+          align-self: flex-end;
+          height: 21px;
+          width: 21px;
+        `}
+          >
+          <ExitButtonContainer/>
+        </div>
+        {isAdmin ? (
+            <AdminMenuOptions />
+        ) : (
+            <BasicMenuOptions />
+        )}
+        <Link to={'/logout'}>Logout</Link>
       </div>
     )
   }
@@ -195,9 +235,6 @@ function BasicMenuOptions(props) {
     <ul>
       <li>
         <Link to={'/overview'}>Overview</Link>
-      </li>
-      <li>
-        <Link to={'/logout'}>Logout</Link>
       </li>
     </ul>
   )
@@ -214,9 +251,6 @@ function AdminMenuOptions(props) {
       </li>
       <li>
         <Link to={'/admin/admin_productList'}>AdminProductList</Link>
-      </li>
-      <li>
-        <Link to={'/logout'}>Logout</Link>
       </li>
     </ul>
   )

@@ -56,6 +56,29 @@ export const BackLink = StyledLink.withComponent('a')
 
 export const StyledRouterLink = StyledLink.withComponent(Link)
 
+const ExitButtonLine = styled('span')`
+  width: 100%;
+  height: 2px;
+  background-color: blue;
+  display: block;
+`
+
+export const PosExitButtonLine = styled(ExitButtonLine)`
+  transform: rotate(-45deg) translateY(-50%);
+`
+
+export const NegExitButtonLine = styled (ExitButtonLine)`
+  transform: rotate(45deg) translateY(50%);
+`
+
+export const ExitButton = styled('div')`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`
+
 
 
 //Forms (Formik)
