@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core'
 import './css/overview.css'
 import TopBar from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
-import { PrimaryButton, StyledRouterButton, InfoText } from "../styling/theme"
+import { PrimaryButton, NakedLink, InfoText } from "../styling/theme"
 
 class Overview extends Component {
 
@@ -37,8 +37,15 @@ class OverviewButtons extends Component {
   render() {
     const  { toggleModal } = this.props;
     return (
-      <div className="overviewButtons">
-        <StyledRouterButton to={'/results'}>WUCHEVOITING</StyledRouterButton>
+      <div className="overviewButtons"
+        css={css`
+          display: flex;
+        `}>
+          <PrimaryButton>
+            <NakedLink to={'/results'}>
+              WUCHEVOITING
+            </NakedLink>
+          </PrimaryButton>
         <PrimaryButton onClick={toggleModal}>VOUTÄ</PrimaryButton>
       </div>
     )

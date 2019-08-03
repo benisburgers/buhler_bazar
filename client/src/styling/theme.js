@@ -17,7 +17,7 @@ export const PrimaryButton = styled(Button)`
     props.negative ? 'red'
     : 'green'
   };
-  display: inline-block;
+  width: 100%;
 `
 
 export const StyledLink = styled('span')`
@@ -96,7 +96,7 @@ export const StyledForm = styled (Form) `
 `
 
 export const ExplicitForm = styled (StyledForm) `
-  max-width: 350px;
+  max-width: 250px;
   display: flex;
   flex-direction: column;
   margin: auto;
