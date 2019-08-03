@@ -2,7 +2,7 @@
 // import { css, jsx } from '@emotion/core'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
-import { Field, ErrorMessage } from 'formik';
+import { Field, ErrorMessage, Form } from 'formik';
 
 //Buttons and Links
 export const Button = styled.button`
@@ -92,18 +92,30 @@ export const ExitButton = styled('div')(
 
 //Forms (Formik)
 
+export const StyledForm = styled (Form) `
+`
+
+export const ExplicitForm = styled (StyledForm) `
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+`
+
 export const StyledField = styled (Field) `
 `
 
-
 //Explicit, such as Registration and Login forms where you can SEE the input fields
 export const ExplicitLabel = styled ('label') `
+  max-width: 100%;
 `
 
 export const ExplicitField = styled (StyledField) `
   border: 1px solid #A3A1A8;
   border-radius: 8px;
   padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
 `
 
 export const ExplicitErrorMessage = styled (ErrorMessage) `

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { PrimaryButton, BackLink, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../styling/theme"
+import { PrimaryButton, BackLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../styling/theme"
 
 
 class Register extends Component {
@@ -89,7 +89,7 @@ class Basic extends Component {
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting }) => (
-            <Form>
+            <ExplicitForm>
               <ExplicitLabel>
                 <ExplicitField type="text" name="firstName" placeholder="Vorname" />
                 <ExplicitErrorMessage component="p" name="firstName" />
@@ -107,7 +107,7 @@ class Basic extends Component {
                 <ExplicitErrorMessage component="p" name="password" />
               </ExplicitLabel>
               <PrimaryButton type="submit" disabled={isSubmitting}>Submit</PrimaryButton>
-            </Form>
+            </ExplicitForm>
           )}
         />
       </div>

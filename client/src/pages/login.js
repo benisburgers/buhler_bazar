@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { PrimaryButton, StyledRouterLink, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../styling/theme"
+import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../styling/theme"
 
 class Register extends Component {
   render() {
@@ -81,7 +81,7 @@ class LogInForm extends Component {
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting }) => (
-            <Form>
+            <ExplicitForm>
                 <ExplicitLabel>
                   <ExplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" />
                   <ExplicitErrorMessage component="p" name="email" />
@@ -91,7 +91,7 @@ class LogInForm extends Component {
                   <ExplicitErrorMessage component="p" name="password" />
                 </ExplicitLabel>
               <PrimaryButton type="submit" disabled={isSubmitting}>LOG DI I</PrimaryButton>
-            </Form>
+            </ExplicitForm>
           )}
         />
       </div>
