@@ -31,18 +31,3 @@
     transform: rotate(360deg);
   }
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 200px;
-  margin: 0 auto;
-}
-
-label {
-  margin-bottom: 20px;
-}
-
-img {
-  max-width: 100px;
-}

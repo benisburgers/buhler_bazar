@@ -14,16 +14,21 @@ export const PrimaryButton = styled(Button)`
   padding: 15px;
   border-radius: 25px;
   background-color: ${props =>
-  props.negative ? 'red'
-  : 'green'
-};
+    props.negative ? 'red'
+    : 'green'
+  };
+  display: inline-block;
 `
 
-export const StyledLink = styled('a')`
+export const StyledLink = styled('span')`
   color: green;
   text-decoration: none;
   cursor: pointer;
+  font-size: 16px;
+  display: block;
 `
+
+export const StyledLabel = StyledLink.withComponent('label')
 
 export const NakedLink = styled(Link)`
   text-decoration: none;
@@ -46,6 +51,14 @@ export const StyledMenuLink = styled(StyledRouterLink)`
 
 export const StyledRouterButton = PrimaryButton.withComponent(NakedLink)
 
+export const NegativeSecondaryButton = styled('span') `
+  background-color: red;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 18px;
+  padding: 1px 15px;
+  border-radius: 11px;
+`
 
 const ExitButtonLine = styled('span')(
   {
@@ -97,6 +110,19 @@ export const ExplicitErrorMessage = styled (ErrorMessage) `
   font-size: 12px;
   color: red;
   margin-top: 10px;
+`
+
+//Implicit such as user profile
+export const ImplicitField = styled (StyledField) `
+  color: #515151;
+  font-family: "Avenir Next";
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 29px;
+  border: none;
+  background: none;
+  text-align: center;
+  width: 100%;
 `
 
 // other components

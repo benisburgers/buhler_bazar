@@ -7,7 +7,6 @@ class Profile extends Component {
     const { userinfo, history, toggleFields } = this.props;
     return (
       <section className="profile">
-        <button onClick={history.goBack}>back</button>
         <ProfileForm userinfo={userinfo} toggleFields={toggleFields} />
       </section>
     )

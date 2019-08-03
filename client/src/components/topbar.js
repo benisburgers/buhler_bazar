@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import ExitButtonContainer from '../components/exitButton.js'
-import { StyledMenuLink } from "../styling/theme"
+import { StyledMenuLink, NegativeSecondaryButton } from "../styling/theme"
 
 class TopBar extends Component {
 
@@ -236,7 +236,7 @@ class Menu extends Component {
             color: inherit;
           `}
         >
-          <span
+          <NegativeSecondaryButton
             css={css`
               background-color: red;
               font-size: 13px;
@@ -248,7 +248,7 @@ class Menu extends Component {
             }
           >
           Logout
-          </span>
+        </NegativeSecondaryButton>
         </Link>
       </div>
     )

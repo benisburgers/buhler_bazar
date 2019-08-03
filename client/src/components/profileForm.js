@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { StyledLabel, StyledLink, PrimaryButton, NegativeSecondaryButton, ImplicitField } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
 
 class ProfileForm extends Component {
@@ -77,34 +80,41 @@ class ProfileForm extends Component {
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values }) => (
             <Form>
-              <label>
+              <div>
+                <Thumbnail values={values}/>
                 <input
+                  id="file"
                   type="file"
                   onChange={e => {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                   }}
                   name="file"
+                  css={css`
+                    color: red;
+                    display: none;
+                    `
+                  }
                 />
-              <Thumbnail values={values} />
-              </label>
+              <StyledLabel for="file">Profilbild Wächsle</StyledLabel>
+              </div>
               <label>
-                <Field type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
-                <span onClick={e => toggleFields(this, "email")}>{ values.email ? "ändere" : "hinzuefüege" }</span>
+                <ImplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
+                <StyledLink onClick={e => toggleFields(this, "email")}>Email { values.email ? "ändere" : "hinzuefüege" }</StyledLink>
                 <ErrorMessage name="email" />
               </label>
               <label>
-                <Field type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
-                <span onClick={e => toggleFields(this, "firstName")}>{ values.firstName ? "ändere" : "hinzuefüege" }</span>
+                <ImplicitField type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
+                <StyledLink onClick={e => toggleFields(this, "firstName")}>Vorname { values.firstName ? "ändere" : "hinzuefüege" }</StyledLink>
                 <ErrorMessage name="firstName" />
               </label>
               <label>
-                <Field type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
-                <span onClick={e => toggleFields(this, "lastName")}>{ values.lastName ? "ändere" : "hinzuefüege" }</span>
+                <ImplicitField type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
+                <StyledLink onClick={e => toggleFields(this, "lastName")}>Nachname { values.lastName ? "ändere" : "hinzuefüege" }</StyledLink>
                 <ErrorMessage name="lastName" />
               </label>
-              <div className="buttons">
-                <button type="button" onClick={ (e) => deleteUser() }>LÖSCHÄ</button>
-                <button type="submit" disabled={isSubmitting}>SPEICHERÄ</button>
+              <div>
+                <PrimaryButton type="submit" disabled={isSubmitting}>SCHGUET</PrimaryButton>
+                <NegativeSecondaryButton type="button" onClick={ (e) => deleteUser() }>LÖSCHÄ</NegativeSecondaryButton>
               </div>
             </Form>
           )}
