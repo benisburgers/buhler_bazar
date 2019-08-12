@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core'
 import './css/overview.css'
 import TopBar from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
-import { PrimaryButton, NakedLink, InfoText } from "../styling/theme"
+import { PrimaryButton, PrimaryButtonLink, InfoText } from "../styling/theme"
 
 class Overview extends Component {
 
@@ -41,11 +41,9 @@ class OverviewButtons extends Component {
         css={css`
           display: flex;
         `}>
-          <PrimaryButton>
-            <NakedLink to={'/results'}>
-              WUCHEVOITING
-            </NakedLink>
-          </PrimaryButton>
+        <PrimaryButtonLink to={'/results'}>
+          WUCHEVOITING
+        </PrimaryButtonLink>
         <PrimaryButton onClick={toggleModal}>VOUTÄ</PrimaryButton>
       </div>
     )
