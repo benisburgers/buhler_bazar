@@ -91,22 +91,22 @@ class Basic extends Component {
           render = {({ errors, touched, isSubmitting }) => (
             <ExplicitForm>
               <ExplicitLabel>
-                <ExplicitField type="text" name="firstName" placeholder="Vorname" />
+                <ExplicitField type="text" name="firstName" placeholder="Vornamä" />
                 <ExplicitErrorMessage component="p" name="firstName" />
               </ExplicitLabel>
               <ExplicitLabel>
-                <ExplicitField type="text" name="lastName" placeholder="Nachname" />
+                <ExplicitField type="text" name="lastName" placeholder="Nachnamä" />
                 <ExplicitErrorMessage component="p" name="lastName" />
               </ExplicitLabel>
               <ExplicitLabel>
-                <ExplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" />
+                <ExplicitField type="email" name="email" placeholder="iimäil" />
                 <ExplicitErrorMessage component="p" name="email" />
               </ExplicitLabel>
               <ExplicitLabel>
                 <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
                 <ExplicitErrorMessage component="p" name="password" />
               </ExplicitLabel>
-              <PrimaryButton fullWidth type="submit" disabled={isSubmitting}>Submit</PrimaryButton>
+              <PrimaryButton fullWidth type="submit" disabled={isSubmitting}>Registrier di</PrimaryButton>
             </ExplicitForm>
           )}
         />
@@ -119,7 +119,7 @@ class BackButton extends Component {
   render() {
     const { history } = this.props;
     return (
-      <BackLink onClick={history.goBack}>back</BackLink>
+      <BackLink onClick={history.goBack}>Zrugg</BackLink>
     )
   }
 }
