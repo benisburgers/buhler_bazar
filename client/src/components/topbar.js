@@ -20,7 +20,11 @@ class TopBar extends Component {
 
   render() {
     const { userinfo, title } = this.props;
+    const userImageHeight = 90;
+    const userNameHeight = 20;
+    const topBarHeight = 55;
     const { menuOpen } = this.state;
+
     if (menuOpen) {
       return (
         <div>
@@ -28,7 +32,7 @@ class TopBar extends Component {
             css={css`
             display: flex;
             align-items: center;
-            height: 55px;
+            height: ${topBarHeight};
             border-radius: 27.5px;
             background-color: #363636;
             margin-left: 20px;
@@ -65,13 +69,14 @@ class TopBar extends Component {
             css={css`
               display: flex;
               align-items: center;
-              height: 55px;
+              height: ${topBarHeight}px;
               border-radius: 27.5px;
               background-color: #363636;
               margin-left: 20px;
+              margin-bottom: ${((userImageHeight - topBarHeight)/2 + userNameHeight)}px;
             `}
           >
-            <ProfileButton userinfo={userinfo} />
+            <ProfileButton userImageHeight={userImageHeight} userNameHeight={userNameHeight} userinfo={userinfo} />
             <TopBarHeader title={title} />
             <Hamburger toggleMenu={this.toggleMenu} />
           </div>
@@ -83,7 +88,7 @@ class TopBar extends Component {
 
 class ProfileButton extends Component {
   render() {
-    const { userinfo } = this.props;
+    const { userinfo, userImageHeight, userNameHeight } = this.props;
     return (
       <div className="profileButton" userinfo={userinfo}
         css={css`
@@ -99,8 +104,9 @@ class ProfileButton extends Component {
           <div className="profileThumbnail">
             <img src={ userinfo.picturePath } alt="user portrait"
               css={css`
-                height: 89px;
-                width: 89px;
+                height: ${userImageHeight}px;
+                width: ${userImageHeight}px;
+                box-sizing: border-box;
                 border-radius: 100%;
                 box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
                 border: 2px solid black;
@@ -116,6 +122,7 @@ class ProfileButton extends Component {
                 padding: 1px 10px;
                 border-radius: 11px;
                 display: block;
+                height: ${userNameHeight}px;
               `}
             >
             {`${userinfo.firstName} ${userinfo.lastName}`}
