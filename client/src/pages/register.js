@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { PrimaryButton, BackLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../styling/theme"
+import { PrimaryButton, BackLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage, StyledLabel } from "../styling/theme"
+import Thumbnail from '../components/thumbnail';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+import register_thumbnail_icon from '../components/images/register-thumbnail-icon.png';
 
 
 class Register extends Component {
@@ -88,8 +92,29 @@ class Basic extends Component {
               this.pushData(values);
             }, 200);
           }}
-          render = {({ errors, touched, isSubmitting }) => (
+          render = {({ errors, touched, isSubmitting, values, setFieldValue }) => (
             <ExplicitForm>
+              <div>
+                <img src={register_thumbnail_icon} alt="thumbnail icon"
+                  css={css`
+                    max-width: 100px;
+                  `
+                  }
+                />
+                <input
+                  id="file"
+                  type="file"
+                  onChange={e => {
+                     setFieldValue('file', URL.createObjectURL(e.target.files[0]));
+                  }}
+                  name="file"
+                  css={css`
+                    display: none;
+                    `
+                  }
+                />
+                <StyledLabel for="file">Profilbild Wächsle</StyledLabel>
+              </div>
               <ExplicitLabel>
                 <ExplicitField type="text" name="firstName" placeholder="Vornamä" />
                 <ExplicitErrorMessage component="p" name="firstName" />

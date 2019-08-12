@@ -95,7 +95,7 @@ class ProfileForm extends Component {
                     `
                   }
                 />
-              <StyledLabel for="file">Profilbild Wächsle</StyledLabel>
+                <StyledLabel for="file">Profilbild Wächsle</StyledLabel>
               </div>
               <label>
                 <ImplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
