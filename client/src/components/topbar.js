@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/core'
 import ExitButtonContainer from '../components/exitButton.js'
 import { StyledMenuLink, NegativeSecondaryButton } from "../styling/theme"
 
-class TopBar extends Component {
+class TopBarContainer extends Component {
 
   state = {
     menuOpen: false,
@@ -20,69 +20,52 @@ class TopBar extends Component {
 
   render() {
     const { userinfo, title } = this.props;
-    const userImageHeight = 90;
-    const userNameHeight = 20;
-    const topBarHeight = 55;
     const { menuOpen } = this.state;
 
     if (menuOpen) {
       return (
         <div>
-          <div className="topBar"
-            css={css`
-            display: flex;
-            align-items: center;
-            height: ${topBarHeight};
-            border-radius: 27.5px;
-            background-color: #363636;
-            margin-left: 20px;
-            `}
-          >
-            <ProfileButton userinfo={userinfo} />
-            <TopBarHeader title={title} />
-            <Hamburger toggleMenu={this.toggleMenu} />
-          </div>
-          <div className="menuModal"
-            css={css`
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: 60px;
-            padding-bottom: 100px;
-          `}
-          >
-            <Menu userinfo={userinfo} menuOpen={this.state.menuOpen} toggleMenu={this.toggleMenu} />
-          </div>
+          <MenuModal menuOpen={menuOpen} toggleMenu={this.toggleMenu} userinfo={userinfo} />
+          <TopBar userinfo={userinfo} title={title} menuOpen={menuOpen} toggleMenu={this.toggleMenu} />
         </div>
       )
     }
     else {
       return (
         <div>
-          <div className="topBar"
-            css={css`
-              display: flex;
-              align-items: center;
-              height: ${topBarHeight}px;
-              border-radius: 27.5px;
-              background-color: #363636;
-              margin-left: 20px;
-              margin-bottom: ${((userImageHeight - topBarHeight)/2 + userNameHeight)}px;
-            `}
-          >
-            <ProfileButton userImageHeight={userImageHeight} userNameHeight={userNameHeight} userinfo={userinfo} />
-            <TopBarHeader title={title} />
-            <Hamburger toggleMenu={this.toggleMenu} />
-          </div>
+          <TopBar userinfo={userinfo} title={title} menuOpen={menuOpen} toggleMenu={this.toggleMenu} />
         </div>
       )
     }
+  }
+}
+
+class TopBar extends Component {
+  render() {
+
+    const userImageHeight = 90;
+    const userNameHeight = 20;
+    const topBarHeight = 55;
+
+    const { userinfo, title, menuOpen, toggleMenu } = this.props;
+
+    return (
+      <div className="topBar"
+        css={css`
+          display: flex;
+          align-items: center;
+          height: ${topBarHeight}px;
+          border-radius: 27.5px;
+          background-color: #363636;
+          margin-left: 20px;
+          margin-bottom: ${((userImageHeight - topBarHeight)/2 + userNameHeight)}px;
+        `}
+      >
+        <ProfileButton userImageHeight={userImageHeight} userNameHeight={userNameHeight} userinfo={userinfo} />
+        <TopBarHeader title={title} />
+        <Hamburger toggleMenu={toggleMenu} />
+      </div>
+    )
   }
 }
 
@@ -206,6 +189,32 @@ class HamburgerBar extends Component {
   }
 }
 
+class MenuModal extends Component {
+  render() {
+    const { menuOpen, toggleMenu, userinfo } = this.props;
+    return (
+      <div className="menuModal" menuOpen={menuOpen} toggleMenu={toggleMenu}
+        css={css`
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 60px;
+        padding-bottom: 100px;
+      `}
+      >
+        <Menu userinfo={userinfo} menuOpen={menuOpen} toggleMenu={toggleMenu} />
+      </div>
+
+    )
+  }
+}
+
 class Menu extends Component {
   render() {
     const isAdmin = this.props.userinfo.admin
@@ -292,4 +301,4 @@ function AdminMenuOptions(props) {
   )
 }
 
-export default TopBar;
+export default TopBarContainer;

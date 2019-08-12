@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import TopBar from '../components/topbar.js'
+import TopBarContainer from '../components/topbar.js'
 import { Link } from 'react-router-dom';
 
 
@@ -57,7 +57,7 @@ class AdminUserList extends Component {
     const { userinfo } = this.props;
     return (
       <section className="admin_userList">
-        <TopBar userinfo={userinfo} title="JUSER" />
+        <TopBarContainer userinfo={userinfo} title="JUSER" />
         <UserList userList={this.state.userList}/>
       </section>
     )

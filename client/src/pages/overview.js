@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import './css/overview.css'
-import TopBar from '../components/topbar.js'
+import TopBarContainer from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
 import { PrimaryButton, PrimaryButtonLink, InfoText } from "../styling/theme"
 
@@ -24,7 +24,7 @@ class Overview extends Component {
     const { modalOpen } = this.state;
     return (
       <section className="overview">
-        <TopBar userinfo={userinfo} title="FUUD" />
+        <TopBarContainer userinfo={userinfo} title="FUUD" />
         <OverviewButtons toggleModal={this.toggleModal} />
         <OverviewInfo userinfo={userinfo} products={products} findProperItem={findProperItem} />
         <VotingModal products={products} modalOpen={modalOpen} toggleModal={this.toggleModal} productTypes={productTypes} />
@@ -41,9 +41,7 @@ class OverviewButtons extends Component {
         css={css`
           display: flex;
         `}>
-        <PrimaryButtonLink to={'/results'}>
-          WUCHEVOITING
-        </PrimaryButtonLink>
+        <PrimaryButtonLink to={'/results'}>WUCHEVOITING</PrimaryButtonLink>
         <PrimaryButton onClick={toggleModal}>VOUTÄ</PrimaryButton>
       </div>
     )
