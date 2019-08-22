@@ -41,7 +41,6 @@ class TopBarContainer extends Component {
             content: {
               background: 'blue',
               padding: 0,
-              // overflow: 'hidden'
             }
           }}
         >
