@@ -5,29 +5,52 @@ import './css/overview.css'
 import TopBarContainer from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
 import { PrimaryButton, PrimaryButtonLink, InfoText } from "../styling/theme"
+import ReactModal from 'react-modal';
 
 class Overview extends Component {
 
   state = {
-    modalOpen: false,
+    showModal: false
   }
 
-  toggleModal = () => {
-    var modalOpen = this.state.modalOpen;
+  handleOpenModal = () => {
+    console.log('handleOpenModal');
     this.setState({
-      modalOpen: !modalOpen,
-    })
+      showModal: true
+    });
+  }
+
+  handleCloseModal = () => {
+    console.log('handleCloseModal');
+    this.setState({
+      showModal: false
+    });
   }
 
   render() {
     const { userinfo, products, findProperItem, productTypes } = this.props;
-    const { modalOpen } = this.state;
     return (
       <section className="overview">
         <TopBarContainer userinfo={userinfo} title="FUUD" />
-        <OverviewButtons toggleModal={this.toggleModal} />
+        <OverviewButtons handleOpenModal={this.handleOpenModal} />
         <OverviewInfo userinfo={userinfo} products={products} findProperItem={findProperItem} />
-        <VotingModal products={products} modalOpen={modalOpen} toggleModal={this.toggleModal} productTypes={productTypes} />
+          <ReactModal
+            isOpen={this.state.showModal}
+            contentLabel="Menu Modal"
+            style={{
+              content: {
+                padding: 0,
+                inset: '20px',
+                backgroundColor: 'rgba(0,0,0,0)',
+                border: 'none'
+              },
+              overlay: {
+                backgroundColor: 'rgba(0,0,0,0.8)'
+              }
+            }}
+          >
+            <VotingModal products={products} handleCloseModal={this.handleCloseModal} productTypes={productTypes} />
+          </ReactModal>
       </section>
     );
   };
@@ -35,14 +58,14 @@ class Overview extends Component {
 
 class OverviewButtons extends Component {
   render() {
-    const  { toggleModal } = this.props;
+    const  { handleOpenModal } = this.props;
     return (
       <div className="overviewButtons"
         css={css`
           display: flex;
         `}>
         <PrimaryButtonLink to={'/results'}>WUCHEVOITING</PrimaryButtonLink>
-        <PrimaryButton onClick={toggleModal}>VOUTÄ</PrimaryButton>
+        <PrimaryButton onClick={handleOpenModal}>VOUTÄ</PrimaryButton>
       </div>
     )
   }

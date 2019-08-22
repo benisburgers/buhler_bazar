@@ -39,7 +39,6 @@ class TopBarContainer extends Component {
           contentLabel="Menu Modal"
           style={{
             content: {
-              background: 'blue',
               padding: 0,
             }
           }}

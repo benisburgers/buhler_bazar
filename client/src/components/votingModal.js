@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import OverviewProductList from '../components/overviewProductList.js'
-
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+import { MediumHeader, PrimaryButton } from "../styling/theme"
 
 class VotingModal extends Component {
   state = {
@@ -17,7 +19,7 @@ class VotingModal extends Component {
       chosenProductIDs = [...chosenProductIDs, entry.id]
     })
     // close voting modal
-    this.props.toggleModal();
+    this.props.handleCloseModal();
     //refresh overview page (update/fetch 'previous voting')
   }
 
@@ -72,22 +74,34 @@ class VotingModal extends Component {
   }
 
   render() {
-    const { products, toggleModal, modalOpen, productTypes } = this.props;
+    const { products, handleCloseModal, modalOpen, productTypes } = this.props;
     const { credits, selectedProducts, creditClassName } = this.state;
     const { chooseProduct, submitVote } = this;
-    if (modalOpen) {
-      return (
-        <div className="votingModal">
-          <h4>Vout für dini Lieblings</h4>
+    return (
+      <div className="votingModal"
+        css={css`
+          padding: 0px;
+          height: 100%;
+          overflow-y: hidden;
+        `}>
+        <div className="mainPart"
+          css={css`
+            padding: 21px;
+            background: white;
+            height: 80%;
+            overflow: scroll;
+            border-radius: 13px;
+          `}
+        >
+          <MediumHeader>
+            Vout für dini Liebling
+          </MediumHeader>
           <CreditScore credits={credits} selectedProducts={selectedProducts} creditClassName={creditClassName} />
-          <OverviewProductList selectedProducts={selectedProducts} productTypes={productTypes} products={products} toggleModal={toggleModal} chooseProduct={chooseProduct}/>
-          <ModalButtons submitVote={submitVote} toggleModal={toggleModal} selectedProducts={selectedProducts}/>
+          <OverviewProductList selectedProducts={selectedProducts} productTypes={productTypes} products={products} handleCloseModal={handleCloseModal} chooseProduct={chooseProduct}/>
         </div>
-      )
-    }
-    else {
-      return null;
-    }
+        <ModalButtons submitVote={submitVote} handleCloseModal={handleCloseModal} selectedProducts={selectedProducts}/>
+      </div>
+    )
   }
 }
 
@@ -105,22 +119,32 @@ class CreditScore extends Component {
 
 class ModalButtons extends Component {
   render() {
-    const { submitVote, toggleModal, selectedProducts } = this.props;
-    if ( selectedProducts.length > 0 ) {
-      return (
-        <div>
-          <button onClick={submitVote}>VOUTÄ</button>
-          <button onClick={toggleModal}>X</button>
-        </div>
-      )
-    }
-    else {
-      return (
-        <div>
-          <button onClick={toggleModal}>X</button>
-        </div>
-      )
-    }
+    const { submitVote, handleCloseModal, selectedProducts } = this.props;
+    return (
+      <div
+        css={css`
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          display: flex;
+        `}
+      >
+        <PrimaryButton onClick={submitVote}
+          css={css`
+            width: 75%;
+            margin-right: 10px;
+          `}>
+          VOUTÄ
+        </PrimaryButton>
+        <PrimaryButton negative onClick={handleCloseModal}
+          css={css`
+            width: 25%;
+          `}
+        >
+          X
+        </PrimaryButton>
+      </div>
+    )
   }
 }
 

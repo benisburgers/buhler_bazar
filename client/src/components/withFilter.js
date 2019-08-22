@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { SelectionButton } from "../styling/theme"
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
 
 const withFilter = (WrappedComponent, test) => {
   class WithFilter extends Component {
@@ -92,18 +95,25 @@ const withFilter = (WrappedComponent, test) => {
       const types = productTypes.map((entry, index) => {
         return (
           <li key={index}>
-            <button
+            <SelectionButton
               onClick={(e) => selectType(entry)}
-              className={(selectedTypes.includes(entry) ? 'active' : null)}
+              active={(selectedTypes.includes(entry) ? true : false)}
             >
               {entry}
-            </button>
+            </SelectionButton>
           </li>
         )
       })
       return (
         <div>
-          <ul>
+          <ul
+            css={css`
+              list-style: none;
+              display: flex;
+              padding-left: 0;
+              justify-content: space-between;
+            `}
+          >
             {types}
           </ul>
         </div>

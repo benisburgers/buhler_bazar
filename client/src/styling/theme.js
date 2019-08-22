@@ -149,3 +149,28 @@ export const InfoText = styled('span') `
   line-height: 23px;
   display: inline-block;
 `
+
+export const MediumHeader = styled('h2') `
+  font-size: 34px;
+  font-weight: bold;
+  line-height: 46px;
+  margin: 0;
+`
+
+export const SelectionButton = styled('button') `
+  width: 124px;
+  padding: 4px 0;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.23px;
+  line-height: 22px;
+  text-align: center;
+  border-radius: 15px;
+  background-color: ${props =>
+    props.active ? '#363636' : '#F1F1F1'
+  };
+  color: ${props =>
+    props.active ? '#A9EEC2' : '#515151'
+  };
+  border: none;
+`
