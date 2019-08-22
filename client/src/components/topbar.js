@@ -37,6 +37,13 @@ class TopBarContainer extends Component {
         <ReactModal
           isOpen={this.state.showModal}
           contentLabel="Menu Modal"
+          style={{
+            content: {
+              background: 'blue',
+              padding: 0,
+              // overflow: 'hidden'
+            }
+          }}
         >
           <Menu userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
         </ReactModal>
@@ -195,35 +202,6 @@ class HamburgerBar extends Component {
   }
 }
 
-// class MenuModal extends Component {
-//   render() {
-//     const { userinfo } = this.props;
-//     return (
-//       <div
-//         className="menuModal"
-//         css={css`
-//         position: absolute;
-//         top: 0;
-//         left: 0;
-//         width: 100%;
-//         height: 100%;
-//         background-color: green;
-//         box-sizing: border-box;
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//         padding-top: 60px;
-//         padding-bottom: 100px;
-//       `}
-//       >
-//         <Menu userinfo={userinfo} />
-//       </div>
-//
-//     )
-//   }
-// }
-
-
 // TODO: Remove Padding and decrease inset for ReactModal ==> How?
 
 class Menu extends Component {
@@ -240,6 +218,9 @@ class Menu extends Component {
         justify-content: space-between;
         background: grey;
         height: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        padding: 18px 15px 60px;
         `}
         >
         <div onClick={e => handleCloseModal()}

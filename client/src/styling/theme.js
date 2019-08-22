@@ -43,10 +43,10 @@ export const BackLink = StyledLink.withComponent('a')
 export const StyledRouterLink = StyledLink.withComponent(Link)
 
 export const StyledMenuLink = styled(StyledRouterLink)`
-  font-size: 28px;
+  font-size: 25px;
   font-weight: bold;
-  letter-spacing: 2.15px;
-  line-height: 38px;
+  letter-spacing: 2.10px;
+  line-height: 35px;
   margin: 25px 0;
   display: block;
 `
