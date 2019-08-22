@@ -4,39 +4,44 @@ import { Link } from 'react-router-dom'
 import { css, jsx } from '@emotion/core'
 import ExitButtonContainer from '../components/exitButton.js'
 import { StyledMenuLink, NegativeSecondaryButton } from "../styling/theme"
+import ReactModal from 'react-modal';
 
 class TopBarContainer extends Component {
 
   state = {
-    menuOpen: false,
+    showModal: false
   }
 
-  toggleMenu = () => {
-    var menuOpen = this.state.menuOpen;
+  handleOpenModal = () => {
     this.setState({
-      menuOpen: !menuOpen,
-    })
+      showModal: true
+    });
+  }
+
+  handleCloseModal = () => {
+    this.setState({
+      showModal: false
+    });
+  }
+
+  componentDidMount() {
+    ReactModal.setAppElement('#main');
   }
 
   render() {
     const { userinfo, title } = this.props;
-    const { menuOpen } = this.state;
 
-    if (menuOpen) {
-      return (
-        <div>
-          <MenuModal menuOpen={menuOpen} toggleMenu={this.toggleMenu} userinfo={userinfo} />
-          <TopBar userinfo={userinfo} title={title} menuOpen={menuOpen} toggleMenu={this.toggleMenu} />
-        </div>
-      )
-    }
-    else {
-      return (
-        <div>
-          <TopBar userinfo={userinfo} title={title} menuOpen={menuOpen} toggleMenu={this.toggleMenu} />
-        </div>
-      )
-    }
+    return (
+      <div>
+        <TopBar userinfo={userinfo} title={title} handleOpenModal={this.handleOpenModal} />
+        <ReactModal
+          isOpen={this.state.showModal}
+          contentLabel="Menu Modal"
+        >
+          <Menu userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
+        </ReactModal>
+      </div>
+    )
   }
 }
 
@@ -47,7 +52,7 @@ class TopBar extends Component {
     const userNameHeight = 20;
     const topBarHeight = 55;
 
-    const { userinfo, title, menuOpen, toggleMenu } = this.props;
+    const { userinfo, title, handleOpenModal } = this.props;
 
     return (
       <div className="topBar"
@@ -63,7 +68,7 @@ class TopBar extends Component {
       >
         <ProfileButton userImageHeight={userImageHeight} userNameHeight={userNameHeight} userinfo={userinfo} />
         <TopBarHeader title={title} />
-        <Hamburger toggleMenu={toggleMenu} />
+        <Hamburger handleOpenModal={handleOpenModal} />
       </div>
     )
   }
@@ -143,9 +148,10 @@ class TopBarHeader extends Component {
 
 class Hamburger extends Component {
   render() {
-    const {toggleMenu} = this.props;
+    const { handleOpenModal } = this.props;
     return (
       <div className="HamburgerContainer"
+        onClick={handleOpenModal}
         css={css`
         flex: 1;
         display: flex;
@@ -155,7 +161,6 @@ class Hamburger extends Component {
       >
         <div
           className="hamburger"
-          onClick={toggleMenu}
           css={css`
             height: 9px;
             width: 25px;
@@ -177,6 +182,7 @@ class HamburgerBar extends Component {
   render() {
     return(
       <span
+        className="HamburgerBar"
         css={css`
           height: 3px;
           width: 100%;
@@ -189,52 +195,56 @@ class HamburgerBar extends Component {
   }
 }
 
-class MenuModal extends Component {
-  render() {
-    const { menuOpen, toggleMenu, userinfo } = this.props;
-    return (
-      <div className="menuModal" menuOpen={menuOpen} toggleMenu={toggleMenu}
-        css={css`
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 60px;
-        padding-bottom: 100px;
-      `}
-      >
-        <Menu userinfo={userinfo} menuOpen={menuOpen} toggleMenu={toggleMenu} />
-      </div>
+// class MenuModal extends Component {
+//   render() {
+//     const { userinfo } = this.props;
+//     return (
+//       <div
+//         className="menuModal"
+//         css={css`
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         width: 100%;
+//         height: 100%;
+//         background-color: green;
+//         box-sizing: border-box;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         padding-top: 60px;
+//         padding-bottom: 100px;
+//       `}
+//       >
+//         <Menu userinfo={userinfo} />
+//       </div>
+//
+//     )
+//   }
+// }
 
-    )
-  }
-}
+
+// TODO: Remove Padding and decrease inset for ReactModal ==> How?
 
 class Menu extends Component {
   render() {
     const isAdmin = this.props.userinfo.admin
-    const { toggleMenu } = this.props;
+    const { handleCloseModal } = this.props;
     return (
       <div
+        className="menu"
         css={css`
-        width: 100%;
-        height: 100%;
         border: 1px solid black;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         background: grey;
-        padding: 20px 15px 60px;
+        height: 100%;
         `}
         >
-        <div onClick={e => toggleMenu()}
+        <div onClick={e => handleCloseModal()}
           css={css`
-          align-self: flex-end;
+          margin-left: auto;
           height: 21px;
           width: 21px;
         `}
@@ -273,7 +283,12 @@ class Menu extends Component {
 
 function BasicMenuOptions(props) {
   return (
-    <ul>
+    <ul
+      css={css`
+        padding: 0;
+        list-style: none;
+      `}
+    >
       <li>
         <StyledMenuLink to={'/overview'}>Overview</StyledMenuLink>
       </li>
@@ -285,16 +300,32 @@ function AdminMenuOptions(props) {
   return (
     <ul
       css={css`
+        padding: 0;
         list-style: none;
       `}
     >
-      <li>
+      <li
+        css={css`
+          display: inline-block;
+          width: auto;
+        `}
+      >
         <StyledMenuLink to={'/overview'}>Overview</StyledMenuLink>
       </li>
-      <li>
+      <li
+        css={css`
+          display: inline-block;
+          width: auto;
+        `}
+      >
         <StyledMenuLink to={'/admin/admin_userList'}>AdminUserList</StyledMenuLink>
       </li>
-      <li>
+      <li
+        css={css`
+          display: inline-block;
+          width: auto;
+        `}
+      >
         <StyledMenuLink to={'/admin/admin_productList'}>AdminProductList</StyledMenuLink>
       </li>
     </ul>

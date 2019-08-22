@@ -1,6 +1,7 @@
 // import Customers from './components/customers/customers';
 import React, { Component } from 'react';
 import './App.css';
+import ReactModal from 'react-modal';
 
 import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
 
@@ -13,6 +14,7 @@ import AdminUserList from './pages/admin_userList';
 import AdminProducts from './pages/admin_productList';
 import AdminProductPage from './pages/admin_productPage';
 import AdminProfilePage from './pages/admin_profilePage';
+
 
 class App extends Component {
 
@@ -105,7 +107,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" id="main">
         <Router>
           <nav>
             <ul>

@@ -31,3 +31,12 @@
     transform: rotate(360deg);
   }
 }
+
+body.ReactModal__Body--open {
+  overflow-y: hidden;
+}
+
+.ReactModal__Content--after-open {
+  padding: 0 !important;
+  inset: 20px !important;
+}
