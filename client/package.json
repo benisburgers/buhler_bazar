@@ -9,6 +9,7 @@
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "react-validation": "^3.0.7",
+    "recharts": "^1.7.1",
     "validator": "^11.0.0",
     "yup": "^0.27.0"
   },

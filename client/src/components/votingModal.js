@@ -3,6 +3,8 @@ import OverviewProductList from '../components/overviewProductList.js'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import { MediumHeader, PrimaryButton } from "../styling/theme"
+import PointsLeft from '../components/pieChart.js'
+
 
 class VotingModal extends Component {
   state = {
@@ -93,10 +95,16 @@ class VotingModal extends Component {
             border-radius: 13px;
           `}
         >
-          <MediumHeader>
-            Vout für dini Liebling
-          </MediumHeader>
-          <CreditScore credits={credits} selectedProducts={selectedProducts} creditClassName={creditClassName} />
+          <header
+            css={css`
+              display: flex;
+            `}
+          >
+            <MediumHeader>
+              Vout für dini Liebling
+            </MediumHeader>
+            <CreditScore credits={credits} selectedProducts={selectedProducts} creditClassName={creditClassName} />
+          </header>
           <OverviewProductList selectedProducts={selectedProducts} productTypes={productTypes} products={products} handleCloseModal={handleCloseModal} chooseProduct={chooseProduct}/>
         </div>
         <ModalButtons submitVote={submitVote} handleCloseModal={handleCloseModal} selectedProducts={selectedProducts}/>
@@ -110,8 +118,10 @@ class CreditScore extends Component {
     const { credits, selectedProducts, creditClassName } = this.props;
     return (
       <div className={creditClassName}>
-        <span>{credits - selectedProducts.length}</span>
         <span>CRÄDITS</span>
+        <div className="pieChart-container">
+          <PointsLeft credits={credits} selectedProducts={selectedProducts}/>
+        </div>
       </div>
     )
   }
