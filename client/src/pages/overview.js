@@ -66,7 +66,7 @@ class OverviewButtons extends Component {
           display: flex;
         `}>
         <PrimaryButtonLink to={'/results'}>WUCHEVOITING</PrimaryButtonLink>
-        <PrimaryButton onClick={() => handleOpenModal}>VOUTÄ</PrimaryButton>
+        <PrimaryButton onClick={() => handleOpenModal()}>VOUTÄ</PrimaryButton>
       </div>
     )
   }
