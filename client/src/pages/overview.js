@@ -4,19 +4,22 @@ import { css, jsx } from '@emotion/core'
 import './css/overview.css'
 import TopBarContainer from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
-import ResultsModal from '../components/votingModal.js'
+import ResultsModal from '../components/resultsModal.js'
 import { PrimaryButton, PrimaryButtonLink, InfoText } from "../styling/theme"
 import ReactModal from 'react-modal';
 
 class Overview extends Component {
 
   state = {
-    showModal: false
+    showModal: false,
+    modalContent: undefined
   }
 
-  handleOpenModal = () => {
+  handleOpenModal = (content) => {
     console.log('handleOpenModal');
+    console.log(content);
     this.setState({
+      modalContent: content,
       showModal: true
     });
   }
@@ -24,6 +27,7 @@ class Overview extends Component {
   handleCloseModal = () => {
     console.log('handleCloseModal');
     this.setState({
+      modalContent: undefined,
       showModal: false
     });
   }
@@ -50,7 +54,11 @@ class Overview extends Component {
             }
           }}
         >
-          <VotingModal products={products} handleCloseModal={this.handleCloseModal} productTypes={productTypes} />
+        {
+          this.state.modalContent === 'voting'
+          ? <VotingModal products={products} handleCloseModal={this.handleCloseModal} productTypes={productTypes} />
+          : <ResultsModal handleCloseModal={this.handleCloseModal} products={products} findProperItem={findProperItem} />
+        }
         </ReactModal>
       </section>
     );
@@ -65,8 +73,8 @@ class OverviewButtons extends Component {
         css={css`
           display: flex;
         `}>
-        <PrimaryButtonLink to={'/results'}>WUCHEVOITING</PrimaryButtonLink>
-        <PrimaryButton onClick={() => handleOpenModal()}>VOUTÄ</PrimaryButton>
+        <PrimaryButton onClick={() => handleOpenModal('results')}>WUCHEVOITING</PrimaryButton>
+        <PrimaryButton onClick={() => handleOpenModal('voting')}>VOUTÄ</PrimaryButton>
       </div>
     )
   }

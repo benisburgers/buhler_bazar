@@ -13,7 +13,7 @@ class Results extends Component {
   }
 
   render() {
-    const { products, findProperItem, history } = this.props;
+    const { products, findProperItem } = this.props;
 
     return (
       <section className="results">
@@ -21,7 +21,6 @@ class Results extends Component {
           <h2>Results</h2>
           <WeekNumber />
         </div>
-        <button onClick={history.goBack}>back</button>
         <div className="statistics">
           <ProductList products={products} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
         </div>

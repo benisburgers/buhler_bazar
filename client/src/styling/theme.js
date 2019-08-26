@@ -160,6 +160,13 @@ export const MediumHeader = styled('h2') `
   margin: 0;
 `
 
+export const SmallHeader = styled('h3') `
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 30px;
+  margin: 0;
+`
+
 export const SelectionButton = styled('button') `
   width: 124px;
   padding: 4px 0;
