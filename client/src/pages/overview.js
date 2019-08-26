@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/core'
 import './css/overview.css'
 import TopBarContainer from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
+import ResultsModal from '../components/votingModal.js'
 import { PrimaryButton, PrimaryButtonLink, InfoText } from "../styling/theme"
 import ReactModal from 'react-modal';
 
@@ -65,7 +66,7 @@ class OverviewButtons extends Component {
           display: flex;
         `}>
         <PrimaryButtonLink to={'/results'}>WUCHEVOITING</PrimaryButtonLink>
-        <PrimaryButton onClick={handleOpenModal}>VOUTÄ</PrimaryButton>
+        <PrimaryButton onClick={() => handleOpenModal}>VOUTÄ</PrimaryButton>
       </div>
     )
   }
