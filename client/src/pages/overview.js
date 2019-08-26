@@ -34,23 +34,23 @@ class Overview extends Component {
         <TopBarContainer userinfo={userinfo} title="FUUD" />
         <OverviewButtons handleOpenModal={this.handleOpenModal} />
         <OverviewInfo userinfo={userinfo} products={products} findProperItem={findProperItem} />
-          <ReactModal
-            isOpen={this.state.showModal}
-            contentLabel="Menu Modal"
-            style={{
-              content: {
-                padding: 0,
-                inset: '20px',
-                backgroundColor: 'rgba(0,0,0,0)',
-                border: 'none'
-              },
-              overlay: {
-                backgroundColor: 'rgba(0,0,0,0.8)'
-              }
-            }}
-          >
-            <VotingModal products={products} handleCloseModal={this.handleCloseModal} productTypes={productTypes} />
-          </ReactModal>
+        <ReactModal
+          isOpen={this.state.showModal}
+          contentLabel="Menu Modal"
+          style={{
+            content: {
+              padding: 0,
+              inset: '20px',
+              backgroundColor: 'rgba(0,0,0,0)',
+              border: 'none'
+            },
+            overlay: {
+              backgroundColor: 'rgba(0,0,0,0.8)'
+            }
+          }}
+        >
+          <VotingModal products={products} handleCloseModal={this.handleCloseModal} productTypes={productTypes} />
+        </ReactModal>
       </section>
     );
   };
