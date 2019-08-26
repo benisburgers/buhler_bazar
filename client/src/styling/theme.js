@@ -26,6 +26,9 @@ export const StyledLink = styled('span')`
   cursor: pointer;
   font-size: 16px;
   display: block;
+  font-weight: bold;
+  letter-spacing: 1.23px;
+  line-height: 22px;
 `
 
 export const StyledLabel = StyledLink.withComponent('label')

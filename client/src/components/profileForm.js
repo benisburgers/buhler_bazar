@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { css, jsx } from '@emotion/core'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { StyledLabel, StyledLink, PrimaryButton, NegativeSecondaryButton, ImplicitField } from "../styling/theme"
+import { StyledLabel, StyledLink, PrimaryButton, NegativeSecondaryButton, ImplicitField, ExplicitForm } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
 
 class ProfileForm extends Component {
@@ -79,7 +79,7 @@ class ProfileForm extends Component {
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values }) => (
-            <Form>
+            <ExplicitForm>
               <div>
                 <Thumbnail values={values}/>
                 <input
@@ -112,11 +112,11 @@ class ProfileForm extends Component {
                 <StyledLink onClick={e => toggleFields(this, "lastName")}>Nachname { values.lastName ? "ändere" : "hinzuefüege" }</StyledLink>
                 <ErrorMessage name="lastName" />
               </label>
-              <div>
+              <div className="buttonsContainer">
                 <PrimaryButton type="submit" disabled={isSubmitting}>SCHGUET</PrimaryButton>
                 <NegativeSecondaryButton type="button" onClick={ (e) => deleteUser() }>LÖSCHÄ</NegativeSecondaryButton>
               </div>
-            </Form>
+            </ExplicitForm>
           )}
         />
       </div>
