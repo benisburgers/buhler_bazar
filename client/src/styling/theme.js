@@ -191,3 +191,29 @@ export const SelectionButton = styled('button') `
   };
   border: none;
 `
+
+export const ListImage = styled('img') `
+  max-width: 60px;
+  border-radius: 100%;
+  margin-right: 10px;
+  margin-left: auto;
+`
+
+export const ProductsUsersItem = styled('li') `
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  &:after {
+    content: '';
+    background-color: #D8D8D8;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+  }
+`
+export const NakedUl = styled('ul') `
+  list-style: none;
+  padding: 0;
+`

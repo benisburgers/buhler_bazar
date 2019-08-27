@@ -5,7 +5,7 @@ import './css/overview.css';
 import TopBarContainer from '../components/topbar.js'
 import ChevronLink from '../components/chevronLink'
 import { Link } from 'react-router-dom';
-import { VerySmallHeader } from "../styling/theme";
+import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styling/theme";
 import chevronIcon from "../components/images/chevron.svg"
 import starIcon from "../components/images/star.svg"
 
@@ -75,22 +75,7 @@ class UserList extends Component {
     const { userList } = this.props;
     let userItems = userList.map((entry, index) => {
       return (
-        <li key={index} className="oneUser"
-          css={css`
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            &:after {
-              content: '';
-              background-color: #D8D8D8;
-              width: 100%;
-              height: 1px;
-              position: absolute;
-              bottom: 0;
-            }
-          `}
-        >
+        <ProductsUsersItem key={index} className="oneUser">
           <VerySmallHeader>{entry.firstName} {entry.lastName}</VerySmallHeader>
           {
             entry.admin === true ?
@@ -112,27 +97,15 @@ class UserList extends Component {
             </div>
             : null
           }
-          <img src={entry.picturePath} alt={`${entry.firstName} ${entry.lastName}`}
-            css={css`
-              max-width: 60px;
-              border-radius: 100%;
-              margin-right: 10px;
-              margin-left: auto;
-            `}
-          />
-        <ChevronLink to={{ pathname: `/admin/admin_profilePage/${entry.id}` }} />
-        </li>
+          <ListImage src={entry.picturePath} alt={`${entry.firstName} ${entry.lastName}`} />
+          <ChevronLink to={{ pathname: `/admin/admin_profilePage/${entry.id}` }} />
+        </ProductsUsersItem>
       )
     })
     return (
-      <ul className="userList"
-        css={css`
-          list-style: none;
-          padding: 0;
-        `}
-      >
+      <NakedUl className="userList">
         {userItems}
-      </ul>
+      </NakedUl>
     )
   }
 }
