@@ -36,7 +36,7 @@ class Overview extends Component {
     const { userinfo, products, findProperItem, productTypes } = this.props;
     return (
       <section className="overview">
-        <TopBarContainer userinfo={userinfo} title="FUUD" />
+        <TopBarContainer userinfo={userinfo} title="OWERWIU" />
         <OverviewButtons handleOpenModal={this.handleOpenModal} />
         <OverviewInfo userinfo={userinfo} products={products} findProperItem={findProperItem} />
         <ReactModal

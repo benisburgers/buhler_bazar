@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import ProfileForm from '../components/profileForm.js'
+import TopBarContainer from '../components/topbar.js'
 
 class adminProfilePage extends Component {
   state = {
-    user: {
+    targetUser: {
       //get from userList
       id: 1,
       admin: false,
@@ -23,12 +24,13 @@ class adminProfilePage extends Component {
     //   })
   }
   render() {
-    const userinfo = this.state.user;
+    const targetUser = this.state.targetUser;
+    const userinfo = this.props.userinfo;
     const { history, toggleFields } = this.props;
     return (
       <section className="profile">
-        <button onClick={history.goBack}>back</button>
-        <ProfileForm userinfo={userinfo} toggleFields={toggleFields} />
+        <TopBarContainer userinfo={userinfo} title={`${targetUser.firstName}'s Profil`} />
+        <ProfileForm userinfo={targetUser} toggleFields={toggleFields} />
       </section>
     )
   }

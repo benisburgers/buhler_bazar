@@ -5,7 +5,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { StyledLabel, StyledLink, PrimaryButton, NegativeSecondaryButton, ImplicitField, ExplicitForm } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
-import TopBarContainer from '../components/topbar.js'
 
 
 class ProfileForm extends Component {
@@ -61,8 +60,6 @@ class ProfileForm extends Component {
     }
 
     return (
-      <div>
-        <TopBarContainer userinfo={userinfo} title="PROFIL" />
         <Formik
           initialValues = {{
             id: userinfo.id,
@@ -122,7 +119,6 @@ class ProfileForm extends Component {
             </ExplicitForm>
           )}
         />
-      </div>
     )
   }
 }
