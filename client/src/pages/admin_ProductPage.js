@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Thumbnail from '../components/thumbnail'
+import { StyledLabel, StyledLink, PrimaryButton, NegativeSecondaryButton, ImplicitField, ExplicitForm } from "../styling/theme"
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
+
 
 class AdminProductPage extends Component {
   render() {
@@ -45,6 +49,11 @@ class Basic extends Component {
   }
 
   render() {
+
+    const deleteProduct = function() {
+      console.log('deleteProduct');
+    }
+
     const { product, toggleFields } = this.props;
     const { id, name, type, picturePath } = product || '';
     const LoginSchema = Yup.object().shape({
@@ -81,32 +90,39 @@ class Basic extends Component {
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values, handleChange }) => (
-            <Form>
-              <label>
+            <ExplicitForm>
+              <div>
+                <Thumbnail values={values} />
                 <input
                   type="file"
                   onChange={e => {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                   }}
                   name="file"
+                  css={css`
+                    display: none;
+                  `}
                 />
-              <Thumbnail values={values} />
-              </label>
+              <StyledLabel for="file">Profilbild Wächsle</StyledLabel>
+              </div>
               <label>
-                <Field type="text" name="productName" placeholder="Product Name" disabled={this.state.disabledFields.productName} />
-                <span onClick={e => toggleFields(this, "productName")}>{ values.productName ? "Name ändere" : "Deklarierä" }</span>
+                <ImplicitField type="text" name="productName" placeholder="Product Name" disabled={this.state.disabledFields.productName} />
+                <StyledLink onClick={e => toggleFields(this, "productName")}>{ values.productName ? "Name ändere" : "Deklarierä" }</StyledLink>
                 <ErrorMessage name="productName" />
               </label>
               <label>
-                <Field component="select" name="productType" placeholder="Product Type" disabled={this.state.disabledFields.productType} >
+                <ImplicitField component="select" name="productType" placeholder="Product Type" disabled={this.state.disabledFields.productType} >
                   <option value="fruit">fruit</option>
                   <option value="snack">snack</option>
-                </Field>
-                <span onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</span>
+                </ImplicitField>
+                <StyledLink onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</StyledLink>
                 <ErrorMessage name="productType" />
               </label>
-              <button type="submit" disabled={isSubmitting}>ok</button>
-            </Form>
+              <div className="buttonsContainer">
+                <PrimaryButton type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
+                <NegativeSecondaryButton type="button" onClick={ (e) => deleteProduct() }>LÖSCHÄ</NegativeSecondaryButton>
+              </div>
+            </ExplicitForm>
           )}
         />
       </div>

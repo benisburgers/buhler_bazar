@@ -90,7 +90,6 @@ class ProfileForm extends Component {
                   }}
                   name="file"
                   css={css`
-                    color: red;
                     display: none;
                     `
                   }
