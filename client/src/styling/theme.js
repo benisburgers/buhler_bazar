@@ -1,8 +1,7 @@
-/** @jsx jsx */
-// import { css, jsx } from '@emotion/core'
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 import { Field, ErrorMessage, Form } from 'formik';
+
 
 //Buttons and Links
 export const Button = styled.button`
@@ -165,6 +164,14 @@ export const SmallHeader = styled('h3') `
   font-weight: bold;
   line-height: 30px;
   margin: 0;
+`
+
+export const VerySmallHeader = styled('h4') `
+  color: #515151;
+  font-family: "Avenir Next";
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 23px;
 `
 
 export const SelectionButton = styled('button') `
