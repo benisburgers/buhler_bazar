@@ -76,7 +76,6 @@ class WeekNumber extends Component {
             height: 60px;
             width: 60px;
             border-radius: 100%;
-            margin-left: auto;
           `}
         >
           <span className="weekNumber"
