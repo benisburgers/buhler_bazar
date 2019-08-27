@@ -97,7 +97,7 @@ class UserList extends Component {
             </div>
             : null
           }
-          <ListImage src={entry.picturePath} alt={`${entry.firstName} ${entry.lastName}`} />
+          <ListImage round src={entry.picturePath} alt={`${entry.firstName} ${entry.lastName}`} />
           <ChevronLink to={{ pathname: `/admin/admin_profilePage/${entry.id}` }} />
         </ProductsUsersItem>
       )

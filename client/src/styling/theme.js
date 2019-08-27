@@ -194,7 +194,9 @@ export const SelectionButton = styled('button') `
 
 export const ListImage = styled('img') `
   max-width: 60px;
-  border-radius: 100%;
+  border-radius: ${props =>
+    props.round ? '100%' : '0'
+  };
   margin-right: 10px;
   margin-left: auto;
 `

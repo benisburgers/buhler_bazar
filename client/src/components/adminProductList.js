@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import withFilter from '../components/withFilter'
+import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styling/theme";
+import ChevronLink from '../components/chevronLink'
+
 
 class AdminProductList extends Component {
   openProduct = (productId) => {
@@ -12,27 +15,22 @@ class AdminProductList extends Component {
     const { filteredProducts } = this.props;
     let productItems = filteredProducts.map((entry, index) => {
       return (
-        <li key={index}>
-          <span>{entry.name}</span>
-          <br></br>
-          <span>{entry.picturePath}</span>
-          <br></br>
-          <Link to={{
+        <ProductsUsersItem key={index}>
+          <VerySmallHeader>{entry.name}</VerySmallHeader>
+          <ListImage src={entry.picturePath} alt={entry.name} />
+          <ChevronLink to={{
               pathname: `/admin/admin_productPage/${entry.id}`,
 
           }}>
             Check it out
-          </Link>
-
-          <br></br>
-          <br></br>
-        </li>
+          </ChevronLink>
+        </ProductsUsersItem>
       )
     })
     return (
-        <div>
-          <ul>{productItems}</ul>
-        </div>
+        <NakedUl>
+          {productItems}
+        </NakedUl>
     )
   }
 }
