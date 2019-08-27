@@ -111,10 +111,10 @@ class Basic extends Component {
                 <ErrorMessage name="productName" />
               </label>
               <label>
-                <ImplicitField component="select" name="productType" placeholder="Product Type" disabled={this.state.disabledFields.productType} >
+                <select component="select" name="productType" placeholder="Product Type" disabled={this.state.disabledFields.productType} >
                   <option value="fruit">fruit</option>
                   <option value="snack">snack</option>
-                </ImplicitField>
+                </select>
                 <StyledLink onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</StyledLink>
                 <ErrorMessage name="productType" />
               </label>
