@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { css, jsx } from '@emotion/core';
 import './css/overview.css';
 import TopBarContainer from '../components/topbar.js'
-import RoundArrowButton from '../components/roundArrowButton'
+import ChevronLink from '../components/chevronLink'
 import { Link } from 'react-router-dom';
 import { VerySmallHeader } from "../styling/theme";
 import chevronIcon from "../components/images/chevron.svg"
@@ -120,25 +120,7 @@ class UserList extends Component {
               margin-left: auto;
             `}
           />
-        <Link to={{ pathname: `/admin/admin_profilePage/${entry.id}` }}
-          css={css`
-            background: black;
-            height: 21px;
-            width: 21px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 100%;
-            position: relative;
-          `}
-        >
-          <img src={chevronIcon} alt="chevronIcon"
-            css={css`
-              max-width: 7px;
-              padding-left: 2px;
-            `}
-          />
-        </Link>
+        <ChevronLink to={{ pathname: `/admin/admin_profilePage/${entry.id}` }} />
         </li>
       )
     })
