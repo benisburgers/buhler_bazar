@@ -28,7 +28,6 @@ class adminProfilePage extends Component {
     return (
       <section className="profile">
         <button onClick={history.goBack}>back</button>
-        <h2>adminProfilePage</h2>
         <ProfileForm userinfo={userinfo} toggleFields={toggleFields} />
       </section>
     )
