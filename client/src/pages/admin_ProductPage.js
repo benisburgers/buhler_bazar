@@ -67,7 +67,7 @@ class Basic extends Component {
     const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
     const FILE_SIZE = 1e+7;
 
-    var fileFormat = undefined;
+    var fileType = undefined;
     var fileSize = undefined;
 
     const LoginSchema = Yup.object().shape({
@@ -75,14 +75,14 @@ class Basic extends Component {
 
       file: Yup.mixed()
         .required('Das Produkt brucht es Bild')
-        .test('fileSize', "Chliner wie 10mb", value => {
+        .test('fileSize', "Bild muss chliner als 10mb sie", value => {
           if (value) {
-            return value.size <= FILE_SIZE
+            return fileSize ? fileSize <= FILE_SIZE : true;
           }
         })
         .test('fileType', "Numme folgendi Format: JPG, JPEG, GIF, PNG", value => {
           if (value) {
-            return SUPPORTED_FORMATS.includes(value.type)
+            return fileType ? SUPPORTED_FORMATS.includes(fileType) : true;
           }
         }),
 
@@ -125,16 +125,14 @@ class Basic extends Component {
                   type="file"
                   onChange={e => {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
-                     fileFormat = e.target.files[0].type;
+                     fileType = e.target.files[0].type;
                      fileSize = e.target.files[0].size;
-                     console.log(e.target.files[0]);
-                     console.log(fileSize);
-                     console.log(fileFormat);
                   }}
                   name="file"
                   css={css`
                     display: none;
                   `}
+                  accept=".jpg, .jpeg, .png"
                 />
                 <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
                 <ErrorMessage name="file" />
