@@ -5,6 +5,7 @@ import thumbnail_icon from '../components/images/thumbnail-icon.svg';
 
 function Thumbnail(props) {
   const { values } = props;
+  console.log(values);
   if (values.file) {
     return (
       <img src={values.file} alt={values.productName}

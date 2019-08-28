@@ -81,7 +81,7 @@ class ProfileForm extends Component {
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values }) => (
             <ExplicitForm>
               <div>
-                <Thumbnail values={values}/>
+                <Thumbnail values={values} />
                 <input
                   id="file"
                   type="file"
@@ -91,10 +91,9 @@ class ProfileForm extends Component {
                   name="file"
                   css={css`
                     display: none;
-                    `
-                  }
+                  `}
                 />
-                <StyledLabel for="file">Profilbild Wächsle</StyledLabel>
+                <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
               </div>
               <label>
                 <ImplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />

@@ -63,20 +63,38 @@ class Basic extends Component {
     options = productTypes.map(entry => {
       return { value: entry, label: entry }
     })
-    console.log(options);
+
+    const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
+    const FILE_SIZE = 1e+7;
+
+    var fileFormat = undefined;
+    var fileSize = undefined;
 
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
 
+      file: Yup.mixed()
+        .required('Das Produkt brucht es Bild')
+        .test('fileSize', "Chliner wie 10mb", value => {
+          if (value) {
+            return value.size <= FILE_SIZE
+          }
+        })
+        .test('fileType', "Numme folgendi Format: JPG, JPEG, GIF, PNG", value => {
+          if (value) {
+            return SUPPORTED_FORMATS.includes(value.type)
+          }
+        }),
+
       productName: Yup.string()
         .min(2)
         .max(20)
-        .required(),
+        .required('Das Produkt brucht en Name'),
 
       productType: Yup.string()
         .min(2)
         .max(20)
-        .required()
+        .required('Das Produkt brucht en Typ')
     })
 
     return (
@@ -103,16 +121,23 @@ class Basic extends Component {
               <div>
                 <Thumbnail values={values} />
                 <input
+                  id="file"
                   type="file"
                   onChange={e => {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
+                     fileFormat = e.target.files[0].type;
+                     fileSize = e.target.files[0].size;
+                     console.log(e.target.files[0]);
+                     console.log(fileSize);
+                     console.log(fileFormat);
                   }}
                   name="file"
                   css={css`
                     display: none;
                   `}
                 />
-              <StyledLabel for="file">Profilbild Wächsle</StyledLabel>
+                <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
+                <ErrorMessage name="file" />
               </div>
               <label>
                 <ImplicitField type="text" name="productName" placeholder="Product Name" disabled={this.state.disabledFields.productName} />
@@ -126,9 +151,11 @@ class Basic extends Component {
                   placeholder="Product Type"
                   isDisabled={this.state.disabledFields.productType}
                   value={options.find(option => option.value === values.productType)}
-                  onInputChange={
+                  onChange={
                     e => {
-                      console.log('e');
+                      console.log(e);
+                      console.log(options.find(option => option.value === values.productType));
+                      setFieldValue('productType', e.value);
                     }
                   }
                 />
