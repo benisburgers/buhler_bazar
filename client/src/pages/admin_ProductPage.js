@@ -5,16 +5,17 @@ import Thumbnail from '../components/thumbnail'
 import { StyledLabel, StyledLink, PrimaryButton, NegativeSecondaryButton, ImplicitField, ExplicitForm } from "../styling/theme"
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
+import Select from 'react-select'
 
 
 class AdminProductPage extends Component {
   render() {
-    const { findProperItem, products, match, history, toggleFields } = this.props;
+    const { findProperItem, products, match, history, toggleFields, productTypes } = this.props;
     var product = findProperItem(products, parseInt(match.params.id));
     return (
       <section className="admin_productPage">
         <button onClick={history.goBack}>back</button>
-        <Basic product={product} toggleFields={toggleFields} />
+        <Basic product={product} productTypes={productTypes} toggleFields={toggleFields} />
       </section>
     )
   }
@@ -54,8 +55,16 @@ class Basic extends Component {
       console.log('deleteProduct');
     }
 
-    const { product, toggleFields } = this.props;
+    var options = [];
+
+    const { product, productTypes, toggleFields } = this.props;
     const { id, name, type, picturePath } = product || '';
+
+    options = productTypes.map(entry => {
+      return { value: entry, label: entry }
+    })
+    console.log(options);
+
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
 
@@ -111,10 +120,18 @@ class Basic extends Component {
                 <ErrorMessage name="productName" />
               </label>
               <label>
-                <select component="select" name="productType" placeholder="Product Type" disabled={this.state.disabledFields.productType} >
-                  <option value="fruit">fruit</option>
-                  <option value="snack">snack</option>
-                </select>
+                <Select
+                  options={options}
+                  name="productType"
+                  placeholder="Product Type"
+                  isDisabled={this.state.disabledFields.productType}
+                  value={options.find(option => option.value === values.productType)}
+                  onInputChange={
+                    e => {
+                      console.log('e');
+                    }
+                  }
+                />
                 <StyledLink onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</StyledLink>
                 <ErrorMessage name="productType" />
               </label>
