@@ -85,7 +85,7 @@ class AdminUserList extends Component {
   }
 
   render() {
-    const { userinfo } = this.props;
+    const { userinfo, toggleFields } = this.props;
     const { userList, activeUserId } = this.state;
     return (
       <section className="admin_userList">
@@ -106,7 +106,7 @@ class AdminUserList extends Component {
             }
           }}
         >
-          <ProfileForm userinfo={userList.find(user => user.id === activeUserId)} toggleFields={this.handleCloseModal} />
+          <ProfileForm userinfo={userList.find(user => user.id === activeUserId)} toggleFields={toggleFields} />
         </ReactModal>
       </section>
     )
