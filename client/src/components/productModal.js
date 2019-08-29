@@ -11,17 +11,22 @@ class ProductModal extends Component {
     console.log(product);
     return (
       <ModalContent>
-        <ModalMainPart height="100%">
+        <ModalMainPart height="100%"
+          css={css`
+            text-align: center;
+          `}
+        >
           <ModalHeader>
-          <div className="exitButtonContainer"
-            css={css`
-              height: 21px;
-              width: 21px;
-              margin-left: auto;
-            `}
-          >
-            <ExitButtonContainer lineColor="green" />
-          </div>
+            <div className="exitButtonContainer"
+              css={css`
+                height: 21px;
+                width: 21px;
+                margin-left: auto;
+              `}
+              onClick={e => handleCloseModal()}
+            >
+              <ExitButtonContainer lineColor="green" />
+            </div>
           </ModalHeader>
           <ProductForm product={product} productTypes={productTypes} toggleFields={toggleFields} handleCloseModal={handleCloseModal}/>
         </ModalMainPart>
