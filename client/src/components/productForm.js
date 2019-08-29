@@ -146,9 +146,13 @@ class ProductForm extends Component {
                 <StyledLink onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</StyledLink>
                 <ErrorMessage name="productType" />
               </label>
-              <div className="buttonsContainer">
-                <PrimaryButton type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
-                <NegativeSecondaryButton type="button" onClick={ (e) => deleteProduct() }>LÖSCHÄ</NegativeSecondaryButton>
+              <div className="buttonsContainer"
+                css={css`
+                  display: flex;
+                `}
+              >
+                <PrimaryButton width="60%" type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
+                <PrimaryButton negative width="40%" onClick={ (e) => deleteProduct() }>LÖSCHÄ</PrimaryButton>
               </div>
             </ExplicitForm>
           )}

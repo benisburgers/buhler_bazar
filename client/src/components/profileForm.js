@@ -111,9 +111,13 @@ class ProfileForm extends Component {
                 <StyledLink onClick={e => toggleFields(this, "lastName")}>Nachname { values.lastName ? "ändere" : "hinzuefüege" }</StyledLink>
                 <ErrorMessage name="lastName" />
               </label>
-              <div className="buttonsContainer">
-                <PrimaryButton type="submit" disabled={isSubmitting}>SCHGUET</PrimaryButton>
-                <NegativeSecondaryButton type="button" onClick={ (e) => deleteUser() }>LÖSCHÄ</NegativeSecondaryButton>
+              <div className="buttonsContainer"
+                css={css`
+                  display: flex;
+                `}
+              >
+                <PrimaryButton width="60%" type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
+                <PrimaryButton negative width="40%" onClick={ (e) => deleteUser() }>LÖSCHÄ</PrimaryButton>
               </div>
             </ExplicitForm>
           )}
