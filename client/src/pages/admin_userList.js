@@ -3,10 +3,9 @@ import React, {Component} from 'react';
 import { css, jsx } from '@emotion/core';
 import './css/overview.css';
 import TopBarContainer from '../components/topbar.js'
-import ChevronLink from '../components/chevronLink'
+import ChevronButton from '../components/chevronButton'
 import { Link } from 'react-router-dom';
 import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styling/theme";
-import chevronIcon from "../components/images/chevron.svg"
 import starIcon from "../components/images/star.svg"
 import ReactModal from 'react-modal';
 import ProfileForm from '../components/profileForm.js'
@@ -133,7 +132,7 @@ class UserList extends Component {
             : null
           }
           <ListImage round src={entry.picturePath} alt={`${entry.firstName} ${entry.lastName}`} />
-          <ChevronLink onClick={() => handleOpenModal(entry.id)} />
+          <ChevronButton onClick={() => handleOpenModal(entry.id)}>hello</ChevronButton>
         </ProductsUsersItem>
       )
     })

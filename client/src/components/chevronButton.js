@@ -4,10 +4,11 @@ import { css, jsx } from '@emotion/core';
 import { Cta } from "../styling/theme";
 import chevronIcon from "../components/images/chevron.svg"
 
-class ChevronLink extends Component {
+class ChevronButton extends Component {
   render(props) {
     return (
       <Cta
+        onClick={this.props.onClick}
         css={css`
           background: black;
           height: 21px;
@@ -30,4 +31,4 @@ class ChevronLink extends Component {
   }
 }
 
-export default ChevronLink
+export default ChevronButton

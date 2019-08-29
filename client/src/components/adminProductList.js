@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import withFilter from '../components/withFilter'
 import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styling/theme";
-import ChevronLink from '../components/chevronLink'
+import ChevronButton from '../components/chevronButton'
 
 
 class AdminProductList extends Component {
@@ -18,12 +18,12 @@ class AdminProductList extends Component {
         <ProductsUsersItem key={index}>
           <VerySmallHeader>{entry.name}</VerySmallHeader>
           <ListImage src={entry.picturePath} alt={entry.name} />
-          <ChevronLink to={{
+          <ChevronButton to={{
               pathname: `/admin/admin_productPage/${entry.id}`,
 
           }}>
             Check it out
-          </ChevronLink>
+          </ChevronButton>
         </ProductsUsersItem>
       )
     })
