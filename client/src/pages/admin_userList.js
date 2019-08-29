@@ -37,7 +37,7 @@ class AdminUserList extends Component {
         firstName: "Salvatore",
         lastName: "Viola",
         email: "savlatore@buehler-buehler.ch",
-        picturePath: "salvatore3.jpeg"
+        picturePath: "https://www.buehler-buehler.ch/media/navigation/sitemap/13/salvatore-2.jpg"
       },
       {
         id: 4,
