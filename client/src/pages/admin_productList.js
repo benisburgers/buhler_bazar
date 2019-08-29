@@ -71,7 +71,7 @@ class AdminProducts extends Component {
               }
             }}
           >
-            <ProductModal product={activeProductId ? products.find(product => product.id === activeProductId) : undefined} productTypes={productTypes} toggleFields={toggleFields} />
+            <ProductModal product={activeProductId ? products.find(product => product.id === activeProductId) : undefined} productTypes={productTypes} toggleFields={toggleFields} handleCloseModal={this.handleCloseModal} />
           </ReactModal>
       </section>
     )

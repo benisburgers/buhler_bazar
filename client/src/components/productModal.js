@@ -4,7 +4,7 @@ import ProductForm from '../components/productForm.js'
 
 class ProductModal extends Component {
   render() {
-    const {product, productTypes, toggleFields} = this.props;
+    const {product, productTypes, toggleFields, handleCloseModal} = this.props;
     console.log(product);
     return (
       <ModalContent>
@@ -14,7 +14,7 @@ class ProductModal extends Component {
               ProductModal
             </MediumHeader>
           </ModalHeader>
-          <ProductForm product={product} productTypes={productTypes} toggleFields={toggleFields} />
+          <ProductForm product={product} productTypes={productTypes} toggleFields={toggleFields} handleCloseModal={handleCloseModal}/>
         </ModalMainPart>
       </ModalContent>
     )

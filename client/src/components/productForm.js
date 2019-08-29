@@ -42,7 +42,7 @@ class ProductForm extends Component {
 
     var options = [];
 
-    const { product, productTypes, toggleFields } = this.props;
+    const { product, productTypes, toggleFields, handleCloseModal } = this.props;
     const { id, name, type, picturePath } = product || '';
 
     options = productTypes.map(entry => {
@@ -99,6 +99,7 @@ class ProductForm extends Component {
               setSubmitting(false);
               //check if email exists in database
               this.pushData(values);
+              handleCloseModal();
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values, handleChange }) => (
