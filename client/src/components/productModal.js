@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { MediumHeader, ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
 import ProductForm from '../components/productForm.js'
+import ExitButtonContainer from '../components/exitButton.js'
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
 
 class ProductModal extends Component {
   render() {
@@ -10,9 +13,15 @@ class ProductModal extends Component {
       <ModalContent>
         <ModalMainPart height="100%">
           <ModalHeader>
-            <MediumHeader>
-              ProductModal
-            </MediumHeader>
+          <div className="exitButtonContainer"
+            css={css`
+              height: 21px;
+              width: 21px;
+              margin-left: auto;
+            `}
+          >
+            <ExitButtonContainer lineColor="green" />
+          </div>
           </ModalHeader>
           <ProductForm product={product} productTypes={productTypes} toggleFields={toggleFields} handleCloseModal={handleCloseModal}/>
         </ModalMainPart>

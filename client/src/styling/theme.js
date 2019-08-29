@@ -93,7 +93,7 @@ export const ExitButton = styled('div')(
     flexDirection: "column",
     justifyContent: "center",
     width: "100%",
-    height: "100%",
+    height: "100%"
   },
   props => ({ background: props.color })
 )
