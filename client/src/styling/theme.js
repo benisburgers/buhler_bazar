@@ -219,3 +219,24 @@ export const NakedUl = styled('ul') `
   list-style: none;
   padding: 0;
 `
+ export const Modal = styled('div') `
+   padding: 0px;
+   height: 100%;
+   overflow-y: hidden;
+ `
+
+ export const ModalMainPart = styled('div') `
+   padding: 21px;
+   background: white;
+   overflow: scroll;
+   border-radius: 13px;
+   height: ${props =>
+     props.height ? props.height : 'initial'
+   };
+ `
+
+ export const ModalHeader = styled('div') `
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+ `

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { MediumHeader, PrimaryButton, SmallHeader } from "../styling/theme"
+import { MediumHeader, PrimaryButton, SmallHeader, Modal, ModalMainPart, ModalHeader } from "../styling/theme"
 import handIcon from "../components/images/hand.png"
 
 class ResultsModal extends Component {
@@ -18,39 +18,19 @@ class ResultsModal extends Component {
   render() {
     const { handleCloseModal, products, findProperItem } = this.props;
     return (
-      <div className="votingModal"
-        css={css`
-          padding: 0px;
-          height: 100%;
-          overflow-y: hidden;
-        `}>
-
-        <div className="mainPart"
-          css={css`
-            padding: 21px;
-            background: white;
-            height: 80%;
-            overflow: scroll;
-            border-radius: 13px;
-          `}
-        >
-          <header
-            css={css`
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-            `}
-          >
+      <Modal className="votingModal">
+        <ModalMainPart className="mainPart" height="80%">
+          <ModalHeader>
             <MediumHeader>
               Results
             </MediumHeader>
             <WeekNumber />
-          </header>
+          </ModalHeader>
           <ProductList products={products} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
-        </div>
+        </ModalMainPart>
 
         <ModalButtons handleCloseModal={handleCloseModal} />
-      </div>
+      </Modal>
     )
   }
 }

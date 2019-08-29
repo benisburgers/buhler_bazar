@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import OverviewProductList from '../components/overviewProductList.js'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { MediumHeader, PrimaryButton } from "../styling/theme"
+import { MediumHeader, PrimaryButton, Modal, ModalMainPart, ModalHeader } from "../styling/theme"
 import PointsLeft from '../components/pieChart.js'
 
 
@@ -80,35 +80,18 @@ class VotingModal extends Component {
     const { credits, selectedProducts, creditClassName } = this.state;
     const { chooseProduct, submitVote } = this;
     return (
-      <div className="votingModal"
-        css={css`
-          padding: 0px;
-          height: 100%;
-          overflow-y: hidden;
-        `}>
-        <div className="mainPart"
-          css={css`
-            padding: 21px;
-            background: white;
-            height: 80%;
-            overflow: scroll;
-            border-radius: 13px;
-          `}
-        >
-          <header
-            css={css`
-              display: flex;
-            `}
-          >
+      <Modal className="votingModal">
+        <ModalMainPart className="mainPart" height="80%">
+          <ModalHeader>
             <MediumHeader>
               Vout für dini Liebling
             </MediumHeader>
             <CreditScore credits={credits} selectedProducts={selectedProducts} creditClassName={creditClassName} />
-          </header>
+          </ModalHeader>
           <OverviewProductList selectedProducts={selectedProducts} productTypes={productTypes} products={products} handleCloseModal={handleCloseModal} chooseProduct={chooseProduct}/>
-        </div>
+        </ModalMainPart>
         <ModalButtons submitVote={submitVote} handleCloseModal={handleCloseModal} selectedProducts={selectedProducts}/>
-      </div>
+      </Modal>
     )
   }
 }
