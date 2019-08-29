@@ -48,12 +48,11 @@ class AdminProducts extends Component {
         <TopBarContainer title="PRODÜKT" userinfo={userinfo} />
         <div
           onClick={() => this.handleOpenModal()}
+          css={css`
+            margin-left: auto;
+          `}
         >
-          <PlusButton
-            css={css`
-              align-self: flex-end;
-            `}
-          />
+          <PlusButton />
         </div>
         <AdminProductList productTypes={productTypes} products={products} handleOpenModal={this.handleOpenModal} />
           <ReactModal
