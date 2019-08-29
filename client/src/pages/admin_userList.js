@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styling/theme";
 import chevronIcon from "../components/images/chevron.svg"
 import starIcon from "../components/images/star.svg"
+import ReactModal from 'react-modal';
 
 class AdminUserList extends Component {
 
@@ -65,6 +66,22 @@ class AdminUserList extends Component {
       <section className="admin_userList">
         <TopBarContainer userinfo={userinfo} title="JUSER" />
         <UserList userList={this.state.userList}/>
+        <ReactModal
+          isOpen={this.state.showModal}
+          contentLabel="Menu Modal"
+          style={{
+            content: {
+              padding: 0,
+              inset: '20px',
+              backgroundColor: 'rgba(0,0,0,0)',
+              border: 'none'
+            },
+            overlay: {
+              backgroundColor: 'rgba(0,0,0,0.8)'
+            }
+          }}
+        >
+        </ReactModal>
       </section>
     )
   }

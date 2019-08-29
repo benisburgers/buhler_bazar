@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { MediumHeader, PrimaryButton, SmallHeader, Modal, ModalMainPart, ModalHeader } from "../styling/theme"
+import { MediumHeader, PrimaryButton, SmallHeader, ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
 import handIcon from "../components/images/hand.png"
 
 class ResultsModal extends Component {
@@ -18,7 +18,7 @@ class ResultsModal extends Component {
   render() {
     const { handleCloseModal, products, findProperItem } = this.props;
     return (
-      <Modal className="votingModal">
+      <ModalContent className="votingModal">
         <ModalMainPart className="mainPart" height="80%">
           <ModalHeader>
             <MediumHeader>
@@ -28,9 +28,8 @@ class ResultsModal extends Component {
           </ModalHeader>
           <ProductList products={products} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
         </ModalMainPart>
-
         <ModalButtons handleCloseModal={handleCloseModal} />
-      </Modal>
+      </ModalContent>
     )
   }
 }

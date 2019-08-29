@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 import { Field, ErrorMessage, Form } from 'formik';
+import ReactModal from 'react-modal';
 
 
 //Buttons and Links
@@ -222,7 +223,7 @@ export const NakedUl = styled('ul') `
   list-style: none;
   padding: 0;
 `
- export const Modal = styled('div') `
+ export const ModalContent = styled('div') `
    padding: 0px;
    height: 100%;
    overflow-y: hidden;
