@@ -111,7 +111,7 @@ class AdminUserList extends Component {
             }
           }}
         >
-          <ProfileModal userinfo={userList.find(user => user.id === activeUserId)} handleCloseModal={this.handleCloseModal} toggleFields={toggleFields} />
+          <ProfileModal userinfo={activeUserId ? userList.find(user => user.id === activeUserId) : undefined} handleCloseModal={this.handleCloseModal} toggleFields={toggleFields} />
         </ReactModal>
       </section>
     )

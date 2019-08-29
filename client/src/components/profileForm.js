@@ -38,6 +38,7 @@ class ProfileForm extends Component {
 
   render() {
     const { userinfo, toggleFields, handleCloseModal } = this.props;
+    const { id, picturePath, email, firstName, lastName } = userinfo || '';
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
       email: Yup.string()
@@ -62,11 +63,11 @@ class ProfileForm extends Component {
     return (
         <Formik
           initialValues = {{
-            id: userinfo.id,
-            file: userinfo.picturePath,
-            email: userinfo.email,
-            firstName: userinfo.firstName,
-            lastName: userinfo.lastName
+            id: id,
+            file: picturePath,
+            email: email,
+            firstName: firstName,
+            lastName: lastName
           }}
           validationSchema = {LoginSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {

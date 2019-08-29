@@ -7,8 +7,7 @@ import { css, jsx } from '@emotion/core'
 
 class ProductModal extends Component {
   render() {
-    const {product, productTypes, toggleFields, handleCloseModal} = this.props;
-    console.log(product);
+    const {product, productTypes, toggleFields, handleCloseModal } = this.props;
     return (
       <ModalContent>
         <ModalMainPart height="100%"
