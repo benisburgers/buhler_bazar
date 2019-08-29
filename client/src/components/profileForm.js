@@ -37,7 +37,7 @@ class ProfileForm extends Component {
   }
 
   render() {
-    const { userinfo, toggleFields } = this.props;
+    const { userinfo, toggleFields, handleCloseModal } = this.props;
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
       email: Yup.string()
@@ -76,6 +76,7 @@ class ProfileForm extends Component {
               setSubmitting(false);
               //check if email exists in database
               this.pushData(values);
+              handleCloseModal();
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values }) => (
