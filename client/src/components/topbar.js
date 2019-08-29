@@ -5,22 +5,28 @@ import { css, jsx } from '@emotion/core'
 import ExitButtonContainer from '../components/exitButton.js'
 import { StyledMenuLink, NegativeSecondaryButton } from "../styling/theme"
 import ReactModal from 'react-modal';
+import ProfileForm from '../components/profileForm.js'
+
 
 class TopBarContainer extends Component {
 
   state = {
-    showModal: false
+    showModal: false,
+    modalContent: undefined
   }
 
-  handleOpenModal = () => {
+  handleOpenModal = (content) => {
+    console.log(content);
     this.setState({
+      modalContent: content,
       showModal: true
     });
   }
 
   handleCloseModal = () => {
     this.setState({
-      showModal: false
+      showModal: false,
+      modalContent: undefined
     });
   }
 
@@ -30,20 +36,25 @@ class TopBarContainer extends Component {
 
   render() {
     const { userinfo, title } = this.props;
+    const { modalContent } = this.state;
 
     return (
       <div>
         <TopBar userinfo={userinfo} title={title} handleOpenModal={this.handleOpenModal} />
         <ReactModal
           isOpen={this.state.showModal}
-          contentLabel="Menu Modal"
+          contentLabel="React Modal"
           style={{
             content: {
               padding: 0,
             }
           }}
         >
-          <Menu userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
+        {
+          modalContent === 'menu'
+          ? <Menu userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
+          : <ProfileForm userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
+        }
         </ReactModal>
       </div>
     )
@@ -71,7 +82,7 @@ class TopBar extends Component {
           margin-bottom: ${((userImageHeight - topBarHeight)/2 + userNameHeight)}px;
         `}
       >
-        <ProfileButton userImageHeight={userImageHeight} userNameHeight={userNameHeight} userinfo={userinfo} />
+        <ProfileButton userImageHeight={userImageHeight} userNameHeight={userNameHeight} userinfo={userinfo} handleOpenModal={handleOpenModal} />
         <TopBarHeader title={title} />
         <Hamburger handleOpenModal={handleOpenModal} />
       </div>
@@ -81,47 +92,41 @@ class TopBar extends Component {
 
 class ProfileButton extends Component {
   render() {
-    const { userinfo, userImageHeight, userNameHeight } = this.props;
+    const { userinfo, userImageHeight, userNameHeight, handleOpenModal } = this.props;
     return (
-      <div className="profileButton" userinfo={userinfo}
+      <div className="profileButton" userinfo={userinfo} onClick={() => handleOpenModal('profile')}
         css={css`
           margin-left: -20px;
           flex: 1;
           display: flex;
         `}>
-        <Link to={'/profile'}
+        <div className="profileThumbnail">
+          <img src={ userinfo.picturePath } alt="user portrait"
             css={css`
-            text-decoration: none
+              height: ${userImageHeight}px;
+              width: ${userImageHeight}px;
+              box-sizing: border-box;
+              border-radius: 100%;
+              box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+              border: 2px solid black;
+              margin-top: 20px;
+              `}
+          />
+          <span
+            css={css`
+              background: grey;
+              color: green;
+              font-size: 13px;
+              line-height: 18px;
+              padding: 1px 10px;
+              border-radius: 11px;
+              display: block;
+              height: ${userNameHeight}px;
             `}
           >
-          <div className="profileThumbnail">
-            <img src={ userinfo.picturePath } alt="user portrait"
-              css={css`
-                height: ${userImageHeight}px;
-                width: ${userImageHeight}px;
-                box-sizing: border-box;
-                border-radius: 100%;
-                box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
-                border: 2px solid black;
-                margin-top: 20px;
-                `}
-            />
-            <span
-              css={css`
-                background: grey;
-                color: green;
-                font-size: 13px;
-                line-height: 18px;
-                padding: 1px 10px;
-                border-radius: 11px;
-                display: block;
-                height: ${userNameHeight}px;
-              `}
-            >
-            {`${userinfo.firstName} ${userinfo.lastName}`}
-          </span>
-          </div>
-        </Link>
+          {`${userinfo.firstName} ${userinfo.lastName}`}
+        </span>
+        </div>
       </div>
     )
   }
@@ -156,7 +161,7 @@ class Hamburger extends Component {
     const { handleOpenModal } = this.props;
     return (
       <div className="HamburgerContainer"
-        onClick={handleOpenModal}
+        onClick={() => handleOpenModal('menu')}
         css={css`
         flex: 1;
         display: flex;

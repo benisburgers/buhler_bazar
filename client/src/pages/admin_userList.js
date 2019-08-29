@@ -80,8 +80,13 @@ class AdminUserList extends Component {
   handleCloseModal = () => {
     console.log('handleCloseModal');
     this.setState({
-      showModal: false
+      showModal: false,
+      activeUserId: undefined
     });
+  }
+
+  componentDidMount() {
+    ReactModal.setAppElement('#main');
   }
 
   render() {

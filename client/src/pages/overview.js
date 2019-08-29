@@ -32,6 +32,10 @@ class Overview extends Component {
     });
   }
 
+  componentDidMount() {
+    ReactModal.setAppElement('#main');
+  }
+
   render() {
     const { userinfo, products, findProperItem, productTypes } = this.props;
     return (
