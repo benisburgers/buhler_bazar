@@ -82,7 +82,6 @@ const withFilter = (WrappedComponent, test) => {
           <WrappedComponent
             filteredProducts={this.state.filteredProducts}
             {... this.props}
-            test=<Test/>
           />
         </div>
       )
@@ -111,7 +110,7 @@ const withFilter = (WrappedComponent, test) => {
               list-style: none;
               display: flex;
               padding-left: 0;
-              justify-content: space-between;
+              justify-content: space-around;
             `}
           >
             {types}
