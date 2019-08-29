@@ -86,10 +86,9 @@ class ModalButtons extends Component {
           display: flex;
         `}
       >
-        <PrimaryButton negative onClick={handleCloseModal}
+        <PrimaryButton width="25%" negative onClick={handleCloseModal}
           css={css`
             margin-left: auto;
-            width: 25%;
           `}
         >
           X

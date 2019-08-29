@@ -122,18 +122,13 @@ class ModalButtons extends Component {
           display: flex;
         `}
       >
-        <PrimaryButton onClick={submitVote}
+        <PrimaryButton width="75%" onClick={submitVote}
           css={css`
-            width: 75%;
             margin-right: 10px;
           `}>
           VOUTÄ
         </PrimaryButton>
-        <PrimaryButton negative onClick={handleCloseModal}
-          css={css`
-            width: 25%;
-          `}
-        >
+        <PrimaryButton negative width="25%" onClick={handleCloseModal}>
           X
         </PrimaryButton>
       </div>

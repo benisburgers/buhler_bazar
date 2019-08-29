@@ -16,7 +16,10 @@ export const PrimaryButton = styled(Button)`
     props.negative ? 'red'
     : 'green'
   };
-  width: 100%;
+  width: ${props =>
+    props.width ? props.width
+    : '100%'
+  };
 `
 
 export const StyledLink = styled('span')`
