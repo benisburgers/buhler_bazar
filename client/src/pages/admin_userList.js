@@ -17,20 +17,26 @@ class AdminUserList extends Component {
     userList:[
       {
         id: 1,
+        admin: true,
         firstName: "Marko",
         lastName: "Lukac",
+        email: "marko@buehler-buehler.ch",
         picturePath: "https://pbs.twimg.com/profile_images/966014949377085440/4Ttk9Ose_400x400.jpg"
       },
       {
         id: 2,
+        admin: true,
         firstName: "Beni",
         lastName: "Bar-Gera",
+        email: "beni@buehler-buehler.ch",
         picturePath: "https://benibargera.com/assets/images/headshot-7d571b0d4ed696cd327956ab44c4adf9.jpg"
       },
       {
         id: 3,
+        admin: false,
         firstName: "Salvatore",
         lastName: "Viola",
+        email: "savlatore@buehler-buehler.ch",
         picturePath: "salvatore3.jpeg"
       },
       {
@@ -58,13 +64,15 @@ class AdminUserList extends Component {
         lastName: "Bühler",
         picturePath: "doris7.jpeg"
       },
-    ]
+    ],
+    activeUserId: undefined
   }
 
   handleOpenModal = (content) => {
     console.log('handleOpenModal');
     console.log(content);
     this.setState({
+      activeUserId: content,
       showModal: true
     });
   }
@@ -78,6 +86,7 @@ class AdminUserList extends Component {
 
   render() {
     const { userinfo } = this.props;
+    const { userList, activeUserId } = this.state;
     return (
       <section className="admin_userList">
         <TopBarContainer userinfo={userinfo} title="JUSER" />
@@ -97,7 +106,7 @@ class AdminUserList extends Component {
             }
           }}
         >
-        hello
+          <ProfileForm userinfo={userList.find(user => user.id === activeUserId)} toggleFields={this.handleCloseModal} />
         </ReactModal>
       </section>
     )
