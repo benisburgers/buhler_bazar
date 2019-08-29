@@ -8,7 +8,7 @@ class ProductModal extends Component {
     console.log(product);
     return (
       <ModalContent>
-        <ModalMainPart>
+        <ModalMainPart height="100%">
           <ModalHeader>
             <MediumHeader>
               ProductModal
