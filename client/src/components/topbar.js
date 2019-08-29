@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/core'
 import ExitButtonContainer from '../components/exitButton.js'
 import { StyledMenuLink, NegativeSecondaryButton } from "../styling/theme"
 import ReactModal from 'react-modal';
-import ProfileForm from '../components/profileForm.js'
+import ProfileModal from '../components/profileModal.js'
 
 
 class TopBarContainer extends Component {
@@ -47,13 +47,19 @@ class TopBarContainer extends Component {
           style={{
             content: {
               padding: 0,
+              inset: '20px',
+              backgroundColor: 'rgba(0,0,0,0)',
+              border: 'none'
+            },
+            overlay: {
+              backgroundColor: 'rgba(0,0,0,0.8)'
             }
           }}
         >
         {
           modalContent === 'menu'
           ? <Menu userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
-          : <ProfileForm userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
+          : <ProfileModal userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
         }
         </ReactModal>
       </div>

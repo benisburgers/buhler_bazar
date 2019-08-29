@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styling/theme";
 import starIcon from "../components/images/star.svg"
 import ReactModal from 'react-modal';
-import ProfileForm from '../components/profileForm.js'
+import ProfileModal from '../components/profileModal.js'
 
 class AdminUserList extends Component {
 
@@ -111,7 +111,7 @@ class AdminUserList extends Component {
             }
           }}
         >
-          <ProfileForm userinfo={userList.find(user => user.id === activeUserId)} handleCloseModal={this.handleCloseModal} toggleFields={toggleFields} />
+          <ProfileModal userinfo={userList.find(user => user.id === activeUserId)} handleCloseModal={this.handleCloseModal} toggleFields={toggleFields} />
         </ReactModal>
       </section>
     )
@@ -146,7 +146,7 @@ class UserList extends Component {
             : null
           }
           <ListImage round src={entry.picturePath} alt={`${entry.firstName} ${entry.lastName}`} />
-          <ChevronButton onClick={() => handleOpenModal(entry.id)}>hello</ChevronButton>
+          <ChevronButton onClick={() => handleOpenModal(entry.id)} />
         </ProductsUsersItem>
       )
     })

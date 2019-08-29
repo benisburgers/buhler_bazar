@@ -6,24 +6,15 @@ import ChevronButton from '../components/chevronButton'
 
 
 class AdminProductList extends Component {
-  openProduct = (productId) => {
-    console.log('productId');
-    console.log(productId);
-  }
 
   render() {
-    const { filteredProducts } = this.props;
+    const { filteredProducts, handleOpenModal } = this.props;
     let productItems = filteredProducts.map((entry, index) => {
       return (
         <ProductsUsersItem key={index}>
           <VerySmallHeader>{entry.name}</VerySmallHeader>
           <ListImage src={entry.picturePath} alt={entry.name} />
-          <ChevronButton to={{
-              pathname: `/admin/admin_productPage/${entry.id}`,
-
-          }}>
-            Check it out
-          </ChevronButton>
+          <ChevronButton onClick={() => handleOpenModal(entry.id)} />
         </ProductsUsersItem>
       )
     })

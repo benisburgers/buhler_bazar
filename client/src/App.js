@@ -129,7 +129,7 @@ class App extends Component {
             <Route path="/results" render={({history}) => <Results history={history} products={this.state.products} findProperItem={this.findProperItem} />} />
             <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} toggleFields={this.toggleFields} /> } />
             <Route path="/admin/admin_profilePage/:id" render={({match, history}) => <AdminProfilePage match={match} history={history} toggleFields={this.toggleFields} userinfo={this.state.user}/>} />
-            <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userinfo={this.state.user} /> } />
+            <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userinfo={this.state.user} toggleFields={this.toggleFields} /> } />
             <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage toggleFields={this.toggleFields} findProperItem={this.findProperItem} products={this.state.products} productTypes={this.state.productTypes} match={match} history={history} />} />
           </Switch>
         </Router>

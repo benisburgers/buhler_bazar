@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core';
 
 function PlusButton(props) {
   return (
-    <div class="plusButton"
+    <div className="plusButton"
       css={css`
         display: flex;
         justify-content: center;

@@ -5,11 +5,39 @@ import AdminProductList from '../components/adminProductList.js'
 import { NakedLink } from "../styling/theme";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-
+import ReactModal from 'react-modal';
+import ProductModal from '../components/productModal'
 
 class AdminProducts extends Component {
+  state = {
+    showModal: false,
+    activeProductId: undefined
+  }
+
+  handleOpenModal = (content) => {
+    console.log('handleOpenModal');
+    console.log(content);
+    this.setState({
+      activeProductId: content,
+      showModal: true
+    });
+  }
+
+  handleCloseModal = () => {
+    console.log('handleCloseModal');
+    this.setState({
+      showModal: false,
+      activeProductId: undefined
+    });
+  }
+
+  componentDidMount() {
+    ReactModal.setAppElement('#main');
+  }
+
   render() {
-    const { products, productTypes, userinfo } = this.props;
+    const { products, productTypes, userinfo, toggleFields } = this.props;
+    const { activeProductId } = this.state;
     return (
       <section className="admin_productList"
         css={css`
@@ -18,27 +46,36 @@ class AdminProducts extends Component {
         `}
       >
         <TopBarContainer title="PRODÜKT" userinfo={userinfo} />
-        <NewProductButton
-          css={css`
-            align-self: flex-end;
-          `}
-        />
-        <AdminProductList productTypes={productTypes} products={products} />
+        <div
+          onClick={() => this.handleOpenModal()}
+        >
+          <PlusButton
+            css={css`
+              align-self: flex-end;
+            `}
+          />
+        </div>
+        <AdminProductList productTypes={productTypes} products={products} handleOpenModal={this.handleOpenModal} />
+          <ReactModal
+            isOpen={this.state.showModal}
+            contentLabel="Menu Modal"
+            style={{
+              content: {
+                padding: 0,
+                inset: '20px',
+                backgroundColor: 'rgba(0,0,0,0)',
+                border: 'none'
+              },
+              overlay: {
+                backgroundColor: 'rgba(0,0,0,0.8)'
+              }
+            }}
+          >
+            <ProductModal product={activeProductId ? products.find(product => product.id === activeProductId) : undefined} productTypes={productTypes} toggleFields={toggleFields} />
+          </ReactModal>
       </section>
     )
   }
-}
-
-function NewProductButton (props) {
-  return (
-    <NakedLink to={'/admin/admin_productPage/new'}
-      css={css`
-        align-self: flex-end;
-      `}
-    >
-      <PlusButton/>
-    </NakedLink>
-  )
 }
 
 export default AdminProducts
