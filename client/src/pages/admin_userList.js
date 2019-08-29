@@ -9,10 +9,12 @@ import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styli
 import chevronIcon from "../components/images/chevron.svg"
 import starIcon from "../components/images/star.svg"
 import ReactModal from 'react-modal';
+import ProfileForm from '../components/profileForm.js'
 
 class AdminUserList extends Component {
 
   state = {
+    showModal: false,
     userList:[
       {
         id: 1,
@@ -60,12 +62,27 @@ class AdminUserList extends Component {
     ]
   }
 
+  handleOpenModal = (content) => {
+    console.log('handleOpenModal');
+    console.log(content);
+    this.setState({
+      showModal: true
+    });
+  }
+
+  handleCloseModal = () => {
+    console.log('handleCloseModal');
+    this.setState({
+      showModal: false
+    });
+  }
+
   render() {
     const { userinfo } = this.props;
     return (
       <section className="admin_userList">
         <TopBarContainer userinfo={userinfo} title="JUSER" />
-        <UserList userList={this.state.userList}/>
+        <UserList userList={this.state.userList} handleOpenModal={this.handleOpenModal}/>
         <ReactModal
           isOpen={this.state.showModal}
           contentLabel="Menu Modal"
@@ -81,6 +98,7 @@ class AdminUserList extends Component {
             }
           }}
         >
+        hello
         </ReactModal>
       </section>
     )
@@ -89,7 +107,7 @@ class AdminUserList extends Component {
 
 class UserList extends Component {
   render() {
-    const { userList } = this.props;
+    const { userList, handleOpenModal } = this.props;
     let userItems = userList.map((entry, index) => {
       return (
         <ProductsUsersItem key={index} className="oneUser">
@@ -115,7 +133,7 @@ class UserList extends Component {
             : null
           }
           <ListImage round src={entry.picturePath} alt={`${entry.firstName} ${entry.lastName}`} />
-          <ChevronLink to={{ pathname: `/admin/admin_profilePage/${entry.id}` }} />
+          <ChevronLink onClick={() => handleOpenModal(entry.id)} />
         </ProductsUsersItem>
       )
     })

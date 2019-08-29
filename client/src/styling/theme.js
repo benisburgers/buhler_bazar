@@ -42,6 +42,8 @@ export const NakedLink = styled(Link)`
   color: inherit;
 `
 
+export const Cta = NakedLink.withComponent('div')
+
 export const PrimaryButtonLink = PrimaryButton.withComponent(NakedLink)
 
 export const BackLink = StyledLink.withComponent('a')
