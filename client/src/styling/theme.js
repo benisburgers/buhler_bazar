@@ -10,12 +10,18 @@ export const Button = styled.button`
 `
 
 export const PrimaryButton = styled(Button)`
+  font-family: "Avenir Next";
+  color: #363636;
+  font-weight: bold;
   font-size: 16px;
+  letter-spacing: 1.44px;
+  line-height: 22px;
   padding: 15px;
   border-radius: 25px;
+  border: none;
   background-color: ${props =>
     props.negative ? 'red'
-    : 'green'
+    : '#A9EEC2'
   };
   width: ${props =>
     props.width ? props.width
@@ -24,7 +30,7 @@ export const PrimaryButton = styled(Button)`
 `
 
 export const StyledLink = styled('span')`
-  color: green;
+  color: #A9EEC2;
   text-decoration: none;
   cursor: pointer;
   font-size: 16px;
@@ -32,6 +38,7 @@ export const StyledLink = styled('span')`
   font-weight: bold;
   letter-spacing: 1.23px;
   line-height: 22px;
+  text-align: center;
 `
 
 export const StyledLabel = StyledLink.withComponent('label')
@@ -109,7 +116,8 @@ export const ExplicitForm = styled (StyledForm) `
   max-width: 250px;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 export const StyledField = styled (Field) `
@@ -246,3 +254,23 @@ export const NakedUl = styled('ul') `
    align-items: center;
    justify-content: space-between;
  `
+
+export const FullHeightSection = styled('section') `
+  height: 100%;
+  box-sizing: border-box;
+  padding: 15px 45px 15px;
+`
+
+export const StyledParagraph = styled('p') `
+  color: #515151;
+  font-family: "Avenir Next";
+  font-size: 17px;
+  line-height: 23px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+
+  :last-child {
+    margin-bottom: 0;
+  }
+`

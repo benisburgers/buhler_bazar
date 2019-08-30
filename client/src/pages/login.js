@@ -3,29 +3,46 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
-import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../styling/theme"
+import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage, FullHeightSection, StyledParagraph, NakedLink } from "../styling/theme"
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+import StartScreen from '../components/images/startscreen.gif'
 
 class Register extends Component {
   render() {
     return (
-      <section className="login">
-        <LogInText />
+      <FullHeightSection className="login"
+        css={css`
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        `}
+      >
+        <img src={StartScreen} alt="StartScreen"
+          css={css`
+            max-width: 100%;
+          `}
+        />
+        <LogInText/>
         <LogInForm />
         <RegistrationButton />
-      </section>
+      </FullHeightSection>
     )
   }
 }
 
 function LogInText(props) {
   return (
-    <div>
-      <p>
+    <div className="loginText"
+      css={css`
+      `}
+    >
+      <StyledParagraph>
         mit de bühlerbazar-äpp chasch du diär frücht und snacks wünschä. für jedä iichauf häsch du 3 credits zur verfüegig. so chönd mir d'nachfrag uf alli wünsch abstimme und de iichauf besser planä. cool hä?
-      </p>
-      <p>
+      </StyledParagraph>
+      <StyledParagraph>
         logg di äfach ii oder regischtriär di wänn no keis konto häsch:
-      </p>
+      </StyledParagraph>
     </div>
   )
 }
@@ -83,18 +100,26 @@ class LogInForm extends Component {
           }}
           render = {({ errors, touched, isSubmitting }) => (
             <ExplicitForm>
-                <ExplicitLabel>
+                <ExplicitLabel
+                  css={css`
+                    margin-bottom: 15px;
+                  `}
+                >
                   <ExplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" />
                   <ExplicitErrorMessage component="p" name="email" />
                 </ExplicitLabel>
-                <ExplicitLabel>
+                <ExplicitLabel
+                  css={css`
+                    margin-bottom: 15px;
+                  `}
+                >
                   <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
                   <ExplicitErrorMessage component="p" name="password" />
                 </ExplicitLabel>
               <PrimaryButton type="submit" disabled={isSubmitting}>
-                <Link to={'/overview'}>
+                <NakedLink to={'/overview'}>
                   LOG DI I
-                </Link>
+                </NakedLink>
               </PrimaryButton>
             </ExplicitForm>
           )}

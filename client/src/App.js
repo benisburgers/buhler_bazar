@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import './App.css';
 import ReactModal from 'react-modal';
 
+/** @jsx jsx */
+import { Global, css, jsx } from '@emotion/core'
 import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import Login from './pages/login';
@@ -15,6 +17,7 @@ import AdminProducts from './pages/admin_productList';
 import AdminProductPage from './pages/admin_productPage';
 import AdminProfilePage from './pages/admin_profilePage';
 
+import Div100vh from 'react-div-100vh'
 
 class App extends Component {
 
@@ -107,21 +110,27 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" id="main">
-        <Router>
-          <Switch>
-            <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
-            <Route exact path="/register" render={({history}) => <Register history={history} />} />
-            <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} products={this.state.products} findProperItem={this.findProperItem} productTypes={this.state.productTypes} /> } />
-            <Route path="/profile" render={({history}) => <Profile history={history} userinfo={this.state.user} toggleFields={this.toggleFields} />} />
-            <Route path="/results" render={({history}) => <Results history={history} products={this.state.products} findProperItem={this.findProperItem} />} />
-            <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} toggleFields={this.toggleFields} /> } />
-            <Route path="/admin/admin_profilePage/:id" render={({match, history}) => <AdminProfilePage match={match} history={history} toggleFields={this.toggleFields} userinfo={this.state.user}/>} />
-            <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userinfo={this.state.user} toggleFields={this.toggleFields} /> } />
-            <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage toggleFields={this.toggleFields} findProperItem={this.findProperItem} products={this.state.products} productTypes={this.state.productTypes} match={match} history={history} />} />
-          </Switch>
-        </Router>
-      </div>
+        <div className="App" id="main">
+        <Global
+          styles={css`
+            html, body, #root, #main {
+              height: 100%;
+          `}
+        />
+          <Router>
+            <Switch>
+              <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
+              <Route exact path="/register" render={({history}) => <Register history={history} />} />
+              <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} products={this.state.products} findProperItem={this.findProperItem} productTypes={this.state.productTypes} /> } />
+              <Route path="/profile" render={({history}) => <Profile history={history} userinfo={this.state.user} toggleFields={this.toggleFields} />} />
+              <Route path="/results" render={({history}) => <Results history={history} products={this.state.products} findProperItem={this.findProperItem} />} />
+              <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} toggleFields={this.toggleFields} /> } />
+              <Route path="/admin/admin_profilePage/:id" render={({match, history}) => <AdminProfilePage match={match} history={history} toggleFields={this.toggleFields} userinfo={this.state.user}/>} />
+              <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userinfo={this.state.user} toggleFields={this.toggleFields} /> } />
+              <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage toggleFields={this.toggleFields} findProperItem={this.findProperItem} products={this.state.products} productTypes={this.state.productTypes} match={match} history={history} />} />
+            </Switch>
+          </Router>
+        </div>
     );
   }
 }
