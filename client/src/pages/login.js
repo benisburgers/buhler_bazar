@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
+import styled from '@emotion/styled'
+import { Link } from 'react-router-dom'
 import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage } from "../styling/theme"
 
 class Register extends Component {
@@ -90,7 +91,11 @@ class LogInForm extends Component {
                   <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
                   <ExplicitErrorMessage component="p" name="password" />
                 </ExplicitLabel>
-              <PrimaryButton type="submit" disabled={isSubmitting}>LOG DI I</PrimaryButton>
+              <PrimaryButton type="submit" disabled={isSubmitting}>
+                <Link to={'/overview'}>
+                  LOG DI I
+                </Link>
+              </PrimaryButton>
             </ExplicitForm>
           )}
         />
