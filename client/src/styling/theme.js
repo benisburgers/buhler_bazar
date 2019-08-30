@@ -16,7 +16,7 @@ export const PrimaryButton = styled(Button)`
   font-size: 16px;
   letter-spacing: 1.44px;
   line-height: 22px;
-  padding: 15px;
+  padding: 15px 10px;
   border-radius: 25px;
   border: none;
   background-color: ${props =>
@@ -234,6 +234,7 @@ export const ProductsUsersItem = styled('li') `
 export const NakedUl = styled('ul') `
   list-style: none;
   padding: 0;
+  margin: 0;
 `
  export const ModalContent = styled('div') `
    padding: 0px;
@@ -260,7 +261,7 @@ export const NakedUl = styled('ul') `
 export const FullHeightSection = styled('section') `
   height: 100%;
   box-sizing: border-box;
-  padding: 15px 45px 15px;
+  padding: 15px;
 `
 
 export const StyledParagraph = styled('p') `
@@ -270,7 +271,7 @@ export const StyledParagraph = styled('p') `
   line-height: 23px;
   text-align: center;
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 
   :last-child {
     margin-bottom: 0;

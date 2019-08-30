@@ -86,6 +86,7 @@ class TopBar extends Component {
           background-color: #363636;
           margin-left: 20px;
           margin-bottom: ${((userImageHeight - topBarHeight)/2 + userNameHeight)}px;
+          margin-top: ${((userImageHeight - topBarHeight)/2)}px;
         `}
       >
         <ProfileButton userImageHeight={userImageHeight} userNameHeight={userNameHeight} userinfo={userinfo} handleOpenModal={handleOpenModal} />

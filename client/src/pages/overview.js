@@ -5,7 +5,7 @@ import './css/overview.css'
 import TopBarContainer from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
 import ResultsModal from '../components/resultsModal.js'
-import { PrimaryButton, PrimaryButtonLink, InfoText } from "../styling/theme"
+import { PrimaryButton, PrimaryButtonLink, InfoText, FullHeightSection, NakedUl } from "../styling/theme"
 import ReactModal from 'react-modal';
 
 class Overview extends Component {
@@ -39,10 +39,27 @@ class Overview extends Component {
   render() {
     const { userinfo, products, findProperItem, productTypes } = this.props;
     return (
-      <section className="overview">
+      <FullHeightSection className="overview"
+        css={css`
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        `}
+      >
         <TopBarContainer userinfo={userinfo} title="OWERWIU" />
-        <OverviewButtons handleOpenModal={this.handleOpenModal} />
-        <OverviewInfo userinfo={userinfo} products={products} findProperItem={findProperItem} />
+        <div className="mainPart"
+          css={css`
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            text-align: center;
+          `}
+        >
+          <OverviewButtons handleOpenModal={this.handleOpenModal} />
+          <CountDown />
+          <PreviousOrder userinfo={userinfo} products={products} findProperItem={findProperItem} />
+        </div>
         <ReactModal
           isOpen={this.state.showModal}
           contentLabel="Menu Modal"
@@ -64,7 +81,7 @@ class Overview extends Component {
           : <ResultsModal handleCloseModal={this.handleCloseModal} products={products} findProperItem={findProperItem} />
         }
         </ReactModal>
-      </section>
+      </FullHeightSection>
     );
   };
 }
@@ -76,21 +93,10 @@ class OverviewButtons extends Component {
       <div className="overviewButtons"
         css={css`
           display: flex;
+          justify-content: space-between;
         `}>
-        <PrimaryButton onClick={() => handleOpenModal('results')}>WUCHEVOITING</PrimaryButton>
-        <PrimaryButton onClick={() => handleOpenModal('voting')}>VOUTÄ</PrimaryButton>
-      </div>
-    )
-  }
-}
-
-class OverviewInfo extends Component {
-  render() {
-    const { userinfo, products, findProperItem } = this.props;
-    return (
-      <div className="overviewInfo">
-        <CountDown />
-        <PreviousOrder userinfo={userinfo} products={products} findProperItem={findProperItem} />
+        <PrimaryButton width="48%" onClick={() => handleOpenModal('results')}>WUCHEVOITING</PrimaryButton>
+        <PrimaryButton width="48%" onClick={() => handleOpenModal('voting')}>VOUTÄ</PrimaryButton>
       </div>
     )
   }
@@ -100,10 +106,13 @@ class CountDown extends Component {
   render() {
     return (
       <div className="countDown">
-        <div>
-          <InfoText>Dä nöchschti Ichauf folgt in</InfoText>
-        </div>
-        <div>
+        <InfoText
+          css={css`
+            margin-bottom: 20px;
+          `}
+        >
+          Dä nöchschti Ichauf folgt in
+        </InfoText>
           <span
             css={css`
             	color: #515151;
@@ -111,11 +120,11 @@ class CountDown extends Component {
             	font-size: 34px;
             	font-weight: bold;
             	line-height: 46px;
+              display: block;
             `}
             >
             <DaysLeft /> TÄG
           </span>
-        </div>
       </div>
     )
   }
@@ -162,17 +171,21 @@ class PreviousOrder extends Component {
 
     return (
       <div className="previousOrder">
-        <InfoText>Dis Voting am {dateString()}</InfoText>
-        <ul className="previousOrderList"
+        <InfoText
           css={css`
-            list-style: none;
+            margin-bottom: 20px;
+          `}
+        >
+          Dis Voting am {dateString()}
+        </InfoText>
+        <NakedUl className="previousOrderList"
+          css={css`
             display: flex;
             justify-content: space-around;
-            padding-left: 0;
             `
           }>
           {previousOrder}
-        </ul>
+        </NakedUl>
       </div>
     )
   }
