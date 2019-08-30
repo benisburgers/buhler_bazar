@@ -146,6 +146,7 @@ class TopBarHeader extends Component {
       <div className="TopBarHeader"
         css={css`
           flex: 1;
+          text-align: center;
         `}
       >
         <span
