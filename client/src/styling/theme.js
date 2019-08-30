@@ -86,10 +86,12 @@ export const SecondaryButton = styled(PrimaryButton) `
 
 const ExitButtonLine = styled('span') `
   width: 100%;
-  height: 2px;
+  height: 3px;
   display: block;
-	background-color: #A9EEC2;
-  `
+  background-color: ${props =>
+    props.color ? props.color : '#A9EEC2'
+  };
+`
 
 export const PosExitButtonLine = styled(ExitButtonLine)`
   transform: rotate(-45deg) translateY(-50%);

@@ -246,7 +246,7 @@ class Menu extends Component {
           width: 21px;
         `}
           >
-          <ExitButtonContainer/>
+          <ExitButtonContainer lineColor="#A9EEC2" />
         </div>
         {isAdmin ? (
             <AdminMenuOptions />
