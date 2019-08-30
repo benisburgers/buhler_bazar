@@ -162,6 +162,7 @@ export const ImplicitField = styled (StyledField) `
 export const InfoText = styled('span') `
   font-size: 17px;
   border-radius: 17px;
+  color: #515151;
   background-color: #F1F1F1;
   padding: 5px 35px;
   line-height: 23px;

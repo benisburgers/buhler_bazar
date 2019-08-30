@@ -121,17 +121,19 @@ class ProfileButton extends Component {
           />
           <span
             css={css`
-              background: grey;
-              color: green;
+              background-color: #363636;
+              color: #A9EEC2;
+              font-weight: 500;
               font-size: 13px;
               line-height: 18px;
               padding: 1px 10px;
               border-radius: 11px;
               display: block;
+              text-align: center;
               height: ${userNameHeight}px;
             `}
           >
-          {`${userinfo.firstName} ${userinfo.lastName}`}
+          {`${userinfo.firstName}`}
         </span>
         </div>
       </div>
@@ -145,8 +147,8 @@ class TopBarHeader extends Component {
     return (
       <div className="TopBarHeader"
         css={css`
-          flex: 1;
           text-align: center;
+          flex: 1;
         `}
       >
         <span
@@ -154,6 +156,7 @@ class TopBarHeader extends Component {
             font-size: 22px;
             font-weight: 900;
             line-height: 30px;
+            font-family: "Avenir Next";
             color: #F1F1F1;
           `}
         >
