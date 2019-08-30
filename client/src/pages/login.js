@@ -100,19 +100,11 @@ class LogInForm extends Component {
           }}
           render = {({ errors, touched, isSubmitting }) => (
             <ExplicitForm>
-                <ExplicitLabel
-                  css={css`
-                    margin-bottom: 15px;
-                  `}
-                >
+                <ExplicitLabel>
                   <ExplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" />
                   <ExplicitErrorMessage component="p" name="email" />
                 </ExplicitLabel>
-                <ExplicitLabel
-                  css={css`
-                    margin-bottom: 15px;
-                  `}
-                >
+                <ExplicitLabel>
                   <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
                   <ExplicitErrorMessage component="p" name="password" />
                 </ExplicitLabel>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { PrimaryButton, BackLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage, StyledLabel } from "../styling/theme"
+import { PrimaryButton, BackLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage, StyledLabel, FullHeightSection } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
@@ -12,17 +12,22 @@ class Register extends Component {
   render() {
     const { history } = this.props
     return (
-      <section className="registration">
-        <Basic />
+      <FullHeightSection className="registration"
+        css={css`
+          display: flex;
+          flex-direction: column;
+        `}
+      >
+        <RegistrationForm />
         <BackButton history={history} />
-      </section>
+      </FullHeightSection>
     )
   }
 }
 
 var userExists;
 
-class Basic extends Component {
+class RegistrationForm extends Component {
 
   pushData = (input) => {
     return new Promise((resolve, reject) => {
@@ -74,7 +79,11 @@ class Basic extends Component {
     })
 
     return (
-      <div>
+      <div class="registrationFormContainer"
+        css={css`
+          height: 100%;
+        `}
+      >
         <Formik
           initialValues = {{
             firstName: '',
@@ -93,8 +102,22 @@ class Basic extends Component {
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, values, setFieldValue }) => (
-            <ExplicitForm>
-              <div>
+            <ExplicitForm
+              css={css`
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+                padding-top: 25px;
+                padding-bottom: 35px;
+                box-sizing: border-box;
+              `}
+            >
+              <div className="thumbnailContainer"
+                css={css`
+                  text-align: center;
+                `}
+              >
                 <img src={register_thumbnail_icon} alt="thumbnail icon"
                   css={css`
                     max-width: 100px;
@@ -113,24 +136,26 @@ class Basic extends Component {
                     `
                   }
                 />
-              <StyledLabel htmlFor="file">Profilbild Wächsle</StyledLabel>
+                <StyledLabel htmlFor="file">Profilbild Wächsle</StyledLabel>
               </div>
-              <ExplicitLabel>
-                <ExplicitField type="text" name="firstName" placeholder="Vornamä" />
-                <ExplicitErrorMessage component="p" name="firstName" />
-              </ExplicitLabel>
-              <ExplicitLabel>
-                <ExplicitField type="text" name="lastName" placeholder="Nachnamä" />
-                <ExplicitErrorMessage component="p" name="lastName" />
-              </ExplicitLabel>
-              <ExplicitLabel>
-                <ExplicitField type="email" name="email" placeholder="iimäil" />
-                <ExplicitErrorMessage component="p" name="email" />
-              </ExplicitLabel>
-              <ExplicitLabel>
-                <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
-                <ExplicitErrorMessage component="p" name="password" />
-              </ExplicitLabel>
+              <div className="inputFields">
+                <ExplicitLabel>
+                  <ExplicitField type="text" name="firstName" placeholder="Vornamä" />
+                  <ExplicitErrorMessage component="p" name="firstName" />
+                </ExplicitLabel>
+                <ExplicitLabel>
+                  <ExplicitField type="text" name="lastName" placeholder="Nachnamä" />
+                  <ExplicitErrorMessage component="p" name="lastName" />
+                </ExplicitLabel>
+                <ExplicitLabel>
+                  <ExplicitField type="email" name="email" placeholder="iimäil" />
+                  <ExplicitErrorMessage component="p" name="email" />
+                </ExplicitLabel>
+                <ExplicitLabel>
+                  <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
+                  <ExplicitErrorMessage component="p" name="password" />
+                </ExplicitLabel>
+              </div>
               <PrimaryButton fullWidth type="submit" disabled={isSubmitting}>Registrier di</PrimaryButton>
             </ExplicitForm>
           )}

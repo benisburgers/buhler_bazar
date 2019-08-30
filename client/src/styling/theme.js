@@ -126,6 +126,8 @@ export const StyledField = styled (Field) `
 //Explicit, such as Registration and Login forms where you can SEE the input fields
 export const ExplicitLabel = styled ('label') `
   max-width: 100%;
+  margin-bottom: 15px;
+  display: block;
 `
 
 export const ExplicitField = styled (StyledField) `
