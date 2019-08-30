@@ -113,7 +113,7 @@ class Basic extends Component {
                     `
                   }
                 />
-                <StyledLabel for="file">Profilbild Wächsle</StyledLabel>
+              <StyledLabel htmlFor="file">Profilbild Wächsle</StyledLabel>
               </div>
               <ExplicitLabel>
                 <ExplicitField type="text" name="firstName" placeholder="Vornamä" />

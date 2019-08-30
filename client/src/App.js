@@ -109,18 +109,6 @@ class App extends Component {
     return (
       <div className="App" id="main">
         <Router>
-          <nav>
-            <ul>
-              <li><Link to={'/'}>Login</Link></li>
-              <li><Link to={'/register'}>Register</Link></li>
-              <li><Link to={'/overview'}>Overview</Link></li>
-              <li><Link to={'/profile'}>Profile</Link></li>
-              <li><Link to={'/results'}>Results</Link></li>
-              <li><Link to={'/admin/admin_userList'}>AdminUserList</Link></li>
-              <li><Link to={'/admin/admin_productList'}>AdminProducts</Link></li>
-            </ul>
-          </nav>
-
           <Switch>
             <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
             <Route exact path="/register" render={({history}) => <Register history={history} />} />
