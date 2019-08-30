@@ -20,7 +20,7 @@ export const PrimaryButton = styled(Button)`
   border-radius: 25px;
   border: none;
   background-color: ${props =>
-    props.negative ? 'red'
+    props.negative ? '#FF665A'
     : '#A9EEC2'
   };
   width: ${props =>
@@ -31,6 +31,7 @@ export const PrimaryButton = styled(Button)`
 
 export const StyledLink = styled('span')`
   color: #A9EEC2;
+  font-family: "Avenir Next";
   text-decoration: none;
   cursor: pointer;
   font-size: 16px;
@@ -40,7 +41,6 @@ export const StyledLink = styled('span')`
   line-height: 22px;
   text-align: center;
 `
-
 export const StyledLabel = StyledLink.withComponent('label')
 
 export const NakedLink = styled(Link)`
@@ -58,11 +58,11 @@ export const BackLink = StyledLink.withComponent('a')
 export const StyledRouterLink = StyledLink.withComponent(Link)
 
 export const StyledMenuLink = styled(StyledRouterLink)`
-  font-size: 25px;
+  font-size: 28px;
+  letter-spacing: 2.15px;
+  line-height: 38px;
   font-weight: bold;
-  letter-spacing: 2.10px;
-  line-height: 35px;
-  margin: 25px 0;
+  padding: 25px 0;
   display: block;
 `
 
@@ -77,14 +77,19 @@ export const NegativeSecondaryButton = styled('span') `
   border-radius: 11px;
 `
 
-const ExitButtonLine = styled('span')(
-  {
-    width: "100%",
-    height: 2,
-    display: "block",
-  },
-  props => ({ background: props.color })
-)
+export const SecondaryButton = styled(PrimaryButton) `
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 18px;
+  padding: 10px 20px;
+`
+
+const ExitButtonLine = styled('span') `
+  width: 100%;
+  height: 2px;
+  display: block;
+	background-color: #A9EEC2;
+  `
 
 export const PosExitButtonLine = styled(ExitButtonLine)`
   transform: rotate(-45deg) translateY(-50%);

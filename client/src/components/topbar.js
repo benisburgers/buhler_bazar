@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import ExitButtonContainer from '../components/exitButton.js'
-import { StyledMenuLink, NegativeSecondaryButton } from "../styling/theme"
+import { StyledMenuLink, SecondaryButton } from "../styling/theme"
 import ReactModal from 'react-modal';
 import ProfileModal from '../components/profileModal.js'
 
@@ -120,6 +120,7 @@ class ProfileButton extends Component {
               `}
           />
           <span
+            className="userName"
             css={css`
               background-color: #363636;
               color: #A9EEC2;
@@ -224,7 +225,7 @@ class Menu extends Component {
     const { handleCloseModal } = this.props;
     return (
       <div
-        className="menu"
+        className="menuContainer"
         css={css`
         border: 1px solid black;
         display: flex;
@@ -235,6 +236,7 @@ class Menu extends Component {
         box-sizing: border-box;
         text-align: center;
         padding: 18px 15px 60px;
+        border-radius: 27.5px;
         `}
         >
         <div onClick={e => handleCloseModal()}
@@ -244,7 +246,7 @@ class Menu extends Component {
           width: 21px;
         `}
           >
-          <ExitButtonContainer lineColor="green" />
+          <ExitButtonContainer/>
         </div>
         {isAdmin ? (
             <AdminMenuOptions />
@@ -257,19 +259,9 @@ class Menu extends Component {
             color: inherit;
           `}
         >
-          <NegativeSecondaryButton
-            css={css`
-              background-color: red;
-              font-size: 13px;
-              font-weight: bold;
-              line-height: 18px;
-              padding: 1px 15px;
-              border-radius: 11px;
-              `
-            }
-          >
-          Logout
-        </NegativeSecondaryButton>
+          <SecondaryButton negative width="auto">
+            Logout
+          </SecondaryButton>
         </Link>
       </div>
     )
@@ -285,7 +277,7 @@ function BasicMenuOptions(props) {
       `}
     >
       <li>
-        <StyledMenuLink to={'/overview'}>Overview</StyledMenuLink>
+        <StyledMenuLink to={'/overview'}>Owerwiu</StyledMenuLink>
       </li>
     </ul>
   )
@@ -299,29 +291,14 @@ function AdminMenuOptions(props) {
         list-style: none;
       `}
     >
-      <li
-        css={css`
-          display: inline-block;
-          width: auto;
-        `}
-      >
-        <StyledMenuLink to={'/overview'}>Overview</StyledMenuLink>
+      <li>
+        <StyledMenuLink to={'/overview'}>Owerwiu</StyledMenuLink>
       </li>
-      <li
-        css={css`
-          display: inline-block;
-          width: auto;
-        `}
-      >
-        <StyledMenuLink to={'/admin/admin_userList'}>AdminUserList</StyledMenuLink>
+      <li>
+        <StyledMenuLink to={'/admin/admin_userList'}>Benutzer</StyledMenuLink>
       </li>
-      <li
-        css={css`
-          display: inline-block;
-          width: auto;
-        `}
-      >
-        <StyledMenuLink to={'/admin/admin_productList'}>AdminProductList</StyledMenuLink>
+      <li>
+        <StyledMenuLink to={'/admin/admin_productList'}>Produkt</StyledMenuLink>
       </li>
     </ul>
   )
