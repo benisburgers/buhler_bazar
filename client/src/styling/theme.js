@@ -101,16 +101,18 @@ export const NegExitButtonLine = styled (ExitButtonLine)`
   transform: rotate(45deg) translateY(50%);
 `
 
-export const ExitButton = styled('div')(
-  {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    width: "100%",
-    height: "100%"
-  },
-  props => ({ background: props.color })
-)
+export const ExitButton = styled('div') `
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: ${props =>
+    props.width ? props.width : '100%'
+  };
+  height: ${props =>
+    props.width ? props.width : '100%'
+  };
+  margin: auto;
+`
 
 
 
@@ -181,6 +183,8 @@ export const MediumHeader = styled('h2') `
   font-weight: bold;
   line-height: 46px;
   margin: 0;
+  color: #515151;
+  font-family: "Avenir Next";
 `
 
 export const SmallHeader = styled('h3') `
@@ -264,6 +268,7 @@ export const NakedUl = styled('ul') `
    display: flex;
    align-items: center;
    justify-content: space-between;
+   margin-bottom: 30px;
  `
 
 export const FullHeightSection = styled('section') `
@@ -284,4 +289,13 @@ export const StyledParagraph = styled('p') `
   :last-child {
     margin-bottom: 0;
   }
+`
+export const ListItemText = styled('span') `
+  display: block;
+	color: #515151;
+	font-family: "Avenir Next";
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 18px;
+	text-align: center;
 `

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import withFilter from './withFilter'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
+import { ListItemText, NakedUl } from "../styling/theme"
 
 class OverviewProductList extends Component {
   render() {
@@ -12,42 +13,41 @@ class OverviewProductList extends Component {
           key={index}
           onClick={ (e) => chooseProduct(e, entry) }
           css={css`
-            width: 90px;
-            height: 90px;
-            background-color: ${selectedProducts.includes(entry) ? '#363636' : 'initial'};
-            display: inline-block;
+            width: 80px;
+            height: 100px;
+            border: ${selectedProducts.includes(entry) ? '2px solid #A9EEC2' : 'none'};
+            box-sizing: border-box;
+            border-radius: 13px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
             margin: 15px 0;
           `}
         >
-          <span
-            css={css`
-              display: block;
-            `}
-          >
-            {entry.name}
-          </span>
           <img src={entry.picturePath} alt={entry.name}
             css={css`
               width: 60px;
               height: 60px;
             `}
           />
+          <ListItemText>
+            {entry.name}
+          </ListItemText>
         </li>
       )
     })
     return (
-      <ul
+      <NakedUl
         css={css`
-          list-style: none;
-          padding: 0;
           display: flex;
           flex-wrap: wrap;
           justify-content: space-between;
         `}
       >
         {productList}
-      </ul>
+      </NakedUl>
     )
   }
 }

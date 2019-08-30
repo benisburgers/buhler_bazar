@@ -58,37 +58,37 @@ class App extends Component {
         id: 4,
         name: "Pfirsich",
         type: "fruit",
-        picturePath: "pfirsich.jpeg"
+        picturePath: "https://bit.ly/2LWtD5A"
       },
       {
         id: 5,
         name: "Truube",
         type: "fruit",
-        picturePath: "truube.jpeg"
+        picturePath: "https://bit.ly/2FxkRIR"
       },
       {
         id: 6,
         name: "Avocado",
         type: "fruit",
-        picturePath: "avocado.jpeg"
+        picturePath: "https://bit.ly/2OAYdUz"
       },
       {
         id: 7,
         name: "Chips",
         type: "snack",
-        picturePath: "chips.jpeg"
+        picturePath: "https://bit.ly/2OAYdUz"
       },
       {
         id: 8,
         name: "Cashew",
         type: "snack",
-        picturePath: "cashew.jpeg"
+        picturePath: "https://bit.ly/2LWtD5A"
       },
       {
         id: 9,
         name: "Troche Ananas",
         type: "snack",
-        picturePath: "trocheananas.jpeg"
+        picturePath: "https://bit.ly/2LWtD5A"
       }
     ],
     productTypes: ['fruit', 'snack']

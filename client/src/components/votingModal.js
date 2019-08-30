@@ -4,13 +4,13 @@ import OverviewProductList from '../components/overviewProductList.js'
 import { css, jsx } from '@emotion/core'
 import { MediumHeader, PrimaryButton, ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
 import PointsLeft from '../components/pieChart.js'
-
+import ExitButtonContainer from '../components/exitButton.js'
 
 class VotingModal extends Component {
   state = {
     selectedProducts: [],
     credits: 4,
-    creditClassName: 'creditScore'
+    highlightCredits: false
   }
 
   submitVote = () => {
@@ -27,13 +27,13 @@ class VotingModal extends Component {
 
   highlightCredit = () => {
     console.log('highlightCredit');
-    const { creditClassName } = this.state;
+    const { highlightCredits } = this.state;
     this.setState({
-      creditClassName: `${creditClassName} + highlight`
+      highlightCredits: true
     })
     setTimeout(() => {
       this.setState({
-        creditClassName: `${creditClassName}`
+        highlightCredits: false
       })
     }, 500);
   }
@@ -77,7 +77,7 @@ class VotingModal extends Component {
 
   render() {
     const { products, handleCloseModal, modalOpen, productTypes } = this.props;
-    const { credits, selectedProducts, creditClassName } = this.state;
+    const { credits, selectedProducts, highlightCredits } = this.state;
     const { chooseProduct, submitVote } = this;
     return (
       <ModalContent className="votingModal">
@@ -86,7 +86,7 @@ class VotingModal extends Component {
             <MediumHeader>
               Vout für dini Liebling
             </MediumHeader>
-            <CreditScore credits={credits} selectedProducts={selectedProducts} creditClassName={creditClassName} />
+            <CreditScore credits={credits} selectedProducts={selectedProducts} highlightCredits={highlightCredits} />
           </ModalHeader>
           <OverviewProductList selectedProducts={selectedProducts} productTypes={productTypes} products={products} handleCloseModal={handleCloseModal} chooseProduct={chooseProduct}/>
         </ModalMainPart>
@@ -98,13 +98,10 @@ class VotingModal extends Component {
 
 class CreditScore extends Component {
   render() {
-    const { credits, selectedProducts, creditClassName } = this.props;
+    const { credits, selectedProducts, highlightCredits } = this.props;
     return (
-      <div className={creditClassName}>
-        <span>CRÄDITS</span>
-        <div className="pieChart-container">
-          <PointsLeft credits={credits} selectedProducts={selectedProducts}/>
-        </div>
+      <div className="pieChart-container">
+        <PointsLeft credits={credits} selectedProducts={selectedProducts} highlightCredits={highlightCredits} />
       </div>
     )
   }
@@ -129,7 +126,7 @@ class ModalButtons extends Component {
           VOUTÄ
         </PrimaryButton>
         <PrimaryButton negative width="25%" onClick={handleCloseModal}>
-          X
+          <ExitButtonContainer width="25px" />
         </PrimaryButton>
       </div>
     )

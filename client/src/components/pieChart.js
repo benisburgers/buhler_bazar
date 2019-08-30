@@ -6,7 +6,7 @@ import {
 class PointsLeft extends PureComponent {
 
   render() {
-    const { credits, selectedProducts } = this.props;
+    const { credits, selectedProducts, highlightCredits } = this.props;
     const creditsLeft = credits - selectedProducts.length
 
     const data = [];
@@ -24,7 +24,8 @@ class PointsLeft extends PureComponent {
           <text x='50%' y='38' textAnchor="middle" dominantBaseline="middle"
             style={{
               fontSize: 28,
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fill: '#515151'
             }}
           >
             {creditsLeft}
@@ -32,7 +33,8 @@ class PointsLeft extends PureComponent {
           <text x='50%' y="100%" textAnchor="middle" dominantBaseline="text-top"
             style={{
               fontSize: 12,
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fill: '#515151'
             }}
           >
             CRÄDITS
@@ -47,7 +49,14 @@ class PointsLeft extends PureComponent {
             cy={30}
           >
             {
-              data.map((entry, index) => <Cell key={`cell-${index}`} fill={index < creditsLeft ? 'green': 'grey'} />)
+              data.map((entry, index) => <Cell key={`cell-${index}`} fill={
+                highlightCredits
+                ? '#FF665A'
+                : index < creditsLeft
+                ? '#A9EEC2'
+                : '#515151'}
+
+                />)
             }
           </Pie>
         </PieChart>

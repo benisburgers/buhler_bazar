@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/core'
 
 function ExitButtonContainer(props) {
   return (
-    <ExitButton className="exitButton">
+    <ExitButton className="exitButton" width={props.width} >
       <NegExitButtonLine className="exitButtonLine negative" color={props.lineColor}/>
       <PosExitButtonLine className="exitButtonLine positive" color={props.lineColor}/>
     </ExitButton>
