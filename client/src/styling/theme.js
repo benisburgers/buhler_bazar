@@ -261,6 +261,7 @@ export const NakedUl = styled('ul') `
  `
 
  export const ModalMainPart = styled('div') `
+   flex: 1;
    padding: 21px;
    background: white;
    overflow: scroll;
