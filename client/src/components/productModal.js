@@ -13,6 +13,8 @@ class ProductModal extends Component {
         <ModalMainPart height="100%"
           css={css`
             text-align: center;
+            display: flex;
+            flex-direction: column;
           `}
         >
           <ModalHeader>

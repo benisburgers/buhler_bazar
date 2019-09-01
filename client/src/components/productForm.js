@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Thumbnail from '../components/thumbnail'
-import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ExplicitForm } from "../styling/theme"
+import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel, PrimaryColor } from "../styling/theme"
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import Select from 'react-select'
@@ -82,55 +82,70 @@ class ProductForm extends Component {
         .required('Das Produkt brucht en Typ')
     })
 
+
+    const customStyles = {
+      option: (provided, state) => ({
+        ...provided,
+        fontFamily: "Avenir Next",
+        fontWeight: "bold",
+        backgroundColor: state.isSelected ? PrimaryColor : 'white',
+        color: "#515151",
+        fontSize: "18px",
+        letterSpacing: "1.23px",
+        lineHeight: "22px",
+      }),
+    }
+
     return (
-      <div>
-        <Formik
-          initialValues = {{
-            id: id,
-            productName: name,
-            productType: type,
-            file: picturePath,
-          }}
-          validationSchema = {LoginSchema}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              console.log(JSON.stringify(values, null, 2));
-              resetForm();
-              setSubmitting(false);
-              //check if email exists in database
-              this.pushData(values);
-              handleCloseModal();
-            }, 200);
-          }}
-          render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values, handleChange }) => (
-            <ExplicitForm>
-              <div>
-                <Thumbnail values={values} />
-                <input
-                  id="file"
-                  type="file"
-                  onChange={e => {
-                     setFieldValue('file', URL.createObjectURL(e.target.files[0]));
-                     fileType = e.target.files[0].type;
-                     fileSize = e.target.files[0].size;
-                  }}
-                  name="file"
-                  css={css`
-                    display: none;
-                  `}
-                  accept=".jpg, .jpeg, .png"
-                />
-                <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
-                <ErrorMessage name="file" />
-              </div>
-              <label>
+      <Formik
+        initialValues = {{
+          id: id,
+          productName: name,
+          productType: type,
+          file: picturePath,
+        }}
+        validationSchema = {LoginSchema}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          setTimeout(() => {
+            console.log(JSON.stringify(values, null, 2));
+            resetForm();
+            setSubmitting(false);
+            //check if email exists in database
+            this.pushData(values);
+            handleCloseModal();
+          }, 200);
+        }}
+        render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values, handleChange }) => (
+          <ImplicitForm>
+            <div className="thumbnailContainer">
+              <Thumbnail values={values} />
+              <input
+                id="file"
+                type="file"
+                onChange={e => {
+                   setFieldValue('file', URL.createObjectURL(e.target.files[0]));
+                   fileType = e.target.files[0].type;
+                   fileSize = e.target.files[0].size;
+                }}
+                name="file"
+                css={css`
+                  display: none;
+                `}
+                accept=".jpg, .jpeg, .png"
+              />
+              <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
+              <ErrorMessage name="file" />
+            </div>
+            <div className="inputFieldsContainer">
+              <ImplicitLabel>
                 <ImplicitField type="text" name="productName" placeholder="Product Name" disabled={this.state.disabledFields.productName} />
                 <TextButton onClick={e => toggleFields(this, "productName")}>{ values.productName ? "Name ändere" : "Deklarierä" }</TextButton>
                 <ErrorMessage name="productName" />
-              </label>
-              <label>
+              </ImplicitLabel>
+              <ImplicitLabel>
                 <Select
                   options={options}
+                  styles={customStyles}
                   name="productType"
                   placeholder="Product Type"
                   isDisabled={this.state.disabledFields.productType}
@@ -145,19 +160,20 @@ class ProductForm extends Component {
                 />
               <TextButton onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</TextButton>
                 <ErrorMessage name="productType" />
-              </label>
-              <div className="buttonsContainer"
-                css={css`
-                  display: flex;
-                `}
-              >
-                <PrimaryButton width="60%" type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
-                <PrimaryButton negative width="40%" onClick={ (e) => deleteProduct() }>LÖSCHÄ</PrimaryButton>
-              </div>
-            </ExplicitForm>
-          )}
-        />
-      </div>
+              </ImplicitLabel>
+            </div>
+            <div className="buttonsContainer"
+              css={css`
+                display: flex;
+                justify-content: space-between;
+              `}
+            >
+              <PrimaryButton width="50%" type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
+              <PrimaryButton negative width="40%" onClick={ (e) => deleteProduct() }>LÖSCHÄ</PrimaryButton>
+            </div>
+          </ImplicitForm>
+        )}
+      />
     )
   }
 }
