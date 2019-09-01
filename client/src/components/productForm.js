@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Thumbnail from '../components/thumbnail'
-import { StyledLabel, StyledLink, PrimaryButton, NegativeSecondaryButton, ImplicitField, ExplicitForm } from "../styling/theme"
+import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ExplicitForm } from "../styling/theme"
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import Select from 'react-select'
@@ -125,7 +125,7 @@ class ProductForm extends Component {
               </div>
               <label>
                 <ImplicitField type="text" name="productName" placeholder="Product Name" disabled={this.state.disabledFields.productName} />
-                <StyledLink onClick={e => toggleFields(this, "productName")}>{ values.productName ? "Name ändere" : "Deklarierä" }</StyledLink>
+                <TextButton onClick={e => toggleFields(this, "productName")}>{ values.productName ? "Name ändere" : "Deklarierä" }</TextButton>
                 <ErrorMessage name="productName" />
               </label>
               <label>
@@ -143,7 +143,7 @@ class ProductForm extends Component {
                     }
                   }
                 />
-                <StyledLink onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</StyledLink>
+              <TextButton onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</TextButton>
                 <ErrorMessage name="productType" />
               </label>
               <div className="buttonsContainer"

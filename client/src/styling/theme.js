@@ -31,19 +31,19 @@ export const PrimaryButton = styled(Button)`
   };
 `
 
-export const StyledLink = styled('span')`
+export const TextButton = styled('span')`
   color: ${PrimaryColor};
   font-family: "Avenir Next";
   text-decoration: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   display: block;
   font-weight: bold;
   letter-spacing: 1.23px;
   line-height: 22px;
   text-align: center;
 `
-export const StyledLabel = StyledLink.withComponent('label')
+export const StyledLabel = TextButton.withComponent('label')
 
 export const NakedLink = styled(Link)`
   text-decoration: none;
@@ -55,9 +55,9 @@ export const Cta = NakedLink.withComponent('div')
 
 export const PrimaryButtonLink = PrimaryButton.withComponent(NakedLink)
 
-export const BackLink = StyledLink.withComponent('a')
+export const BackLink = TextButton.withComponent('a')
 
-export const StyledRouterLink = StyledLink.withComponent(Link)
+export const StyledRouterLink = TextButton.withComponent(Link)
 
 export const StyledMenuLink = styled(StyledRouterLink)`
   font-size: 28px;
@@ -123,9 +123,15 @@ export const ExitButton = styled('div') `
 export const StyledForm = styled (Form) `
 `
 
-export const ExplicitForm = styled (StyledForm) `
+export const ImplicitForm = styled (StyledForm) `
   display: flex;
   flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+`
+
+export const ExplicitForm = styled(ImplicitForm) `
+  max-width: 300px;
   margin-left: auto;
   margin-right: auto;
 `
@@ -138,6 +144,10 @@ export const ExplicitLabel = styled ('label') `
   max-width: 100%;
   margin-bottom: 15px;
   display: block;
+`
+
+export const ImplicitLabel = styled(ExplicitLabel) `
+  margin-bottom: 25px;
 `
 
 export const ExplicitField = styled (StyledField) `
@@ -164,7 +174,9 @@ export const ImplicitField = styled (StyledField) `
   border: none;
   background: none;
   text-align: center;
+  box-sizing: border-box;
   width: 100%;
+  margin-bottom: 5px;
 `
 
 // other components

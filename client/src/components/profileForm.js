@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { css, jsx } from '@emotion/core'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { StyledLabel, StyledLink, PrimaryButton, NegativeSecondaryButton, ImplicitField, ExplicitForm } from "../styling/theme"
+import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
 
 
@@ -81,7 +81,7 @@ class ProfileForm extends Component {
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values }) => (
-            <ExplicitForm>
+            <ImplicitForm className="profileForm">
               <div class="thumbnailContainer">
                 <Thumbnail values={values} />
                 <input
@@ -98,31 +98,32 @@ class ProfileForm extends Component {
                 <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
               </div>
               <div class="textFieldsContainer">
-                <label>
+                <ImplicitLabel>
                   <ImplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
-                  <StyledLink onClick={e => toggleFields(this, "email")}>Email { values.email ? "ändere" : "hinzuefüege" }</StyledLink>
+                  <TextButton onClick={e => toggleFields(this, "email")}>Email { values.email ? "ändere" : "hinzuefüege" }</TextButton>
                   <ErrorMessage name="email" />
-                </label>
-                <label>
+                </ImplicitLabel>
+                <ImplicitLabel>
                   <ImplicitField type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
-                  <StyledLink onClick={e => toggleFields(this, "firstName")}>Vorname { values.firstName ? "ändere" : "hinzuefüege" }</StyledLink>
+                  <TextButton onClick={e => toggleFields(this, "firstName")}>Vorname { values.firstName ? "ändere" : "hinzuefüege" }</TextButton>
                   <ErrorMessage name="firstName" />
-                </label>
-                <label>
+                </ImplicitLabel>
+                <ImplicitLabel>
                   <ImplicitField type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
-                  <StyledLink onClick={e => toggleFields(this, "lastName")}>Nachname { values.lastName ? "ändere" : "hinzuefüege" }</StyledLink>
+                  <TextButton onClick={e => toggleFields(this, "lastName")}>Nachname { values.lastName ? "ändere" : "hinzuefüege" }</TextButton>
                   <ErrorMessage name="lastName" />
-                </label>
+                </ImplicitLabel>
               </div>
               <div className="buttonsContainer"
                 css={css`
                   display: flex;
+                  justify-content: space-between;
                 `}
               >
-                <PrimaryButton width="60%" type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
+                <PrimaryButton width="50%" type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
                 <PrimaryButton negative width="40%" onClick={ (e) => deleteUser() }>LÖSCHÄ</PrimaryButton>
               </div>
-            </ExplicitForm>
+            </ImplicitForm>
           )}
         />
     )

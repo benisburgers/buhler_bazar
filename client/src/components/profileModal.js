@@ -10,12 +10,14 @@ function ProfileModal(props) {
   console.log(props);
   return (
     <ModalContent>
-      <ModalMainPart height="100%"
+      <ModalMainPart className="modalMainPart"
         css={css`
           text-align: center;
+          display: flex;
+          flex-direction: column;
         `}
       >
-        <ModalHeader>
+        <ModalHeader className="modalHeader">
           <div className="exitButtonContainer"
             css={css`
               height: 21px;
