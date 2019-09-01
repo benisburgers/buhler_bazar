@@ -81,7 +81,7 @@ class VotingModal extends Component {
     const { chooseProduct, submitVote } = this;
     return (
       <ModalContent className="votingModal">
-        <ModalMainPart className="mainPart" height="80%">
+        <ModalMainPart className="mainPart">
           <ModalHeader>
             <MediumHeader>
               Vout für dini Liebling
@@ -113,8 +113,7 @@ class ModalButtons extends Component {
     return (
       <div
         css={css`
-          position: absolute;
-          bottom: 0;
+          margin-top: 30px;
           width: 100%;
           display: flex;
         `}

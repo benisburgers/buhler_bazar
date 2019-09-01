@@ -24,7 +24,7 @@ function ProfileModal(props) {
             `}
             onClick={e => props.handleCloseModal()}
           >
-            <ExitButtonContainer lineColor="green" />
+            <ExitButtonContainer />
           </div>
         </ModalHeader>
         <ProfileForm {...props} />

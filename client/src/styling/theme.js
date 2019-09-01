@@ -124,7 +124,6 @@ export const StyledForm = styled (Form) `
 `
 
 export const ExplicitForm = styled (StyledForm) `
-  max-width: 250px;
   display: flex;
   flex-direction: column;
   margin-left: auto;
@@ -257,6 +256,8 @@ export const NakedUl = styled('ul') `
    padding: 0px;
    height: 100%;
    overflow-y: hidden;
+   display: flex;
+   flex-direction: column;
  `
 
  export const ModalMainPart = styled('div') `

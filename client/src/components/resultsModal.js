@@ -25,7 +25,7 @@ class ResultsModal extends Component {
     const { handleCloseModal, products, findProperItem } = this.props;
     return (
       <ModalContent className="votingModal">
-        <ModalMainPart className="mainPart" height="80%">
+        <ModalMainPart className="mainPart">
           <ModalHeader>
             <MediumHeader>
               Results
@@ -85,8 +85,7 @@ class ModalButtons extends Component {
     return (
       <div
         css={css`
-          position: absolute;
-          bottom: 0;
+          margin-top: 30px;
           width: 100%;
           display: flex;
         `}

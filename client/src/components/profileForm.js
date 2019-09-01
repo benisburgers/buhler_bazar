@@ -82,7 +82,7 @@ class ProfileForm extends Component {
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values }) => (
             <ExplicitForm>
-              <div>
+              <div class="thumbnailContainer">
                 <Thumbnail values={values} />
                 <input
                   id="file"
@@ -97,21 +97,23 @@ class ProfileForm extends Component {
                 />
                 <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
               </div>
-              <label>
-                <ImplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
-                <StyledLink onClick={e => toggleFields(this, "email")}>Email { values.email ? "ändere" : "hinzuefüege" }</StyledLink>
-                <ErrorMessage name="email" />
-              </label>
-              <label>
-                <ImplicitField type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
-                <StyledLink onClick={e => toggleFields(this, "firstName")}>Vorname { values.firstName ? "ändere" : "hinzuefüege" }</StyledLink>
-                <ErrorMessage name="firstName" />
-              </label>
-              <label>
-                <ImplicitField type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
-                <StyledLink onClick={e => toggleFields(this, "lastName")}>Nachname { values.lastName ? "ändere" : "hinzuefüege" }</StyledLink>
-                <ErrorMessage name="lastName" />
-              </label>
+              <div class="textFieldsContainer">
+                <label>
+                  <ImplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
+                  <StyledLink onClick={e => toggleFields(this, "email")}>Email { values.email ? "ändere" : "hinzuefüege" }</StyledLink>
+                  <ErrorMessage name="email" />
+                </label>
+                <label>
+                  <ImplicitField type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
+                  <StyledLink onClick={e => toggleFields(this, "firstName")}>Vorname { values.firstName ? "ändere" : "hinzuefüege" }</StyledLink>
+                  <ErrorMessage name="firstName" />
+                </label>
+                <label>
+                  <ImplicitField type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
+                  <StyledLink onClick={e => toggleFields(this, "lastName")}>Nachname { values.lastName ? "ändere" : "hinzuefüege" }</StyledLink>
+                  <ErrorMessage name="lastName" />
+                </label>
+              </div>
               <div className="buttonsContainer"
                 css={css`
                   display: flex;
