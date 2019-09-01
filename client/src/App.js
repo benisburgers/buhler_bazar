@@ -17,8 +17,6 @@ import AdminProducts from './pages/admin_productList';
 import AdminProductPage from './pages/admin_productPage';
 import AdminProfilePage from './pages/admin_profilePage';
 
-import Div100vh from 'react-div-100vh'
-
 class App extends Component {
 
   state = {

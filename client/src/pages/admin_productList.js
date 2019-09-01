@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import TopBarContainer from '../components/topbar.js'
-import PlusButton from '../components/plusButton.js'
+import PlusPuttonContainer from '../components/plusButton.js'
 import AdminProductList from '../components/adminProductList.js'
-import { NakedLink } from "../styling/theme";
+import { NakedLink, FullHeightSection } from "../styling/theme";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import ReactModal from 'react-modal';
@@ -39,7 +39,7 @@ class AdminProducts extends Component {
     const { products, productTypes, userinfo, toggleFields } = this.props;
     const { activeProductId } = this.state;
     return (
-      <section className="admin_productList"
+      <FullHeightSection className="admin_productList"
         css={css`
           display: flex;
           flex-direction: column;
@@ -49,30 +49,31 @@ class AdminProducts extends Component {
         <div
           onClick={() => this.handleOpenModal()}
           css={css`
-            margin-left: auto;
+            align-self: flex-end;
+            margin-bottom: 40px;
           `}
         >
-          <PlusButton />
+          <PlusPuttonContainer />
         </div>
         <AdminProductList productTypes={productTypes} products={products} handleOpenModal={this.handleOpenModal} />
-          <ReactModal
-            isOpen={this.state.showModal}
-            contentLabel="Menu Modal"
-            style={{
-              content: {
-                padding: 0,
-                inset: '20px',
-                backgroundColor: 'rgba(0,0,0,0)',
-                border: 'none'
-              },
-              overlay: {
-                backgroundColor: 'rgba(0,0,0,0.8)'
-              }
-            }}
-          >
-            <ProductModal product={activeProductId ? products.find(product => product.id === activeProductId) : undefined} productTypes={productTypes} toggleFields={toggleFields} handleCloseModal={this.handleCloseModal} />
-          </ReactModal>
-      </section>
+        <ReactModal
+          isOpen={this.state.showModal}
+          contentLabel="Menu Modal"
+          style={{
+            content: {
+              padding: 0,
+              inset: '20px',
+              backgroundColor: 'rgba(0,0,0,0)',
+              border: 'none'
+            },
+            overlay: {
+              backgroundColor: 'rgba(0,0,0,0.8)'
+            }
+          }}
+        >
+          <ProductModal product={activeProductId ? products.find(product => product.id === activeProductId) : undefined} productTypes={productTypes} toggleFields={toggleFields} handleCloseModal={this.handleCloseModal} />
+        </ReactModal>
+      </FullHeightSection>
     )
   }
 }

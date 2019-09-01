@@ -117,6 +117,32 @@ export const ExitButton = styled('div') `
 `
 
 
+export const PlusButton = styled('div') `
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: ${props =>
+    props.backgroundColor ? props.backgroundColor : PrimaryColor
+  }
+`
+
+export const PlusLine = styled('span') `
+  height: 3px;
+  width: 25px;
+  background-color: black;
+  border-radius: 1.5px;
+`
+
+export const PlusLineHorizontal = styled(PlusLine) `
+  transform: translateX(50%);
+`
+
+export const PlusLineVertical = styled(PlusLine) `
+  transform: translateX(-50%) rotate(90deg);
+`
 
 //Forms (Formik)
 
@@ -250,8 +276,8 @@ export const ProductsUsersItem = styled('li') `
   justify-content: space-between;
   align-items: center;
   position: relative;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   &:after {
     content: '';
     background-color: #D8D8D8;

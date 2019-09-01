@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SelectionButton } from "../styling/theme"
+import { SelectionButton, NakedUl } from "../styling/theme"
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 
@@ -9,7 +9,6 @@ const withFilter = (WrappedComponent, test) => {
       super(props)
 
       this.state = {
-        test: 'test',
         selectedTypes: [],
         filteredProducts: [],
         products: []
@@ -104,26 +103,20 @@ const withFilter = (WrappedComponent, test) => {
         )
       })
       return (
-        <div>
-          <ul
+        <div
+          css={css`
+            margin-bottom: 20px;
+          `}
+        >
+          <NakedUl
             css={css`
-              list-style: none;
               display: flex;
-              padding-left: 0;
               justify-content: space-around;
             `}
           >
             {types}
-          </ul>
+          </NakedUl>
         </div>
-      )
-    }
-  }
-
-  class Test extends Component {
-    render() {
-      return (
-        <span>test</span>
       )
     }
   }

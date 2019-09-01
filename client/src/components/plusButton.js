@@ -1,40 +1,14 @@
 import React, { Component } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { PlusButton, PlusLineHorizontal, PlusLineVertical } from "../styling/theme";
 
-function PlusButton(props) {
+
+function PlusButtonContainer(props) {
   return (
-    <div className="plusButton"
-      css={css`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 50px;
-        height: 50px;
-        border-radius: 100%;
-        background-color: green;
-      `}
-    >
-      <span
-        css={css`
-          height: 3px;
-          width: 25px;
-          background-color: black;
-          border-radius: 1.5px;
-          transform: translateX(50%);
-        `}
-      ></span>
-      <span
-        css={css`
-          height: 3px;
-          width: 25px;
-          background-color: black;
-          border-radius: 1.5px;
-          transform: translateX(-50%) rotate(90deg);
-        `}
-      ></span>
-    </div>
+    <PlusButton className="plusButton" {...props}>
+      <PlusLineHorizontal className="plusLine horizontal"/>
+      <PlusLineVertical className="plusLine vertical"/>
+    </PlusButton>
   )
 }
 
-export default PlusButton
+export default PlusButtonContainer
