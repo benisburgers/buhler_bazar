@@ -22,7 +22,7 @@ class ChevronButton extends Component {
       >
         <img src={chevronIcon} alt="chevronIcon"
           css={css`
-            max-width: 7px;
+            width: 7px;
             padding-left: 2px;
           `}
         />

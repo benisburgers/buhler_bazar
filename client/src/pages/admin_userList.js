@@ -5,7 +5,7 @@ import './css/overview.css';
 import TopBarContainer from '../components/topbar.js'
 import ChevronButton from '../components/chevronButton'
 import { Link } from 'react-router-dom';
-import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styling/theme";
+import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl, FullHeightSection, PrimaryColor } from "../styling/theme";
 import starIcon from "../components/images/star.svg"
 import ReactModal from 'react-modal';
 import ProfileModal from '../components/profileModal.js'
@@ -93,7 +93,7 @@ class AdminUserList extends Component {
     const { userinfo, toggleFields } = this.props;
     const { userList, activeUserId } = this.state;
     return (
-      <section className="admin_userList">
+      <FullHeightSection className="admin_userList">
         <TopBarContainer userinfo={userinfo} title="JUSER" />
         <UserList userList={this.state.userList} handleOpenModal={this.handleOpenModal}/>
         <ReactModal
@@ -113,7 +113,7 @@ class AdminUserList extends Component {
         >
           <ProfileModal userinfo={activeUserId ? userList.find(user => user.id === activeUserId) : undefined} handleCloseModal={this.handleCloseModal} toggleFields={toggleFields} />
         </ReactModal>
-      </section>
+      </FullHeightSection>
     )
   }
 }
@@ -132,16 +132,20 @@ class UserList extends Component {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 18px;
-                height: 18px;
-                padding: 3px;
-                background: green;
+                width: 20px;
+                height: 20px;
+                background: ${PrimaryColor};
                 border-radius: 100%;
                 box-sizing: border-box;
                 margin-left: 10px;
               `}
             >
-              <img src={starIcon} alt="Star Icon"/>
+              <img src={starIcon} alt="Star Icon"
+                css={css`
+                  max-width: 12px;
+                  padding-bottom: 1px;
+                `}
+              />
             </div>
             : null
           }

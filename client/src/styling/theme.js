@@ -250,6 +250,8 @@ export const ProductsUsersItem = styled('li') `
   justify-content: space-between;
   align-items: center;
   position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
   &:after {
     content: '';
     background-color: #D8D8D8;
