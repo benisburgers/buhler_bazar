@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { MediumHeader, PrimaryButton, SmallHeader, ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
+import { MediumHeader, PrimaryButton, SmallHeader, ModalContent, ModalMainPart, ModalHeader, PrimaryColor, NakedUl } from "../styling/theme"
 import handIcon from "../components/images/hand.png"
+import ExitButtonContainer from '../components/exitButton.js'
+
 
 class ResultsModal extends Component {
   state = {
@@ -10,6 +12,10 @@ class ResultsModal extends Component {
     [
       [1, 7, 5],
       [3, 9, 5],
+      [4, 3, 1],
+      [4, 3, 1],
+      [4, 3, 1],
+      [4, 3, 1],
       [4, 3, 1],
       [9, 1, 5]
     ]
@@ -59,7 +65,7 @@ class WeekNumber extends Component {
         >
           <span className="weekNumber"
             css={css`
-              color: green;
+              color: ${PrimaryColor};
               font-weight: bold;
               font-size: 25px;
             `}
@@ -90,7 +96,7 @@ class ModalButtons extends Component {
             margin-left: auto;
           `}
         >
-          X
+          <ExitButtonContainer width="25px" />
         </PrimaryButton>
       </div>
     )
@@ -99,7 +105,7 @@ class ModalButtons extends Component {
 
 function voteScore(score) {
   let scoreArray = [];
-  for (let i = -30; i < score; i++) {
+  for (let i = 0; i < score; i++) {
     scoreArray.push(
       <li key={i}
         css={css`
@@ -110,6 +116,7 @@ function voteScore(score) {
           css={css`
             max-width: 15px;
             color: green;
+            margin-right: 2px;
           `}
         />
       </li>
@@ -144,46 +151,58 @@ class ProductList extends Component {
 
     //map through each product in sortedCounts and return the number of hands for each of its votes
     let productItems = sortedCounts.map((entry, index) => {
+      let specificProduct = products.find(product => product.id === entry[0])
+      console.log(specificProduct);
+      console.log(entry[1]);
         return (
-          <li key={index} className="oneProduct">
-            <SmallHeader>{findProperItem(products, entry[0]).name}</SmallHeader>
-            <div
+          <li key={index} className="oneProduct"
+            css={css`
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 30px;
+
+              &:last-child {
+                margin-bottom: 0;
+              }
+            `}
+          >
+          <div>
+            <SmallHeader className="productName">
+              {specificProduct.name}
+            </SmallHeader>
+            <NakedUl
+              className="productScore"
               css={css`
+                list-style: none;
+                padding: 0;
                 display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
+                flex-wrap: wrap;
               `}
             >
-              <ul
-                css={css`
-                  list-style: none;
-                  padding: 0;
-                  display: flex;
-                  flex-wrap: wrap;
-                `}
-              >
-                {voteScore(entry[1])}
-              </ul>
-              <img src={findProperItem(products, entry[0]).picturePath} alt={findProperItem(products, entry[0]).name}
-                css={css`
-                  max-width: 60px;
-                `}
-              />
-            </div>
+              {voteScore(entry[1])}
+            </NakedUl>
+          </div>
+          <img className="productImage"
+            src={specificProduct.picturePath} alt={specificProduct.name}
+            css={css`
+              max-width: 60px;
+              margin-left: 20px;
+            `}
+          />
           </li>
         )
     })
 
     return (
       <div>
-        <ul
+        <NakedUl
           css={css`
             list-style: none;
             padding: 0;
           `}
         >
           {productItems}
-        </ul>
+        </NakedUl>
       </div>
     )
   }

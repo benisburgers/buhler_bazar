@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Field, ErrorMessage, Form } from 'formik';
 import ReactModal from 'react-modal';
 
+export const PrimaryColor = "#A9EEC2"
+
 
 //Buttons and Links
 export const Button = styled.button`
@@ -21,7 +23,7 @@ export const PrimaryButton = styled(Button)`
   border: none;
   background-color: ${props =>
     props.negative ? '#FF665A'
-    : '#A9EEC2'
+    : PrimaryColor
   };
   width: ${props =>
     props.width ? props.width
@@ -30,7 +32,7 @@ export const PrimaryButton = styled(Button)`
 `
 
 export const StyledLink = styled('span')`
-  color: #A9EEC2;
+  color: ${PrimaryColor};
   font-family: "Avenir Next";
   text-decoration: none;
   cursor: pointer;
@@ -89,7 +91,7 @@ const ExitButtonLine = styled('span') `
   height: 3px;
   display: block;
   background-color: ${props =>
-    props.color ? props.color : '#A9EEC2'
+    props.color ? props.color : PrimaryColor
   };
 `
 
@@ -192,6 +194,9 @@ export const SmallHeader = styled('h3') `
   font-weight: bold;
   line-height: 30px;
   margin: 0;
+	color: #515151;
+	font-family: "Avenir Next";
+  margin-bottom: 10px;
 `
 
 export const VerySmallHeader = styled('h4') `
@@ -215,7 +220,7 @@ export const SelectionButton = styled('button') `
     props.active ? '#363636' : '#F1F1F1'
   };
   color: ${props =>
-    props.active ? '#A9EEC2' : '#515151'
+    props.active ? PrimaryColor : '#515151'
   };
   border: none;
 `
