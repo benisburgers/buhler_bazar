@@ -50,7 +50,13 @@ class WeekNumber extends Component {
       return weekNo;
     }
     return (
-      <div className="weekNumberContainer">
+      <div className="weekNumberContainer"
+        css={css`
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        `}
+      >
         <div
           css={css`
             background-color: #363636;
@@ -73,8 +79,16 @@ class WeekNumber extends Component {
             {getWeekNumber(new Date())}
           </span>
         </div>
+        <text x='50%' y="100%" textAnchor="middle" dominantBaseline="text-top"
+          style={{
+            fontSize: 12,
+            fontWeight: 'bold',
+            fill: '#515151'
+          }}
+        >
+          Kaländerwuche
+        </text>
       </div>
-
     )
   }
 }
