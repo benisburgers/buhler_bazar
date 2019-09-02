@@ -86,27 +86,8 @@ export const SecondaryButton = styled(PrimaryButton) `
   padding: 10px 20px;
 `
 
-const ExitButtonLine = styled('span') `
-  width: 100%;
-  height: 3px;
-  display: block;
-  background-color: ${props =>
-    props.color ? props.color : PrimaryColor
-  };
-`
-
-export const PosExitButtonLine = styled(ExitButtonLine)`
-  transform: rotate(-45deg) translateY(-50%);
-`
-
-export const NegExitButtonLine = styled (ExitButtonLine)`
-  transform: rotate(45deg) translateY(50%);
-`
-
 export const ExitButton = styled('div') `
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  position: relative;
   width: ${props =>
     props.width ? props.width : '100%'
   };
@@ -116,6 +97,25 @@ export const ExitButton = styled('div') `
   margin: auto;
 `
 
+const ExitButtonLine = styled('span') `
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 3px;
+  display: block;
+  background-color: ${props =>
+    props.color ? props.color : PrimaryColor
+  };
+`
+
+export const PosExitButtonLine = styled(ExitButtonLine)`
+  transform: translate(-50%, -50%) rotate(-45deg)
+`
+
+export const NegExitButtonLine = styled (ExitButtonLine)`
+  transform: translate(-50%, -50%) rotate(45deg)
+`
 
 export const PlusButton = styled('div') `
   display: flex;

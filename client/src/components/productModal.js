@@ -10,7 +10,7 @@ class ProductModal extends Component {
     const {product, productTypes, toggleFields, handleCloseModal } = this.props;
     return (
       <ModalContent>
-        <ModalMainPart height="100%"
+        <ModalMainPart
           css={css`
             text-align: center;
             display: flex;
@@ -26,7 +26,7 @@ class ProductModal extends Component {
               `}
               onClick={e => handleCloseModal()}
             >
-              <ExitButtonContainer lineColor="green" />
+              <ExitButtonContainer />
             </div>
           </ModalHeader>
           <ProductForm product={product} productTypes={productTypes} toggleFields={toggleFields} handleCloseModal={handleCloseModal}/>
