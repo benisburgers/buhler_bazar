@@ -165,6 +165,7 @@ class ProductForm extends Component {
               </ImplicitLabel>
               <ImplicitLabel>
                 <Select
+                  isSearchable={false}
                   options={options}
                   styles={customStyles}
                   name="productType"
