@@ -22,7 +22,7 @@ class ResultsModal extends Component {
   }
 
   render() {
-    const { handleCloseModal, products, findProperItem } = this.props;
+    const { handleCloseModal, products } = this.props;
     return (
       <ModalContent className="votingModal">
         <ModalMainPart className="mainPart">
@@ -32,7 +32,7 @@ class ResultsModal extends Component {
             </MediumHeader>
             <WeekNumber />
           </ModalHeader>
-          <ProductList products={products} findProperItem={findProperItem} rawResults={this.state.rawResults}/>
+          <ProductList products={products} rawResults={this.state.rawResults}/>
         </ModalMainPart>
         <ModalButtons handleCloseModal={handleCloseModal} />
       </ModalContent>
@@ -142,7 +142,7 @@ class ProductList extends Component {
 
   render() {
     // access raw results from state (each array represents one user's choice for the week) (rawResults)
-    const { products, findProperItem, rawResults } = this.props;
+    const { products, rawResults } = this.props;
 
     //merge all these choices into one array (mergedResults)
     var mergedResults = [].concat.apply([], rawResults);

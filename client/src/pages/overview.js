@@ -37,7 +37,7 @@ class Overview extends Component {
   }
 
   render() {
-    const { userinfo, products, findProperItem, productTypes } = this.props;
+    const { userinfo, products, productTypes } = this.props;
     return (
       <FullHeightSection className="overview"
         css={css`
@@ -58,7 +58,7 @@ class Overview extends Component {
         >
           <OverviewButtons handleOpenModal={this.handleOpenModal} />
           <CountDown />
-          <PreviousOrder userinfo={userinfo} products={products} findProperItem={findProperItem} />
+          <PreviousOrder userinfo={userinfo} products={products} />
         </div>
         <ReactModal
           isOpen={this.state.showModal}
@@ -78,7 +78,7 @@ class Overview extends Component {
         {
           this.state.modalContent === 'voting'
           ? <VotingModal products={products} handleCloseModal={this.handleCloseModal} productTypes={productTypes} />
-          : <ResultsModal handleCloseModal={this.handleCloseModal} products={products} findProperItem={findProperItem} />
+          : <ResultsModal handleCloseModal={this.handleCloseModal} products={products} />
         }
         </ReactModal>
       </FullHeightSection>
@@ -141,7 +141,7 @@ function DaysLeft(props) {
 
 class PreviousOrder extends Component {
   render() {
-    const { userinfo, products, findProperItem } = this.props;
+    const { userinfo, products } = this.props;
 
     const dateString = (() => {
       var previousOrderDate = new Date(userinfo.lastOrderDate);
@@ -151,9 +151,10 @@ class PreviousOrder extends Component {
 
 
     const previousOrder = userinfo.lastOrder.map((entry, index) => {
+      const specificProduct = products.find(product => product.id === entry)
       return (
         <li key={index}>
-          <img src={ findProperItem(products, entry).picturePath } alt={ findProperItem(products, entry).name }
+          <img src={ specificProduct.picturePath } alt={ specificProduct.name }
             css={css`
               height: 100px;
               width: 100px;
@@ -164,7 +165,7 @@ class PreviousOrder extends Component {
             css={css`
             display: block;
           `}
-          >{ findProperItem(products, entry).name }</span>
+          >{ specificProduct.name }</span>
         </li>
       )
     })
