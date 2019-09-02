@@ -21,7 +21,12 @@ function Thumbnail(props) {
   }
   else {
     return (
-      <img src={thumbnail_icon} alt={`Thumbnail`} />
+      <img src={thumbnail_icon} alt={`Thumbnail`}
+        css={css`
+          height: 100px;
+          width: 100px;
+        `}
+      />
     )
   }
 }

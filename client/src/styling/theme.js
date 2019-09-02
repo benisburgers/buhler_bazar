@@ -163,6 +163,10 @@ export const ExplicitForm = styled(ImplicitForm) `
 `
 
 export const StyledField = styled (Field) `
+  border-radius: 8px;
+  &:focus {
+    outline-color: ${PrimaryColor};
+  }
 `
 
 //Explicit, such as Registration and Login forms where you can SEE the input fields
@@ -178,10 +182,12 @@ export const ImplicitLabel = styled(ExplicitLabel) `
 
 export const ExplicitField = styled (StyledField) `
   border: 1px solid #A3A1A8;
-  border-radius: 8px;
   padding: 12px;
   width: 100%;
   box-sizing: border-box;
+  &:focus {
+    border: 1px solid rgba(0,0,0,0);
+  }
 `
 
 export const ExplicitErrorMessage = styled (ErrorMessage) `
@@ -192,7 +198,7 @@ export const ExplicitErrorMessage = styled (ErrorMessage) `
 
 //Implicit such as user profile
 export const ImplicitField = styled (StyledField) `
-  color: #515151;
+  color: ${props => props.disabled ? "#c2c2c2" : "#515151"};
   font-family: "Avenir Next";
   font-size: 21px;
   font-weight: bold;
@@ -203,6 +209,10 @@ export const ImplicitField = styled (StyledField) `
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 5px;
+  padding: 5px;
+  &::placeholder {
+    color: #c2c2c2;
+  }
 `
 
 // other components
