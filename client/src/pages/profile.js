@@ -5,11 +5,11 @@ import TopBarContainer from '../components/topbar.js'
 class Profile extends Component {
   render() {
 
-    const { userinfo, history, toggleFields } = this.props;
+    const { userinfo, history } = this.props;
     return (
       <section className="profile">
         <TopBarContainer userinfo={userinfo} title="PROFIL" />
-        <ProfileForm userinfo={userinfo} toggleFields={toggleFields} />
+        <ProfileForm userinfo={userinfo} />
       </section>
     )
   }

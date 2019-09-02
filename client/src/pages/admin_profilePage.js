@@ -26,11 +26,11 @@ class adminProfilePage extends Component {
   render() {
     const targetUser = this.state.targetUser;
     const userinfo = this.props.userinfo;
-    const { history, toggleFields } = this.props;
+    const { history } = this.props;
     return (
       <section className="profile">
         <TopBarContainer userinfo={userinfo} title={`${targetUser.firstName}'s Profil`} />
-        <ProfileForm userinfo={targetUser} toggleFields={toggleFields} />
+        <ProfileForm userinfo={targetUser} />
       </section>
     )
   }

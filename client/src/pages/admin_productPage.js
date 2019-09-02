@@ -6,47 +6,29 @@ import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, Implic
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import Select from 'react-select'
+import { FormComponent } from '../components/form'
 
 
 class AdminProductPage extends Component {
   render() {
-    const { findProperItem, products, match, history, toggleFields, productTypes } = this.props;
+    const { findProperItem, products, match, history, productTypes } = this.props;
     var product = findProperItem(products, parseInt(match.params.id));
     return (
       <section className="admin_productPage">
         <button onClick={history.goBack}>back</button>
-        <Basic product={product} productTypes={productTypes} toggleFields={toggleFields} />
+        <Basic product={product} productTypes={productTypes} />
       </section>
     )
   }
 }
 
-class Basic extends Component {
+class Basic extends FormComponent {
 
   state = {
     disabledFields: {
       productName: true,
       productType: true
     }
-  }
-
-  pushData = (input) => {
-    return new Promise((resolve, reject) => {
-      (async () => {
-        const rawResponse = await fetch('/api/editUser', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(input)
-        });
-        const content = await rawResponse.json();
-
-        console.log(content);
-        resolve();
-      })();
-    })
   }
 
   render() {
@@ -57,8 +39,9 @@ class Basic extends Component {
 
     var options = [];
 
-    const { product, productTypes, toggleFields } = this.props;
+    const { product, productTypes } = this.props;
     const { id, name, type, picturePath } = product || '';
+    const { toggleFields } = this;
 
     options = productTypes.map(entry => {
       return { value: entry, label: entry }
@@ -113,7 +96,7 @@ class Basic extends Component {
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              this.pushData(values);
+              this.pushData(values, '/api/editUser');
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values, handleChange }) => (

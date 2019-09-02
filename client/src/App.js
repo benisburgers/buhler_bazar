@@ -95,17 +95,6 @@ class App extends Component {
   findProperItem(array, entry) {
     return(array.find(fruit => fruit.id === entry));
   }
-
-  toggleFields(context, fieldName) {
-    console.log('toggleFields');
-    let origDisabledFields = context.state.disabledFields;
-    let newDisabledFields = Object.assign({}, ...Object.keys(origDisabledFields).map(k => ({[k]: true})));
-    newDisabledFields[fieldName] = false;
-    context.setState({
-      disabledFields: newDisabledFields
-    })
-  }
-
   render() {
     return (
         <div className="App" id="main">
@@ -126,15 +115,15 @@ class App extends Component {
         />
           <Router>
             <Switch>
-              <Route exact path="/" component={ () => <Login joke={this.state.joke} /> } />
+              <Route exact path="/" component={ () => <Login joke={this.state.joke} />} />
               <Route exact path="/register" render={({history}) => <Register history={history} />} />
               <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} products={this.state.products} findProperItem={this.findProperItem} productTypes={this.state.productTypes} /> } />
-              <Route path="/profile" render={({history}) => <Profile history={history} userinfo={this.state.user} toggleFields={this.toggleFields} />} />
+              <Route path="/profile" render={({history}) => <Profile history={history} userinfo={this.state.user} />} />
               <Route path="/results" render={({history}) => <Results history={history} products={this.state.products} findProperItem={this.findProperItem} />} />
-              <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} toggleFields={this.toggleFields} /> } />
-              <Route path="/admin/admin_profilePage/:id" render={({match, history}) => <AdminProfilePage match={match} history={history} toggleFields={this.toggleFields} userinfo={this.state.user}/>} />
-              <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userinfo={this.state.user} toggleFields={this.toggleFields} /> } />
-              <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage toggleFields={this.toggleFields} findProperItem={this.findProperItem} products={this.state.products} productTypes={this.state.productTypes} match={match} history={history} />} />
+              <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
+              <Route path="/admin/admin_profilePage/:id" render={({match, history}) => <AdminProfilePage match={match} history={history} userinfo={this.state.user}/>} />
+              <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userinfo={this.state.user} />} />
+              <Route path="/admin/admin_productPage/:id" render={({match, history}) => <AdminProductPage findProperItem={this.findProperItem} products={this.state.products} productTypes={this.state.productTypes} match={match} history={history} />} />
             </Switch>
           </Router>
         </div>

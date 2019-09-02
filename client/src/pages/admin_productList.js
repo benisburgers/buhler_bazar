@@ -36,7 +36,7 @@ class AdminProducts extends Component {
   }
 
   render() {
-    const { products, productTypes, userinfo, toggleFields } = this.props;
+    const { products, productTypes, userinfo } = this.props;
     const { activeProductId } = this.state;
     return (
       <FullHeightSection className="admin_productList"
@@ -71,7 +71,7 @@ class AdminProducts extends Component {
             }
           }}
         >
-          <ProductModal product={activeProductId ? products.find(product => product.id === activeProductId) : undefined} productTypes={productTypes} toggleFields={toggleFields} handleCloseModal={this.handleCloseModal} />
+          <ProductModal product={activeProductId ? products.find(product => product.id === activeProductId) : undefined} productTypes={productTypes} handleCloseModal={this.handleCloseModal} />
         </ReactModal>
       </FullHeightSection>
     )

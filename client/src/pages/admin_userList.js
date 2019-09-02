@@ -90,7 +90,7 @@ class AdminUserList extends Component {
   }
 
   render() {
-    const { userinfo, toggleFields } = this.props;
+    const { userinfo } = this.props;
     const { userList, activeUserId } = this.state;
     return (
       <FullHeightSection className="admin_userList">
@@ -111,7 +111,7 @@ class AdminUserList extends Component {
             }
           }}
         >
-          <ProfileModal userinfo={activeUserId ? userList.find(user => user.id === activeUserId) : undefined} handleCloseModal={this.handleCloseModal} toggleFields={toggleFields} />
+          <ProfileModal userinfo={activeUserId ? userList.find(user => user.id === activeUserId) : undefined} handleCloseModal={this.handleCloseModal} />
         </ReactModal>
       </FullHeightSection>
     )

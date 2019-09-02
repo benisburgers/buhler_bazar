@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/core'
 
 class ProductModal extends Component {
   render() {
-    const {product, productTypes, toggleFields, handleCloseModal } = this.props;
+    const {product, productTypes, handleCloseModal } = this.props;
     return (
       <ModalContent>
         <ModalMainPart
@@ -29,7 +29,7 @@ class ProductModal extends Component {
               <ExitButtonContainer />
             </div>
           </ModalHeader>
-          <ProductForm product={product} productTypes={productTypes} toggleFields={toggleFields} handleCloseModal={handleCloseModal}/>
+          <ProductForm product={product} productTypes={productTypes} handleCloseModal={handleCloseModal}/>
         </ModalMainPart>
       </ModalContent>
     )
