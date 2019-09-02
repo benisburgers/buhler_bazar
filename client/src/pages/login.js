@@ -7,6 +7,7 @@ import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitF
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import StartScreen from '../components/images/startscreen.gif'
+import { FormComponent } from '../components/form'
 
 class Register extends Component {
   render() {
@@ -47,30 +48,10 @@ function LogInText(props) {
   )
 }
 
-class LogInForm extends Component {
-
-  pushData = (input) => {
-    return new Promise((resolve, reject) => {
-      (async () => {
-        const rawResponse = await fetch('/api/Login', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(input)
-        });
-        const content = await rawResponse.json();
-
-        console.log(content);
-        resolve();
-      })();
-    })
-  }
-
-
+class LogInForm extends FormComponent {
 
   render() {
+    const { pushData } = this;
     const LoginSchema = Yup.object().shape({
       email: Yup.string()
         .email('Muss gültig email sie')
@@ -95,7 +76,7 @@ class LogInForm extends Component {
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              this.pushData(values);
+              this.pushData(values, '/api/Login');
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting }) => (
