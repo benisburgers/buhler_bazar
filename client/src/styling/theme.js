@@ -254,7 +254,7 @@ export const VerySmallHeader = styled('h4') `
   line-height: 23px;
 `
 
-export const SelectionButton = styled('button') `
+export const SelectionButton = styled(Button) `
   width: 124px;
   padding: 4px 0;
   font-size: 16px;

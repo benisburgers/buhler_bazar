@@ -113,6 +113,15 @@ class App extends Component {
           styles={css`
             html, body, #root, #main {
               height: 100%;
+            }
+            * {
+              &:active {
+                -webkit-tap-highlight-color: transparent;
+              }
+              &:focus {
+                outline-color: transparent;
+              }
+            }
           `}
         />
           <Router>
