@@ -6,32 +6,15 @@ import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, Implic
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import Select from 'react-select'
+import { FormComponent } from '../components/form'
 
-class ProductForm extends Component {
+class ProductForm extends FormComponent {
+
   state = {
     disabledFields: {
       productName: true,
       productType: true
     }
-  }
-
-  pushData = (input) => {
-    return new Promise((resolve, reject) => {
-      (async () => {
-        const rawResponse = await fetch('/api/editUser', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(input)
-        });
-        const content = await rawResponse.json();
-
-        console.log(content);
-        resolve();
-      })();
-    })
   }
 
   render() {
@@ -42,8 +25,9 @@ class ProductForm extends Component {
 
     var options = [];
 
-    const { product, productTypes, toggleFields, handleCloseModal } = this.props;
+    const { product, productTypes, handleCloseModal } = this.props;
     const { id, name, type, picturePath } = product || '';
+    const { toggleFields, pushData } = this;
 
     options = productTypes.map(entry => {
       return { value: entry, label: entry }
@@ -132,7 +116,7 @@ class ProductForm extends Component {
             resetForm();
             setSubmitting(false);
             //check if email exists in database
-            this.pushData(values);
+            this.pushData(values, '/api/editProduct');
             handleCloseModal();
           }, 200);
         }}

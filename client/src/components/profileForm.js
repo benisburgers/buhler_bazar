@@ -5,9 +5,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
+import { FormComponent } from '../components/form'
 
-
-class ProfileForm extends Component {
+class ProfileForm extends FormComponent {
 
   state = {
     disabledFields: {
@@ -17,28 +17,10 @@ class ProfileForm extends Component {
     }
   }
 
-  pushData = (input) => {
-    return new Promise((resolve, reject) => {
-      (async () => {
-        const rawResponse = await fetch('/api/editUser', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(input)
-        });
-        const content = await rawResponse.json();
-
-        console.log(content);
-        resolve();
-      })();
-    })
-  }
-
   render() {
-    const { userinfo, toggleFields, handleCloseModal } = this.props;
+    const { userinfo, handleCloseModal } = this.props;
     const { id, picturePath, email, firstName, lastName } = userinfo || '';
+    const { toggleFields, pushData } = this;
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
       email: Yup.string()
@@ -76,7 +58,7 @@ class ProfileForm extends Component {
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              this.pushData(values);
+              this.pushData(values, '/api/editUser');
               handleCloseModal();
             }, 200);
           }}
