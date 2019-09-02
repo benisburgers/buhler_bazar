@@ -6,7 +6,7 @@ import Thumbnail from '../components/thumbnail';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import register_thumbnail_icon from '../components/images/register-thumbnail-icon.png';
-
+import { FormComponent } from '../components/form'
 
 class Register extends Component {
   render() {
@@ -27,7 +27,7 @@ class Register extends Component {
 
 var userExists;
 
-class RegistrationForm extends Component {
+class RegistrationForm extends FormComponent {
 
   pushData = (input) => {
     return new Promise((resolve, reject) => {

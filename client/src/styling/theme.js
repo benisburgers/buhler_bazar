@@ -164,9 +164,6 @@ export const ExplicitForm = styled(ImplicitForm) `
 
 export const StyledField = styled (Field) `
   border-radius: 8px;
-  &:focus {
-    outline-color: ${PrimaryColor};
-  }
 `
 
 //Explicit, such as Registration and Login forms where you can SEE the input fields
@@ -186,7 +183,7 @@ export const ExplicitField = styled (StyledField) `
   width: 100%;
   box-sizing: border-box;
   &:focus {
-    border: 1px solid rgba(0,0,0,0);
+    border: 1px solid ${PrimaryColor};
   }
 `
 
