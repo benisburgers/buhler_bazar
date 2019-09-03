@@ -7,6 +7,7 @@ import Thumbnail from '../components/thumbnail';
 import { css, jsx } from '@emotion/core'
 import register_thumbnail_icon from '../components/images/register-thumbnail-icon.png';
 import { FormComponent } from '../components/form'
+import alert_triangle from '../components/images/alert-triangle.svg'
 
 class Register extends Component {
   render() {
@@ -59,8 +60,10 @@ class RegistrationForm extends FormComponent {
 
 
   render() {
+    var { fileValidation } = this;
     const requiredError = 'Musch usfülle!'
     const SignupSchema = Yup.object().shape({
+      file: fileValidation.schema,
       firstName: Yup.string()
         .min(2, 'Mindestens zwei Zeiche')
         .max(50, 'Maximal 50 Zeiche')
@@ -86,6 +89,7 @@ class RegistrationForm extends FormComponent {
       >
         <Formik
           initialValues = {{
+            file: '',
             firstName: '',
             lastName: '',
             email: '',
@@ -116,11 +120,16 @@ class RegistrationForm extends FormComponent {
               <div className="thumbnailContainer"
                 css={css`
                   text-align: center;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
                 `}
               >
-                <img src={register_thumbnail_icon} alt="thumbnail icon"
+                <img src={values.file ? values.file : register_thumbnail_icon} alt="thumbnail icon" onError={(e)=>{e.target.onerror = null; e.target.src=alert_triangle}}
                   css={css`
-                    max-width: 100px;
+                    height: 100px;
+                    width: 100px;
+                    border-radius: 100%;
                   `
                   }
                 />
@@ -129,6 +138,7 @@ class RegistrationForm extends FormComponent {
                   type="file"
                   onChange={e => {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
+                     fileValidation.file = e.target.files[0];
                   }}
                   name="file"
                   css={css`
@@ -136,6 +146,7 @@ class RegistrationForm extends FormComponent {
                     `
                   }
                 />
+              <ExplicitErrorMessage component="p" name="file" />
                 <StyledLabel htmlFor="file">Profilbild Wächsle</StyledLabel>
               </div>
               <div className="inputFields">

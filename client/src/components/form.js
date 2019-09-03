@@ -72,7 +72,7 @@ export class FormComponent extends Component {
   fileValidation = {
     file: undefined,
     schema: Yup.mixed()
-      .required('Das Produkt brucht es Bild')
+      .required('Du bruchsch es Bild')
       .test('fileSize', "Bild muss chliner als 10mb sie", value => {
         if (value) {
           return this.fileValidation.file ? this.fileValidation.file.size <= 1e+7 : true;
