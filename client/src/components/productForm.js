@@ -33,9 +33,6 @@ class ProductForm extends FormComponent {
       return { value: entry, label: entry }
     })
 
-    const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
-    const FILE_SIZE = 1e+7;
-
     var fileType = undefined;
     var fileSize = undefined;
 
@@ -46,12 +43,12 @@ class ProductForm extends FormComponent {
         .required('Das Produkt brucht es Bild')
         .test('fileSize', "Bild muss chliner als 10mb sie", value => {
           if (value) {
-            return fileSize ? fileSize <= FILE_SIZE : true;
+            return fileSize ? fileSize <= 1e+7 : true;
           }
         })
         .test('fileType', "Numme folgendi Format: JPG, JPEG, GIF, PNG", value => {
           if (value) {
-            return fileType ? SUPPORTED_FORMATS.includes(fileType) : true;
+            return fileType ? ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(fileType) : true;
           }
         }),
 
@@ -101,7 +98,6 @@ class ProductForm extends FormComponent {
                 css={css`
                   display: none;
                 `}
-                accept=".jpg, .jpeg, .png"
               />
               <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
               <ErrorMessage name="file" />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { PrimaryColor } from "../styling/theme"
+import * as Yup from 'yup';
 
 export class FormComponent extends Component {
 
@@ -66,6 +67,21 @@ export class FormComponent extends Component {
     singleValue: (provided, state) => ({
       ...provided,
     }),
+  }
+
+  schema = {
+    file: Yup.mixed()
+      .required('Das Produkt brucht es Bild')
+      .test('fileSize', "Bild muss chliner als 10mb sie", value => {
+        if (value) {
+          return value.size ? value.size <= 1e+7 : true;
+        }
+      })
+      .test('fileType', "Numme folgendi Format: JPG, JPEG, GIF, PNG", value => {
+        if (value) {
+          return value.type ? ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(value.type) : true;
+        }
+      }),
   }
 
 }
