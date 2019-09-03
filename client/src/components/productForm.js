@@ -34,13 +34,8 @@ class ProductForm extends FormComponent {
     })
 
     var fileValidation = {
-      file: undefined
-    }
-
-    const ValidationSchema = Yup.object().shape({
-      // TODO: ENTER Yup verify for image uplaod
-
-      file: Yup.mixed()
+      file: undefined,
+      schema: Yup.mixed()
         .required('Das Produkt brucht es Bild')
         .test('fileSize', "Bild muss chliner als 10mb sie", value => {
           if (value) {
@@ -51,7 +46,12 @@ class ProductForm extends FormComponent {
           if (value) {
             return fileValidation.file ? ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(fileValidation.file.type) : true;
           }
-        }),
+        })
+    }
+
+    const ValidationSchema = Yup.object().shape({
+
+      file: fileValidation.schema,
 
       productName: Yup.string()
         .min(2)
