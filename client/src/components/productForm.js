@@ -76,7 +76,6 @@ class ProductForm extends FormComponent {
                 id="file"
                 type="file"
                 onChange={e => {
-                   console.log(fileValidation);
                    setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                    fileValidation.file = e.target.files[0];
                 }}

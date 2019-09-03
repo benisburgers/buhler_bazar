@@ -23,8 +23,11 @@ class ProfileForm extends FormComponent {
     const { targetUser, handleCloseModal, currentUser } = this.props;
     const { id, picturePath, email, firstName, lastName, admin } = targetUser || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
+    var { fileValidation } = this;
+
     const ValidationSchema = Yup.object().shape({
-      // TODO: ENTER Yup verify for image uplaod
+      file: fileValidation.schema,
+
       email: Yup.string()
         .email()
         .required(),
@@ -78,7 +81,8 @@ class ProfileForm extends FormComponent {
                   id="file"
                   type="file"
                   onChange={e => {
-                     setFieldValue('file', URL.createObjectURL(e.target.files[0]));
+                    setFieldValue('file', URL.createObjectURL(e.target.files[0]));
+                    fileValidation.file = e.target.files[0];
                   }}
                   name="file"
                   css={css`
@@ -86,6 +90,7 @@ class ProfileForm extends FormComponent {
                   `}
                 />
                 <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
+                <ErrorMessage name="file" />
               </div>
               <div class="textFieldsContainer">
                 <ImplicitLabel>
