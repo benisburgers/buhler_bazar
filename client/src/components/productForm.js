@@ -23,15 +23,15 @@ class ProductForm extends FormComponent {
       console.log('deleteProduct');
     }
 
+    const { product, productTypes, handleCloseModal } = this.props;
+    const { id, name, type, picturePath } = product || '';
+    const { toggleFields, pushData, reactSelectStyles } = this;
+
     var reactSelectOptions = [];
 
     reactSelectOptions = productTypes.map(entry => {
       return { value: entry, label: entry }
     })
-
-    const { product, productTypes, handleCloseModal } = this.props;
-    const { id, name, type, picturePath } = product || '';
-    const { toggleFields, pushData, reactSelectStyles } = this;
 
     var fileValidation = {
       file: undefined,
