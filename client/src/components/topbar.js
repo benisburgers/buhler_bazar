@@ -179,6 +179,8 @@ class Hamburger extends Component {
         display: flex;
         justify-content: flex-end;
         margin-left: auto;
+        height: 100%;
+        align-items: center;
         `}
       >
         <div
