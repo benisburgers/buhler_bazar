@@ -26,28 +26,13 @@ class ProductForm extends FormComponent {
     const { product, productTypes, handleCloseModal } = this.props;
     const { id, name, type, picturePath } = product || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
+    var { fileValidation } = this;
 
     var reactSelectOptions = [];
 
     reactSelectOptions = productTypes.map(entry => {
       return { value: entry, label: entry }
     })
-
-    var fileValidation = {
-      file: undefined,
-      schema: Yup.mixed()
-        .required('Das Produkt brucht es Bild')
-        .test('fileSize', "Bild muss chliner als 10mb sie", value => {
-          if (value) {
-            return fileValidation.file ? fileValidation.file.size <= 1e+7 : true;
-          }
-        })
-        .test('fileType', "Numme folgendi Format: JPG, JPEG, GIF, PNG", value => {
-          if (value) {
-            return fileValidation.file ? ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(fileValidation.file.type) : true;
-          }
-        })
-    }
 
     const ValidationSchema = Yup.object().shape({
 

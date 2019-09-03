@@ -69,19 +69,21 @@ export class FormComponent extends Component {
     }),
   }
 
-  schema = {
-    file: Yup.mixed()
+  fileValidation = {
+    file: undefined,
+    schema: Yup.mixed()
       .required('Das Produkt brucht es Bild')
       .test('fileSize', "Bild muss chliner als 10mb sie", value => {
         if (value) {
-          return value.size ? value.size <= 1e+7 : true;
+          return this.fileValidation.file ? this.fileValidation.file.size <= 1e+7 : true;
         }
       })
       .test('fileType', "Numme folgendi Format: JPG, JPEG, GIF, PNG", value => {
         if (value) {
-          return value.type ? ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(value.type) : true;
+          return this.fileValidation.file ? ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(this.fileValidation.file.type) : true;
         }
-      }),
+      })
   }
+
 
 }
