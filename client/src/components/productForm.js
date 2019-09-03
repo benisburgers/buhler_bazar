@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Thumbnail from '../components/thumbnail'
-import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel, PrimaryColor } from "../styling/theme"
+import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel, PrimaryColor, StyledErrorMessage } from "../styling/theme"
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import Select from 'react-select'
@@ -26,7 +26,7 @@ class ProductForm extends FormComponent {
     const { product, productTypes, handleCloseModal } = this.props;
     const { id, name, type, picturePath } = product || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
-    var { fileValidation } = this;
+    var { fileValidation, requiredError } = this;
 
     var reactSelectOptions = [];
 
@@ -39,14 +39,14 @@ class ProductForm extends FormComponent {
       file: fileValidation.schema,
 
       productName: Yup.string()
-        .min(2)
-        .max(20)
-        .required('Das Produkt brucht en Name'),
+        .min(2, 'Mindestens 2 Zeiche')
+        .max(20, 'Maximal 20 Zeiche')
+        .required(requiredError),
 
       productType: Yup.string()
-        .min(2)
-        .max(20)
-        .required('Das Produkt brucht en Typ')
+        .min(2, 'Mindestens 2 Zeiche')
+        .max(20, 'Maximal 20 Zeiche')
+        .required(requiredError)
     })
 
     return (
@@ -85,13 +85,13 @@ class ProductForm extends FormComponent {
                 `}
               />
               <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
-              <ErrorMessage name="file" />
+              <StyledErrorMessage component="p" name="file" />
             </div>
             <div className="inputFieldsContainer">
               <ImplicitLabel>
                 <ImplicitField type="text" name="productName" placeholder="Product Name" disabled={this.state.disabledFields.productName} />
                 <TextButton onClick={e => toggleFields(this, "productName")}>{ values.productName ? "Name ändere" : "Deklarierä" }</TextButton>
-                <ErrorMessage name="productName" />
+                <StyledErrorMessage component="p" name="productName" />
               </ImplicitLabel>
               <ImplicitLabel>
                 <Select
@@ -114,7 +114,7 @@ class ProductForm extends FormComponent {
                   `}
                 />
                 <TextButton onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</TextButton>
-                <ErrorMessage name="productType" />
+                <StyledErrorMessage component="p" name="productType" />
               </ImplicitLabel>
             </div>
             <div className="buttonsContainer"

@@ -51,15 +51,15 @@ function LogInText(props) {
 class LogInForm extends FormComponent {
 
   render() {
-    const { pushData } = this;
+    const { pushData, requiredError } = this;
     const LoginSchema = Yup.object().shape({
       email: Yup.string()
         .email('Muss gültig email sie')
-        .required('Musch usfülle!'),
+        .required(requiredError),
       password: Yup.string()
         .min(6, 'Mindestent 6 Zeiche')
         .max(20, 'Maximal 20 Zeiche')
-        .required('Musch usfülle!')
+        .required(requiredError)
     })
 
     return (

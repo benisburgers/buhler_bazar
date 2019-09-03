@@ -60,8 +60,7 @@ class RegistrationForm extends FormComponent {
 
 
   render() {
-    var { fileValidation } = this;
-    const requiredError = 'Musch usfülle!'
+    var { fileValidation, requiredError } = this;
     const SignupSchema = Yup.object().shape({
       file: fileValidation.schema,
       firstName: Yup.string()

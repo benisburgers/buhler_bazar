@@ -85,5 +85,6 @@ export class FormComponent extends Component {
       })
   }
 
+  requiredError = 'Musch usfülle!'
 
 }

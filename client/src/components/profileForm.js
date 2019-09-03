@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel, PrimaryColor } from "../styling/theme"
+import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel, PrimaryColor, StyledErrorMessage } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
 import { FormComponent } from '../components/form'
 import Select from 'react-select'
@@ -23,24 +23,24 @@ class ProfileForm extends FormComponent {
     const { targetUser, handleCloseModal, currentUser } = this.props;
     const { id, picturePath, email, firstName, lastName, admin } = targetUser || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
-    var { fileValidation } = this;
+    var { fileValidation, requiredError } = this;
 
     const ValidationSchema = Yup.object().shape({
       file: fileValidation.schema,
 
       email: Yup.string()
-        .email()
-        .required(),
+        .email('Muss gültig email sie')
+        .required(requiredError),
 
       firstName: Yup.string()
-        .min(2)
-        .max(20)
-        .required(),
+        .min(2, 'Mindestens 2 Zeiche')
+        .max(20, 'Maximal 20 Zeiche')
+        .required(requiredError),
 
       lastName: Yup.string()
-        .min(2)
-        .max(20)
-        .required()
+        .min(2, 'Mindestens 2 Zeiche')
+        .max(20, 'Maximal 20 Zeiche')
+        .required(requiredError)
     })
 
     const deleteUser = function() {
@@ -90,23 +90,23 @@ class ProfileForm extends FormComponent {
                   `}
                 />
                 <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
-                <ErrorMessage name="file" />
+                <StyledErrorMessage component="p" name="file" />
               </div>
               <div class="textFieldsContainer">
                 <ImplicitLabel>
                   <ImplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
                   <TextButton onClick={e => toggleFields(this, "email")}>Email { values.email ? "ändere" : "hinzuefüege" }</TextButton>
-                  <ErrorMessage name="email" />
+                  <StyledErrorMessage component="p" name="email" />
                 </ImplicitLabel>
                 <ImplicitLabel>
                   <ImplicitField type="text" name="firstName" placeholder="Vorname" disabled={this.state.disabledFields.firstName} />
                   <TextButton onClick={e => toggleFields(this, "firstName")}>Vorname { values.firstName ? "ändere" : "hinzuefüege" }</TextButton>
-                  <ErrorMessage name="firstName" />
+                  <StyledErrorMessage component="p" name="firstName" />
                 </ImplicitLabel>
                 <ImplicitLabel>
                   <ImplicitField type="text" name="lastName" placeholder="Nachname" disabled={this.state.disabledFields.lastName} />
                   <TextButton onClick={e => toggleFields(this, "lastName")}>Nachname { values.lastName ? "ändere" : "hinzuefüege" }</TextButton>
-                  <ErrorMessage name="lastName" />
+                  <StyledErrorMessage component="p" name="lastName" />
                 </ImplicitLabel>
                 {
                   //check if currentUser AND targetUser exists (remember: currentUser does not equal targetUser).
@@ -138,7 +138,7 @@ class ProfileForm extends FormComponent {
                       `}
                     />
                     <TextButton onClick={e => toggleFields(this, "admin")}>{ values.admin ? "Admin" : "Deklarierä" }</TextButton>
-                    <ErrorMessage name="admin" />
+                    <StyledErrorMessage component="p" name="admin" />
                   </ImplicitLabel>
                   : null
                 }
