@@ -187,10 +187,13 @@ export const ExplicitField = styled (StyledField) `
   }
 `
 
-export const ExplicitErrorMessage = styled (ErrorMessage) `
+export const StyledErrorMessage = styled (ErrorMessage) `
   font-size: 12px;
-  color: red;
-  margin-top: 10px;
+  color: #FF665A;
+  font-weight: bold;
+  font-family: "Avenir Next";
+  margin: 5px 0 0;
+  text-align: center;
 `
 
 //Implicit such as user profile

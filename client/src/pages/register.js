@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { PrimaryButton, BackLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage, StyledLabel, FullHeightSection } from "../styling/theme"
+import { PrimaryButton, BackLink, ExplicitForm, ExplicitLabel, ExplicitField, StyledErrorMessage, StyledLabel, FullHeightSection } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
@@ -146,25 +146,25 @@ class RegistrationForm extends FormComponent {
                     `
                   }
                 />
-              <ExplicitErrorMessage component="p" name="file" />
+                <StyledErrorMessage component="p" name="file" />
                 <StyledLabel htmlFor="file">Profilbild Wächsle</StyledLabel>
               </div>
               <div className="inputFields">
                 <ExplicitLabel>
                   <ExplicitField type="text" name="firstName" placeholder="Vornamä" />
-                  <ExplicitErrorMessage component="p" name="firstName" />
+                  <StyledErrorMessage component="p" name="firstName" />
                 </ExplicitLabel>
                 <ExplicitLabel>
                   <ExplicitField type="text" name="lastName" placeholder="Nachnamä" />
-                  <ExplicitErrorMessage component="p" name="lastName" />
+                  <StyledErrorMessage component="p" name="lastName" />
                 </ExplicitLabel>
                 <ExplicitLabel>
                   <ExplicitField type="email" name="email" placeholder="iimäil" />
-                  <ExplicitErrorMessage component="p" name="email" />
+                  <StyledErrorMessage component="p" name="email" />
                 </ExplicitLabel>
                 <ExplicitLabel>
                   <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
-                  <ExplicitErrorMessage component="p" name="password" />
+                  <StyledErrorMessage component="p" name="password" />
                 </ExplicitLabel>
               </div>
               <PrimaryButton fullWidth type="submit" disabled={isSubmitting}>Registrier di</PrimaryButton>

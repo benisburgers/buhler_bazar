@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
-import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitField, ExplicitErrorMessage, FullHeightSection, StyledParagraph, NakedLink } from "../styling/theme"
+import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitField, StyledErrorMessage, FullHeightSection, StyledParagraph, NakedLink } from "../styling/theme"
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import StartScreen from '../components/images/startscreen.gif'
@@ -83,11 +83,11 @@ class LogInForm extends FormComponent {
             <ExplicitForm>
                 <ExplicitLabel>
                   <ExplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" />
-                  <ExplicitErrorMessage component="p" name="email" />
+                  <StyledErrorMessage component="p" name="email" />
                 </ExplicitLabel>
                 <ExplicitLabel>
                   <ExplicitField type="password" name="password" placeholder="●●●●●●●●●●" />
-                  <ExplicitErrorMessage component="p" name="password" />
+                  <StyledErrorMessage component="p" name="password" />
                 </ExplicitLabel>
               <PrimaryButton type="submit" disabled={isSubmitting}>
                 <NakedLink to={'/overview'}>
