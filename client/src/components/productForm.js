@@ -39,7 +39,7 @@ class ProductForm extends FormComponent {
     var fileType = undefined;
     var fileSize = undefined;
 
-    const LoginSchema = Yup.object().shape({
+    const ValidationSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
 
       file: Yup.mixed()
@@ -74,7 +74,7 @@ class ProductForm extends FormComponent {
           productType: type,
           file: picturePath,
         }}
-        validationSchema = {LoginSchema}
+        validationSchema = {ValidationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(() => {
             console.log(JSON.stringify(values, null, 2));

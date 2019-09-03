@@ -23,7 +23,7 @@ class ProfileForm extends FormComponent {
     const { targetUser, handleCloseModal, currentUser } = this.props;
     const { id, picturePath, email, firstName, lastName, admin } = targetUser || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
-    const LoginSchema = Yup.object().shape({
+    const ValidationSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
       email: Yup.string()
         .email()
@@ -59,7 +59,7 @@ class ProfileForm extends FormComponent {
             lastName: lastName,
             admin: admin
           }}
-          validationSchema = {LoginSchema}
+          validationSchema = {ValidationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             setTimeout(() => {
               console.log(JSON.stringify(values, null, 2));
