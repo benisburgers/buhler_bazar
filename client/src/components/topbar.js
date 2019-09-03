@@ -244,8 +244,8 @@ class Menu extends Component {
         <div onClick={e => handleCloseModal()}
           css={css`
           margin-left: auto;
-          height: 21px;
-          width: 21px;
+          height: 30px;
+          width: 30px;
         `}
           >
           <ExitButtonContainer lineColor="#A9EEC2" />

@@ -20,8 +20,8 @@ function ProfileModal(props) {
         <ModalHeader className="modalHeader">
           <div className="exitButtonContainer"
             css={css`
-              height: 21px;
-              width: 21px;
+              height: 30px;
+              width: 30px;
               margin-left: auto;
             `}
             onClick={e => props.handleCloseModal()}
