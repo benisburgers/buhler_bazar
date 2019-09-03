@@ -23,18 +23,19 @@ class ProductForm extends FormComponent {
       console.log('deleteProduct');
     }
 
-    var options = [];
+    var reactSelectOptions = [];
 
     const { product, productTypes, handleCloseModal } = this.props;
     const { id, name, type, picturePath } = product || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
 
-    options = productTypes.map(entry => {
+    reactSelectOptions = productTypes.map(entry => {
       return { value: entry, label: entry }
     })
 
-    var fileType = undefined;
-    var fileSize = undefined;
+    var fileValidation = {
+      file: undefined
+    }
 
     const ValidationSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
@@ -43,12 +44,12 @@ class ProductForm extends FormComponent {
         .required('Das Produkt brucht es Bild')
         .test('fileSize', "Bild muss chliner als 10mb sie", value => {
           if (value) {
-            return fileSize ? fileSize <= 1e+7 : true;
+            return fileValidation.file ? fileValidation.file.size <= 1e+7 : true;
           }
         })
         .test('fileType', "Numme folgendi Format: JPG, JPEG, GIF, PNG", value => {
           if (value) {
-            return fileType ? ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(fileType) : true;
+            return fileValidation.file ? ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(fileValidation.file.type) : true;
           }
         }),
 
@@ -90,9 +91,9 @@ class ProductForm extends FormComponent {
                 id="file"
                 type="file"
                 onChange={e => {
+                   console.log(fileValidation);
                    setFieldValue('file', URL.createObjectURL(e.target.files[0]));
-                   fileType = e.target.files[0].type;
-                   fileSize = e.target.files[0].size;
+                   fileValidation.file = e.target.files[0];
                 }}
                 name="file"
                 css={css`
@@ -110,16 +111,17 @@ class ProductForm extends FormComponent {
               </ImplicitLabel>
               <ImplicitLabel>
                 <Select
+                  options={reactSelectOptions}
                   isSearchable={false}
                   styles={reactSelectStyles}
                   name="productType"
                   placeholder="Product Type"
                   isDisabled={this.state.disabledFields.productType}
-                  value={options.find(option => option.value === values.productType)}
+                  value={reactSelectOptions.find(option => option.value === values.productType)}
                   onChange={
                     e => {
                       console.log(e);
-                      console.log(options.find(option => option.value === values.productType));
+                      console.log(reactSelectOptions.find(option => option.value === values.productType));
                       setFieldValue('productType', e.value);
                     }
                   }
