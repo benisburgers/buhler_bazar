@@ -35,12 +35,12 @@ class TopBarContainer extends Component {
   }
 
   render() {
-    const { userinfo, title } = this.props;
+    const { userInfo, title } = this.props;
     const { modalContent } = this.state;
 
     return (
       <div>
-        <TopBar userinfo={userinfo} title={title} handleOpenModal={this.handleOpenModal} />
+        <TopBar userInfo={userInfo} title={title} handleOpenModal={this.handleOpenModal} />
         <ReactModal
           isOpen={this.state.showModal}
           contentLabel="React Modal"
@@ -58,8 +58,8 @@ class TopBarContainer extends Component {
         >
         {
           modalContent === 'menu'
-          ? <Menu userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
-          : <ProfileModal userinfo={userinfo} handleCloseModal={this.handleCloseModal} />
+          ? <Menu userInfo={userInfo} handleCloseModal={this.handleCloseModal} />
+          : <ProfileModal targetUser={userInfo} handleCloseModal={this.handleCloseModal} />
         }
         </ReactModal>
       </div>
@@ -74,7 +74,7 @@ class TopBar extends Component {
     const userNameHeight = 20;
     const topBarHeight = 55;
 
-    const { userinfo, title, handleOpenModal } = this.props;
+    const { userInfo, title, handleOpenModal } = this.props;
 
     return (
       <div className="topBar"
@@ -89,7 +89,7 @@ class TopBar extends Component {
           margin-top: ${((userImageHeight - topBarHeight)/2)}px;
         `}
       >
-        <ProfileButton userImageHeight={userImageHeight} userNameHeight={userNameHeight} userinfo={userinfo} handleOpenModal={handleOpenModal} />
+        <ProfileButton userImageHeight={userImageHeight} userNameHeight={userNameHeight} userInfo={userInfo} handleOpenModal={handleOpenModal} />
         <TopBarHeader title={title} />
         <Hamburger handleOpenModal={handleOpenModal} />
       </div>
@@ -99,16 +99,16 @@ class TopBar extends Component {
 
 class ProfileButton extends Component {
   render() {
-    const { userinfo, userImageHeight, userNameHeight, handleOpenModal } = this.props;
+    const { userInfo, userImageHeight, userNameHeight, handleOpenModal } = this.props;
     return (
-      <div className="profileButton" userinfo={userinfo} onClick={() => handleOpenModal('profile')}
+      <div className="profileButton" userInfo={userInfo} onClick={() => handleOpenModal('profile')}
         css={css`
           margin-left: -20px;
           flex: 1;
           display: flex;
         `}>
         <div className="profileThumbnail">
-          <img src={ userinfo.picturePath } alt="user portrait"
+          <img src={ userInfo.picturePath } alt="user portrait"
             css={css`
               height: ${userImageHeight}px;
               width: ${userImageHeight}px;
@@ -134,7 +134,7 @@ class ProfileButton extends Component {
               height: ${userNameHeight}px;
             `}
           >
-          {`${userinfo.firstName}`}
+          {`${userInfo.firstName}`}
         </span>
         </div>
       </div>
@@ -221,7 +221,7 @@ class HamburgerBar extends Component {
 
 class Menu extends Component {
   render() {
-    const isAdmin = this.props.userinfo.admin
+    const isAdmin = this.props.userInfo.admin
     const { handleCloseModal } = this.props;
     return (
       <div

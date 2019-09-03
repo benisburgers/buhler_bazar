@@ -37,7 +37,7 @@ class Overview extends Component {
   }
 
   render() {
-    const { userinfo, products, productTypes } = this.props;
+    const { userInfo, products, productTypes } = this.props;
     return (
       <FullHeightSection className="overview"
         css={css`
@@ -46,7 +46,7 @@ class Overview extends Component {
           height: 100%;
         `}
       >
-        <TopBarContainer userinfo={userinfo} title="OWERWIU" />
+        <TopBarContainer userInfo={userInfo} title="OWERWIU" />
         <div className="mainPart"
           css={css`
             height: 100%;
@@ -58,7 +58,7 @@ class Overview extends Component {
         >
           <OverviewButtons handleOpenModal={this.handleOpenModal} />
           <CountDown />
-          <PreviousOrder userinfo={userinfo} products={products} />
+          <PreviousOrder userInfo={userInfo} products={products} />
         </div>
         <ReactModal
           isOpen={this.state.showModal}
@@ -141,16 +141,16 @@ function DaysLeft(props) {
 
 class PreviousOrder extends Component {
   render() {
-    const { userinfo, products } = this.props;
+    const { userInfo, products } = this.props;
 
     const dateString = (() => {
-      var previousOrderDate = new Date(userinfo.lastOrderDate);
+      var previousOrderDate = new Date(userInfo.lastOrderDate);
       var options = { month: 'long', day: 'numeric' };
       return previousOrderDate.toLocaleDateString('de-DE', options);
     })
 
 
-    const previousOrder = userinfo.lastOrder.map((entry, index) => {
+    const previousOrder = userInfo.lastOrder.map((entry, index) => {
       const specificProduct = products.find(product => product.id === entry)
       return (
         <li key={index}>

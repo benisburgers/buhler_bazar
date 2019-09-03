@@ -36,7 +36,7 @@ class AdminProducts extends Component {
   }
 
   render() {
-    const { products, productTypes, userinfo } = this.props;
+    const { products, productTypes, userInfo } = this.props;
     const { activeProductId } = this.state;
     return (
       <FullHeightSection className="admin_productList"
@@ -45,7 +45,7 @@ class AdminProducts extends Component {
           flex-direction: column;
         `}
       >
-        <TopBarContainer title="PRODÜKT" userinfo={userinfo} />
+        <TopBarContainer title="PRODÜKT" userInfo={userInfo} />
         <div
           onClick={() => this.handleOpenModal()}
           css={css`

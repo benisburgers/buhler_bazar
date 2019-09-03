@@ -70,7 +70,6 @@ class AdminUserList extends Component {
 
   handleOpenModal = (content) => {
     console.log('handleOpenModal');
-    console.log(content);
     this.setState({
       activeUserId: content,
       showModal: true
@@ -90,11 +89,11 @@ class AdminUserList extends Component {
   }
 
   render() {
-    const { userinfo } = this.props;
+    const { userInfo } = this.props;
     const { userList, activeUserId } = this.state;
     return (
       <FullHeightSection className="admin_userList">
-        <TopBarContainer userinfo={userinfo} title="JUSER" />
+        <TopBarContainer userInfo={userInfo} title="JUSER" />
         <UserList userList={this.state.userList} handleOpenModal={this.handleOpenModal}/>
         <ReactModal
           isOpen={this.state.showModal}
@@ -111,7 +110,7 @@ class AdminUserList extends Component {
             }
           }}
         >
-          <ProfileModal currentUser={userinfo} userinfo={activeUserId ? userList.find(user => user.id === activeUserId) : undefined} handleCloseModal={this.handleCloseModal} />
+          <ProfileModal currentUser={userInfo} targetUser={activeUserId ? userList.find(user => user.id === activeUserId) : undefined} handleCloseModal={this.handleCloseModal} />
         </ReactModal>
       </FullHeightSection>
     )

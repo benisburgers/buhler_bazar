@@ -20,8 +20,8 @@ class ProfileForm extends FormComponent {
   }
 
   render() {
-    const { userinfo, handleCloseModal, currentUser } = this.props;
-    const { id, picturePath, email, firstName, lastName, admin } = userinfo || '';
+    const { targetUser, handleCloseModal, currentUser } = this.props;
+    const { id, picturePath, email, firstName, lastName, admin } = targetUser || '';
     console.log(admin);
     const { toggleFields, pushData } = this;
     const LoginSchema = Yup.object().shape({
@@ -139,7 +139,14 @@ class ProfileForm extends FormComponent {
                   <ErrorMessage name="lastName" />
                 </ImplicitLabel>
                 {
-                  currentUser && currentUser.admin && (currentUser.id != userinfo.id) ?
+                  //check if currentUser AND targetUser exists (remember: currentUser does not equal targetUser).
+                  //currentUser is who's using the app. TragetUser is whose0 profile is being displayed.
+                  (currentUser && targetUser)
+                  // then check if currentUser DOES NOT equal targetUser. Why? Because a user cannot change his own admin status
+                  && (currentUser.id != targetUser.id)
+                  // then check if currentUser is admin
+                  && (currentUser.admin)
+                  ?
                   <ImplicitLabel>
                     <Select
                       isSearchable={false}

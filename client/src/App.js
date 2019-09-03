@@ -113,9 +113,9 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={ () => <Login joke={this.state.joke} />} />
               <Route exact path="/register" render={({history}) => <Register history={history} />} />
-              <Route exact path="/overview" component={ () => <Overview userinfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
-              <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userinfo={this.state.user} /> } />
-              <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userinfo={this.state.user} />} />
+              <Route exact path="/overview" component={ () => <Overview userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
+              <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userInfo={this.state.user} /> } />
+              <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userInfo={this.state.user} />} />
             </Switch>
           </Router>
         </div>
