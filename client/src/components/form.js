@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { PrimaryColor } from "../styling/theme"
 
 export class FormComponent extends Component {
 
@@ -31,6 +32,40 @@ export class FormComponent extends Component {
         resolve();
       })();
     })
+  }
+
+  reactSelectStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      color: "#515151",
+      fontFamily: "Avenir Next",
+      textAlign: "center",
+      fontSize: "21px",
+      fontWeight: "bold",
+      lineHeight: "29px",
+      textAlign: "left",
+      backgroundColor: "transparent",
+      borderColor: state.isFocused ? PrimaryColor : "#c2c2c2",
+      // This line disable the blue border
+      boxShadow: state.isFocused ? 0 : 0,
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      fontFamily: "Avenir Next",
+      fontWeight: "bold",
+      backgroundColor: state.isSelected ? PrimaryColor : 'white',
+      color: "#515151",
+      fontSize: "16px",
+      letterSpacing: "1.23px",
+      lineHeight: "22px",
+    }),
+    placeholder: (provided, state) => ({
+      ...provided,
+      color: "#c2c2c2"
+    }),
+    singleValue: (provided, state) => ({
+      ...provided,
+    }),
   }
 
 }

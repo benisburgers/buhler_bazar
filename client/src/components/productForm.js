@@ -27,7 +27,7 @@ class ProductForm extends FormComponent {
 
     const { product, productTypes, handleCloseModal } = this.props;
     const { id, name, type, picturePath } = product || '';
-    const { toggleFields, pushData } = this;
+    const { toggleFields, pushData, reactSelectStyles } = this;
 
     options = productTypes.map(entry => {
       return { value: entry, label: entry }
@@ -65,41 +65,6 @@ class ProductForm extends FormComponent {
         .max(20)
         .required('Das Produkt brucht en Typ')
     })
-
-
-    const customStyles = {
-      control: (provided, state) => ({
-        ...provided,
-        color: "#515151",
-        fontFamily: "Avenir Next",
-        textAlign: "center",
-        fontSize: "21px",
-        fontWeight: "bold",
-        lineHeight: "29px",
-        textAlign: "left",
-        backgroundColor: "transparent",
-        borderColor: state.isFocused ? PrimaryColor : "#c2c2c2",
-        // This line disable the blue border
-        boxShadow: state.isFocused ? 0 : 0,
-      }),
-      option: (provided, state) => ({
-        ...provided,
-        fontFamily: "Avenir Next",
-        fontWeight: "bold",
-        backgroundColor: state.isSelected ? PrimaryColor : 'white',
-        color: "#515151",
-        fontSize: "16px",
-        letterSpacing: "1.23px",
-        lineHeight: "22px",
-      }),
-      placeholder: (provided, state) => ({
-        ...provided,
-        color: "#c2c2c2"
-      }),
-      singleValue: (provided, state) => ({
-        ...provided,
-      }),
-    }
 
     return (
       <Formik
@@ -150,7 +115,7 @@ class ProductForm extends FormComponent {
               <ImplicitLabel>
                 <Select
                   isSearchable={false}
-                  styles={customStyles}
+                  styles={reactSelectStyles}
                   name="productType"
                   placeholder="Product Type"
                   isDisabled={this.state.disabledFields.productType}

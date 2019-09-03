@@ -22,8 +22,7 @@ class ProfileForm extends FormComponent {
   render() {
     const { targetUser, handleCloseModal, currentUser } = this.props;
     const { id, picturePath, email, firstName, lastName, admin } = targetUser || '';
-    console.log(admin);
-    const { toggleFields, pushData } = this;
+    const { toggleFields, pushData, reactSelectStyles } = this;
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
       email: Yup.string()
@@ -49,40 +48,6 @@ class ProfileForm extends FormComponent {
       { value: true, label: 'ja' },
       { value: false, label: 'nei' },
     ];
-
-    const customStyles = {
-      control: (provided, state) => ({
-        ...provided,
-        color: "#515151",
-        fontFamily: "Avenir Next",
-        textAlign: "center",
-        fontSize: "21px",
-        fontWeight: "bold",
-        lineHeight: "29px",
-        textAlign: "left",
-        backgroundColor: "transparent",
-        borderColor: state.isFocused ? PrimaryColor : "#c2c2c2",
-        // This line disable the blue border
-        boxShadow: state.isFocused ? 0 : 0,
-      }),
-      option: (provided, state) => ({
-        ...provided,
-        fontFamily: "Avenir Next",
-        fontWeight: "bold",
-        backgroundColor: state.isSelected ? PrimaryColor : 'white',
-        color: "#515151",
-        fontSize: "16px",
-        letterSpacing: "1.23px",
-        lineHeight: "22px",
-      }),
-      placeholder: (provided, state) => ({
-        ...provided,
-        color: "#c2c2c2"
-      }),
-      singleValue: (provided, state) => ({
-        ...provided,
-      }),
-    }
 
     return (
         <Formik
@@ -151,7 +116,7 @@ class ProfileForm extends FormComponent {
                     <Select
                       isSearchable={false}
                       options={options}
-                      styles={customStyles}
+                      styles={reactSelectStyles}
                       name="admin"
                       placeholder="Admin"
                       isDisabled={this.state.disabledFields.admin}
