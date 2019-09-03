@@ -150,7 +150,6 @@ class ProductForm extends FormComponent {
               <ImplicitLabel>
                 <Select
                   isSearchable={false}
-                  options={options}
                   styles={customStyles}
                   name="productType"
                   placeholder="Product Type"
@@ -167,7 +166,7 @@ class ProductForm extends FormComponent {
                     margin-bottom: 15px;
                   `}
                 />
-              <TextButton onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</TextButton>
+                <TextButton onClick={e => toggleFields(this, "productType")}>{ values.productType ? "Typ ändere" : "Deklarierä" }</TextButton>
                 <ErrorMessage name="productType" />
               </ImplicitLabel>
             </div>

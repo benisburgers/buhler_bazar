@@ -3,9 +3,10 @@ import React, {Component} from 'react';
 import { css, jsx } from '@emotion/core'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel } from "../styling/theme"
+import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel, PrimaryColor } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
 import { FormComponent } from '../components/form'
+import Select from 'react-select'
 
 class ProfileForm extends FormComponent {
 
@@ -13,13 +14,15 @@ class ProfileForm extends FormComponent {
     disabledFields: {
       email: true,
       firstName: true,
-      lastName: true
+      lastName: true,
+      admin: true
     }
   }
 
   render() {
-    const { userinfo, handleCloseModal } = this.props;
-    const { id, picturePath, email, firstName, lastName } = userinfo || '';
+    const { userinfo, handleCloseModal, currentUser } = this.props;
+    const { id, picturePath, email, firstName, lastName, admin } = userinfo || '';
+    console.log(admin);
     const { toggleFields, pushData } = this;
     const LoginSchema = Yup.object().shape({
       // TODO: ENTER Yup verify for image uplaod
@@ -42,6 +45,45 @@ class ProfileForm extends FormComponent {
       console.log('deleteUser');
     }
 
+    var options = [
+      { value: true, label: 'ja' },
+      { value: false, label: 'nei' },
+    ];
+
+    const customStyles = {
+      control: (provided, state) => ({
+        ...provided,
+        color: "#515151",
+        fontFamily: "Avenir Next",
+        textAlign: "center",
+        fontSize: "21px",
+        fontWeight: "bold",
+        lineHeight: "29px",
+        textAlign: "left",
+        backgroundColor: "transparent",
+        borderColor: state.isFocused ? PrimaryColor : "#c2c2c2",
+        // This line disable the blue border
+        boxShadow: state.isFocused ? 0 : 0,
+      }),
+      option: (provided, state) => ({
+        ...provided,
+        fontFamily: "Avenir Next",
+        fontWeight: "bold",
+        backgroundColor: state.isSelected ? PrimaryColor : 'white',
+        color: "#515151",
+        fontSize: "16px",
+        letterSpacing: "1.23px",
+        lineHeight: "22px",
+      }),
+      placeholder: (provided, state) => ({
+        ...provided,
+        color: "#c2c2c2"
+      }),
+      singleValue: (provided, state) => ({
+        ...provided,
+      }),
+    }
+
     return (
         <Formik
           initialValues = {{
@@ -49,7 +91,8 @@ class ProfileForm extends FormComponent {
             file: picturePath,
             email: email,
             firstName: firstName,
-            lastName: lastName
+            lastName: lastName,
+            admin: admin
           }}
           validationSchema = {LoginSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -95,6 +138,33 @@ class ProfileForm extends FormComponent {
                   <TextButton onClick={e => toggleFields(this, "lastName")}>Nachname { values.lastName ? "ändere" : "hinzuefüege" }</TextButton>
                   <ErrorMessage name="lastName" />
                 </ImplicitLabel>
+                {
+                  currentUser && currentUser.admin && (currentUser.id != userinfo.id) ?
+                  <ImplicitLabel>
+                    <Select
+                      isSearchable={false}
+                      options={options}
+                      styles={customStyles}
+                      name="admin"
+                      placeholder="Admin"
+                      isDisabled={this.state.disabledFields.admin}
+                      value={options.find(option => option.value === values.admin)}
+                      onChange={
+                        e => {
+                          console.log(options.value);
+                          console.log(values.admin);
+                          setFieldValue('admin', e.value);
+                        }
+                      }
+                      css={css`
+                        margin-bottom: 15px;
+                      `}
+                    />
+                    <TextButton onClick={e => toggleFields(this, "admin")}>{ values.admin ? "Admin" : "Deklarierä" }</TextButton>
+                    <ErrorMessage name="admin" />
+                  </ImplicitLabel>
+                  : null
+                }
               </div>
               <div className="buttonsContainer"
                 css={css`
