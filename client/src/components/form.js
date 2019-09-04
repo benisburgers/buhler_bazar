@@ -19,7 +19,7 @@ export class FormComponent extends Component {
     console.log(url);
     return new Promise((resolve, reject) => {
       (async () => {
-        const rawResponse = await fetch('/api/editUser', {
+        const rawResponse = await fetch(url, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',

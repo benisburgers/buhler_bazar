@@ -30,35 +30,6 @@ var userExists;
 
 class RegistrationForm extends FormComponent {
 
-  pushData = (input) => {
-    return new Promise((resolve, reject) => {
-      (async () => {
-        const rawResponse = await fetch('/api/addUser', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(input)
-        });
-        const content = await rawResponse.json();
-
-        console.log(content);
-        console.log(content.userExists);
-        userExists = content.userExists;
-        if (userExists) {
-          alert("Someone has already used this email.")
-        }
-        else {
-          alert("New account created.")
-        }
-        resolve();
-      })();
-    })
-  }
-
-
-
   render() {
     var { fileValidation, requiredError } = this;
     const SignupSchema = Yup.object().shape({
@@ -101,7 +72,7 @@ class RegistrationForm extends FormComponent {
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              this.pushData(values);
+              this.pushData(values, '/api/register');
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, values, setFieldValue }) => (
