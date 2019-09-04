@@ -1,6 +1,13 @@
 const mysql = require("mysql");
 const express = require('express');
+var bodyParser = require('body-parser')
 const app = express();
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 //Encryption
 const bcrypt = require('bcrypt');
@@ -209,6 +216,12 @@ registerUser(beni)
 //       response.send({ 'userExists': userExists})
 //     })
 // });
+
+app.post('/api/register', function(request, response){
+  console.log('/api/regsiter');
+  var userInput = request.body;
+  console.log(userInput);
+})
 
 // app.post('/api/login', function(request, response){
 //   console.log('LOGIN');
