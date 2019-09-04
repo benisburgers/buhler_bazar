@@ -117,7 +117,7 @@ class RegistrationForm extends FormComponent {
                   }
                 />
                 <StyledErrorMessage component="p" name="file" />
-                <StyledLabel htmlFor="file">Profilbild Wächsle</StyledLabel>
+                <StyledLabel htmlFor="file">Profilbild Uelade</StyledLabel>
               </div>
               <div className="inputFields">
                 <ExplicitLabel>
