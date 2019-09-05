@@ -123,6 +123,7 @@ class RegistrationForm extends FormComponent {
                 <input
                   id="file"
                   type="file"
+                  accept="image/png, image/jpeg, image/jpg"
                   onChange={async e => {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                      fileValidation.file = e.target.files[0];
@@ -138,7 +139,7 @@ class RegistrationForm extends FormComponent {
                   }
                 />
                 <StyledErrorMessage component="p" name="file" />
-                <StyledLabel htmlFor="file">Profilbild Wächsle</StyledLabel>
+                <StyledLabel htmlFor="file">Profilbild Uelade</StyledLabel>
               </div>
               <div className="inputFields">
                 <ExplicitLabel>

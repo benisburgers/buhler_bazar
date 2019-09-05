@@ -80,6 +80,7 @@ class ProfileForm extends FormComponent {
                 <input
                   id="file"
                   type="file"
+                  accept="image/png, image/jpeg, image/jpg"
                   onChange={e => {
                     setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                     fileValidation.file = e.target.files[0];
