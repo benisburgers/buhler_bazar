@@ -2,6 +2,8 @@ const mysql = require("mysql");
 const express = require('express');
 var bodyParser = require('body-parser')
 const app = express();
+var uniqid = require('uniqid');
+const shortid = require('shortid');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -30,6 +32,15 @@ connection.connect((err) => {
   if (err) throw err;
   console.log('Connected');
 })
+
+//create database
+const createDataBase = () => {
+  console.log('createDataBase');
+  var sql = `CREATE DATABASE bazar;`
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+  });
+}
 
 //check if user table exists
 const checkUsersTable = () => {
@@ -184,19 +195,19 @@ checkUser = (userInput) => {
 
 const registerUser = async (input) => {
   console.log('registerUser');
-  checkUser(input)
-  .then((value) => {
-    if (value === true) {
-      console.log('user exists');
-    }
-    else {
-      console.log('user does not exist');
-      createUser(input)
-    }
-  })
+  let value = await checkUser(input)
+  if (value === true) {
+    console.log('user exists');
+    return false;
+  }
+  else {
+    console.log('user does not exist');
+    createUser(input);
+    return true;
+  }
 }
 
-registerUser(beni)
+// registerUser(beni)
 
 //   createUser = (userInput) => {
 //     return new Promise((resolve, reject) => {
@@ -217,11 +228,24 @@ registerUser(beni)
 //     })
 // });
 
-app.post('/api/register', function(request, response){
+app.post('/api/register', async (request, response) => {
   console.log('/api/regsiter');
-  var userInput = request.body;
-  console.log(userInput);
+  let value = await prepareUserInput(request.body)
+  let result = await registerUser(value);
 })
+
+const prepareUserInput = async (input) => {
+  //add uniqueID and add admin value and delete picture path
+  console.log('prepareUserInput');
+  var clone = Object.assign({}, input)
+  delete clone.file;
+  var adminProperty = {admin: false};
+  var uniqueIdProperty = {uniqueID: shortid.generate()}
+  Object.assign(clone, adminProperty, uniqueIdProperty);
+  return clone;
+}
+
+
 
 // app.post('/api/login', function(request, response){
 //   console.log('LOGIN');
