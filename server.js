@@ -3,9 +3,12 @@ const express = require('express');
 var bodyParser = require('body-parser')
 const app = express();
 const shortid = require('shortid');
+var fs = require('fs');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // parse application/json
 app.use(bodyParser.json())
@@ -109,11 +112,9 @@ const createProductsTable = () => {
 
 const checkUserEmail = async (input) => {
   console.log('checkUserEmail');
-  console.log(input);
   var sql = "SELECT 1 FROM users WHERE email = ?"
   connection.query(sql, [input.email], (err, result) => {
     if (err) throw err;
-    console.log(result);
     if (result.length === 0) {
       console.log("User does not exist");
       return true;
@@ -229,9 +230,11 @@ const registerUser = async (input) => {
 
 app.post('/api/register', async (request, response) => {
   console.log('/api/regsiter');
-  let value = await prepareUserInput(request.body)
-  let result = await registerUser(value);
-  saveImage(request.body.file, value.uniqueID, '/dismami')
+  let filteredInput = await prepareUserInput(request.body)
+  let result = await registerUser(filteredInput);
+  if (result) {
+    await saveImage(request.body.base64, request.body.pictureType, filteredInput.uniqueID, 'images/users/')    
+  }
   response.send(result)
 })
 
@@ -248,15 +251,18 @@ const prepareUserInput = async (input) => {
 
   //delete file and picture properties to conform with sql
   delete clone.file;
-  delete clone.picture;
+  delete clone.base64;
+  delete clone.pictureType;
+
   return clone;
 }
 
-const saveImage = async (fileUrl, fileName, fileDirectory) => {
+const saveImage = async (fileBase64, fileType, fileName, fileDirectory) => {
   console.log('saveImage');
-  console.log(fileUrl);
-  console.log(fileName);
-  console.log(fileDirectory);
+  fs.writeFile(`${fileDirectory}${fileName}.${fileType}`, fileBase64, 'base64', function(err) {
+    if (err) throw err;
+  });
+  return;
 }
 
 // app.post('/api/login', function(request, response){

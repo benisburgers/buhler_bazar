@@ -55,7 +55,7 @@ class RegistrationForm extends FormComponent {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
+        reader.onload = () => resolve(reader.result.split(',')[1]);
         reader.onerror = error => reject(error);
       });
     }
@@ -73,7 +73,8 @@ class RegistrationForm extends FormComponent {
             lastName: '',
             email: '',
             password: '',
-            picture: ''
+            base64: '',
+            pictureType: '',
           }}
           validationSchema = {SignupSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -125,8 +126,10 @@ class RegistrationForm extends FormComponent {
                   onChange={async e => {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                      fileValidation.file = e.target.files[0];
+                     var pictureType = e.target.files[0].type.split('/')[1];
                      var base64 = await getBase64(e.target.files[0])
-                     setFieldValue('picture', base64);
+                     setFieldValue('base64', base64);
+                     setFieldValue('pictureType', pictureType);
                   }}
                   name="file"
                   css={css`
