@@ -2,7 +2,6 @@ const mysql = require("mysql");
 const express = require('express');
 var bodyParser = require('body-parser')
 const app = express();
-var uniqid = require('uniqid');
 const shortid = require('shortid');
 
 // parse application/x-www-form-urlencoded
@@ -232,21 +231,33 @@ app.post('/api/register', async (request, response) => {
   console.log('/api/regsiter');
   let value = await prepareUserInput(request.body)
   let result = await registerUser(value);
+  saveImage(request.body.file, value.uniqueID, '/dismami')
   response.send(result)
 })
 
 const prepareUserInput = async (input) => {
-  //add uniqueID and add admin value and delete picture path
   console.log('prepareUserInput');
+
+  //clone input object upload from api
   var clone = Object.assign({}, input)
-  delete clone.file;
+
+  //add uniqueID and add admin value
   var adminProperty = {admin: false};
   var uniqueIdProperty = {uniqueID: shortid.generate()}
   Object.assign(clone, adminProperty, uniqueIdProperty);
+
+  //delete file and picture properties to conform with sql
+  delete clone.file;
+  delete clone.picture;
   return clone;
 }
 
-
+const saveImage = async (fileUrl, fileName, fileDirectory) => {
+  console.log('saveImage');
+  console.log(fileUrl);
+  console.log(fileName);
+  console.log(fileDirectory);
+}
 
 // app.post('/api/login', function(request, response){
 //   console.log('LOGIN');

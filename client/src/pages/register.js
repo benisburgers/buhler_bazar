@@ -51,6 +51,15 @@ class RegistrationForm extends FormComponent {
         .required(requiredError)
     })
 
+    function getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    }
+
     return (
       <div class="registrationFormContainer"
         css={css`
@@ -63,7 +72,8 @@ class RegistrationForm extends FormComponent {
             firstName: '',
             lastName: '',
             email: '',
-            password: ''
+            password: '',
+            picture: ''
           }}
           validationSchema = {SignupSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -112,9 +122,11 @@ class RegistrationForm extends FormComponent {
                 <input
                   id="file"
                   type="file"
-                  onChange={e => {
+                  onChange={async e => {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                      fileValidation.file = e.target.files[0];
+                     var base64 = await getBase64(e.target.files[0])
+                     setFieldValue('picture', base64);
                   }}
                   name="file"
                   css={css`
