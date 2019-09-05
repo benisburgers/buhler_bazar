@@ -67,12 +67,18 @@ class RegistrationForm extends FormComponent {
           }}
           validationSchema = {SignupSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
+            setTimeout(async () => {
               console.log(JSON.stringify(values, null, 2));
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              this.pushData(values, '/api/register');
+              let result = await this.pushData(values, '/api/register');
+              if (result === false) {
+                alert("Die Email wird scho benutzt. Sprich miteme Admin.")
+              }
+              else {
+                console.log('Log that user in and redirect to overview');
+              }
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, values, setFieldValue }) => (

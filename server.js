@@ -232,6 +232,7 @@ app.post('/api/register', async (request, response) => {
   console.log('/api/regsiter');
   let value = await prepareUserInput(request.body)
   let result = await registerUser(value);
+  response.send(result)
 })
 
 const prepareUserInput = async (input) => {
