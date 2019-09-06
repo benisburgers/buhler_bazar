@@ -1,9 +1,17 @@
 const mysql = require("mysql");
 const express = require('express');
-var bodyParser = require('body-parser')
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = express();
 const shortid = require('shortid');
-var fs = require('fs');
+const fs = require('fs');
+const passport = require('passport');
+const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require('bcrypt');
+const flash = require('connect-flash');
+
+var salt = bcrypt.genSaltSync(10);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -61,7 +69,7 @@ const createUsersTable = () => {
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
     email VARCHAR(320) NOT NULL,
-    password BINARY(60) NOT NULL,
+    password VARCHAR(60) NOT NULL,
     uniqueId VARCHAR(30),
     admin TINYINT(1)
   )`
@@ -178,6 +186,9 @@ const registerUser = async (input) => {
 const prepareUserInput = async (input) => {
   console.log('prepareUserInput');
 
+  //encrypt password in original before cloning
+  input.password = bcrypt.hashSync(input.password, salt)
+
   //clone input object upload from api
   var clone = Object.assign({}, input)
 
@@ -202,7 +213,8 @@ const saveImage = async (base64, fileFormat, fileName, fileDirectory) => {
   return;
 }
 
-app.post('/api/register', async (request, response) => {
+app.post('/api/register',
+async (request, response) => {
   console.log('/api/regsiter');
   let filteredInput = await prepareUserInput(request.body)
   let result = await registerUser(filteredInput);
@@ -211,6 +223,79 @@ app.post('/api/register', async (request, response) => {
   }
   response.send(result)
 })
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+app.use(session({
+ secret: 'justasecret',
+ resave:true,
+ saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+passport.serializeUser(function(user, done){
+  console.log('serializeUser');
+  console.log(user);
+ done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done){
+  console.log('deserializeUser');
+  console.log(id);
+ connection.query("SELECT * FROM users WHERE id = ? ", [id],
+  function(err, rows){
+   done(err, rows[0]);
+  });
+});
+
+passport.use(
+ 'local-login',
+ new LocalStrategy({
+  usernameField : 'email',
+  passwordField: 'password',
+  passReqToCallback: true
+ },
+ function(req, email, password, done){
+  connection.query("SELECT * FROM users WHERE email = ? ", [email],
+  function(err, rows){
+    if(err)
+     return done(err);
+    if(!rows.length){
+     return done(null, false, { message: 'Incorrect username.' });
+    }
+    else if(!bcrypt.compareSync(password, rows[0].password)) {
+      return done(null, false, { message: 'Incorrect password.'});
+    }
+    else {
+      return done(null, rows[0]);
+    }
+  });
+ })
+);
+
+app.post('/api/login',
+  passport.authenticate('local-login'),
+  function(req, res){
+    res.send(true)
+  }
+);
+
+
+
+
+
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 const port = 5000;
 
