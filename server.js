@@ -233,7 +233,7 @@ app.post('/api/register', async (request, response) => {
   let filteredInput = await prepareUserInput(request.body)
   let result = await registerUser(filteredInput);
   if (result) {
-    await saveImage(request.body.base64, request.body.pictureType, filteredInput.uniqueID, 'images/users/')    
+    await saveImage(request.body.base64, request.body.fileFormat, filteredInput.uniqueID, 'images/users/')
   }
   response.send(result)
 })
@@ -252,14 +252,14 @@ const prepareUserInput = async (input) => {
   //delete file and picture properties to conform with sql
   delete clone.file;
   delete clone.base64;
-  delete clone.pictureType;
+  delete clone.fileFormat;
 
   return clone;
 }
 
-const saveImage = async (fileBase64, fileType, fileName, fileDirectory) => {
+const saveImage = async (base64, fileFormat, fileName, fileDirectory) => {
   console.log('saveImage');
-  fs.writeFile(`${fileDirectory}${fileName}.${fileType}`, fileBase64, 'base64', function(err) {
+  fs.writeFile(`${fileDirectory}${fileName}.${fileFormat}`, base64, 'base64', function(err) {
     if (err) throw err;
   });
   return;
