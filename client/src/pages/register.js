@@ -46,7 +46,7 @@ class RegistrationForm extends FormComponent {
         .email('Muss gültig email sie')
         .required(requiredError),
       password: Yup.string()
-        .min(2, 'Mindestens zwei Zeiche')
+        .min(6, 'Mindestens 6 Zeiche')
         .max(20, 'Maximal 20 Zeiche')
         .required(requiredError)
     })
