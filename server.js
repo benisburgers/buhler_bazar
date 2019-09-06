@@ -230,6 +230,8 @@ async (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+var user = undefined;
+
 app.use(session({
  secret: 'justasecret',
  resave:true,
@@ -243,14 +245,15 @@ app.use(flash());
 passport.serializeUser(function(user, done){
   console.log('serializeUser');
   console.log(user);
- done(null, user.id);
+ done(null, user.uniqueId);
 });
 
 passport.deserializeUser(function(id, done){
   console.log('deserializeUser');
   console.log(id);
- connection.query("SELECT * FROM users WHERE id = ? ", [id],
+ connection.query("SELECT * FROM users WHERE uniqueId = ? ", [id],
   function(err, rows){
+    console.log(rows[0]);
    done(err, rows[0]);
   });
 });
@@ -287,7 +290,17 @@ app.post('/api/login',
   }
 );
 
+app.get('/api/overview', isLoggedIn, function(req, res){
+  console.log('HALTSTOP');
+ console.log(req.user);
+});
 
+function isLoggedIn(req, res, next){
+ if(req.isAuthenticated())
+  return next();
+
+ res.redirect('/');
+}
 
 
 
