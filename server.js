@@ -13,14 +13,6 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 // parse application/json
 app.use(bodyParser.json())
 
-//Encryption
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
-// //Authentication
-const LocalStrategy = require('passport-local').Strategy;
-const passport = require('passport');
-
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -28,7 +20,6 @@ const connection = mysql.createConnection({
   socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
   database: 'bazar'
 })
-
 
 connection.connect((err) => {
   if (err) throw err;
@@ -130,28 +121,6 @@ const checkUserEmail = async (input) => {
   })
 }
 
-// app.post('/api/addUser', function(request, response){
-//
-//   sendResponse = () => {
-//     console.log('userExists: ' + userExists);
-//   }
-//
-//   var processData = (userInput) => {
-//     var hash = bcrypt.hashSync(userInput.password, saltRounds);
-//     userInput.password = hash;
-//     return new Promise((resolve, reject) => {
-//       console.log('processData');
-//       (async () => {
-//         await checkUser(userInput);
-//         if (!userExists) {
-//           createUser(userInput);
-//         }
-//         resolve();
-//       })();
-//     })
-//   }
-//
-
 var beni = {
   firstName: "beni",
   lastName: "bargera",
@@ -162,7 +131,6 @@ var beni = {
   lastOrderDate: '2008-11-11',
   lastOrderProducts: '[1, 2, 3, 4]'
 }
-
 
 const createUser = async (input) => {
   console.log('createUser');
@@ -207,37 +175,6 @@ const registerUser = async (input) => {
   }
 }
 
-// registerUser(beni)
-
-//   createUser = (userInput) => {
-//     return new Promise((resolve, reject) => {
-//       console.log('createUser');
-//       var sql = "INSERT INTO users SET ?";
-//       connection.query(sql, [userInput], (err, result) => {
-//         if (err) throw err;
-//         // console.log(result);
-//         resolve();
-//       })
-//     })
-//   }
-//
-//   var userInput = request.body;
-//   processData(userInput)
-//     .then(() => {
-//       response.send({ 'userExists': userExists})
-//     })
-// });
-
-app.post('/api/register', async (request, response) => {
-  console.log('/api/regsiter');
-  let filteredInput = await prepareUserInput(request.body)
-  let result = await registerUser(filteredInput);
-  if (result) {
-    await saveImage(request.body.base64, request.body.fileFormat, filteredInput.uniqueID, 'images/users/')
-  }
-  response.send(result)
-})
-
 const prepareUserInput = async (input) => {
   console.log('prepareUserInput');
 
@@ -265,15 +202,15 @@ const saveImage = async (base64, fileFormat, fileName, fileDirectory) => {
   return;
 }
 
-// app.post('/api/login', function(request, response){
-//   console.log('LOGIN');
-//   var userInput = request.body;
-//   console.log(userInput);
-//
-//   (authorizeUser = (userInput) => {
-//     console.log('authorizeUser');
-//   })();
-// })
+app.post('/api/register', async (request, response) => {
+  console.log('/api/regsiter');
+  let filteredInput = await prepareUserInput(request.body)
+  let result = await registerUser(filteredInput);
+  if (result) {
+    await saveImage(request.body.base64, request.body.fileFormat, filteredInput.uniqueID, 'images/users/')
+  }
+  response.send(result)
+})
 
 const port = 5000;
 

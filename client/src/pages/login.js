@@ -71,12 +71,13 @@ class LogInForm extends FormComponent {
           }}
           validationSchema = {LoginSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
+            setTimeout(async () => {
               console.log(JSON.stringify(values, null, 2));
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              this.pushData(values, '/api/Login');
+              let result = await this.pushData(values, '/api/login');
+              console.log(result);
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting }) => (
