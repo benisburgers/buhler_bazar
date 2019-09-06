@@ -35,6 +35,10 @@ class Overview extends Component {
   componentDidMount() {
     ReactModal.setAppElement('#main');
     fetch('/api/overview')
+    .then(res => res.json())
+    .then(result => {
+      console.log(result);
+    })
   }
 
   render() {

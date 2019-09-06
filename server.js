@@ -292,14 +292,18 @@ app.post('/api/login',
 
 app.get('/api/overview', isLoggedIn, function(req, res){
   console.log('HALTSTOP');
- console.log(req.user);
+  console.log(req.user);
+  var clone = Object.assign({}, req.user);
+  delete clone.password;
+  delete clone.id;
+  res.send(clone)
 });
 
 function isLoggedIn(req, res, next){
  if(req.isAuthenticated())
   return next();
 
- res.redirect('/');
+ return res.redirect('/');
 }
 
 
