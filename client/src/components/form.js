@@ -15,8 +15,7 @@ export class FormComponent extends Component {
   }
 
   pushData = (input, url) => {
-    console.log(input);
-    console.log(url);
+    console.log('pushData');
     return new Promise((resolve, reject) => {
       (async () => {
         const rawResponse = await fetch(url, {

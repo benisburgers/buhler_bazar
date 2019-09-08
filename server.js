@@ -65,13 +65,15 @@ const createUsersTable = () => {
   console.log('createUsersTable');
   var sql =
   `CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id VARCHAR(30) PRIMARY KEY,
     firstName VARCHAR(50) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
     email VARCHAR(320) NOT NULL,
     password VARCHAR(60) NOT NULL,
-    uniqueId VARCHAR(30),
-    admin TINYINT(1)
+    admin TINYINT(1) NOT NULL,
+    lastOrderDate DATE,
+    lastOrderProducts VARCHAR(30),
+    fileFormat VARCHAR(10)
   )`
   connection.query(sql, (err, result) => {
     if (err) throw err;
@@ -102,7 +104,7 @@ const createProductsTable = () => {
     id INT AUTO_INCREMENT PRIMARY KEY,
     productName VARCHAR(50) NOT NULL,
     productType VARCHAR(20) NOT NULL,
-    uniqueId VARCHAR(30)
+    id VARCHAR(30)
   )`
   connection.query(sql, (err, result) => {
     if (err) throw err;
@@ -134,7 +136,7 @@ var beni = {
   lastName: "bargera",
   email: "benibargera@gmail.com",
   password: "yolo",
-  uniqueId: "3",
+  id: "3",
   admin: true,
   lastOrderDate: '2008-11-11',
   lastOrderProducts: '[1, 2, 3, 4]'
@@ -192,15 +194,14 @@ const prepareUserInput = async (input) => {
   //clone input object upload from api
   var clone = Object.assign({}, input)
 
-  //add uniqueID and add admin value
+  //add id and add admin value
   var adminProperty = {admin: false};
-  var uniqueIdProperty = {uniqueID: shortid.generate()}
-  Object.assign(clone, adminProperty, uniqueIdProperty);
+  var idProperty = {id: shortid.generate()}
+  Object.assign(clone, adminProperty, idProperty);
 
   //delete file and picture properties to conform with sql
   delete clone.file;
   delete clone.base64;
-  delete clone.fileFormat;
 
   return clone;
 }
@@ -219,7 +220,7 @@ async (request, response) => {
   let filteredInput = await prepareUserInput(request.body)
   let result = await registerUser(filteredInput);
   if (result) {
-    await saveImage(request.body.base64, request.body.fileFormat, filteredInput.uniqueID, 'images/users/')
+    await saveImage(request.body.base64, request.body.fileFormat, filteredInput.id, 'client/public/images/users/')
   }
   response.send(result)
 })
@@ -245,13 +246,13 @@ app.use(flash());
 passport.serializeUser(function(user, done){
   console.log('serializeUser');
   console.log(user);
- done(null, user.uniqueId);
+ done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done){
   console.log('deserializeUser');
   console.log(id);
- connection.query("SELECT * FROM users WHERE uniqueId = ? ", [id],
+ connection.query("SELECT * FROM users WHERE id = ? ", [id],
   function(err, rows){
     console.log(rows[0]);
    done(err, rows[0]);
@@ -294,8 +295,12 @@ app.get('/api/overview', isLoggedIn, function(req, res){
   console.log('HALTSTOP');
   console.log(req.user);
   var clone = Object.assign({}, req.user);
+
+  //filter user object which is sent to client: delete password, delete id (not id), and change admin property to boolean
+  clone.admin = !!clone.admin;
+  clone.picturePath = `/images/users/${req.user.id}.${req.user.fileFormat}`
   delete clone.password;
-  delete clone.id;
+
   res.send(clone)
 });
 
@@ -303,7 +308,7 @@ function isLoggedIn(req, res, next){
  if(req.isAuthenticated())
   return next();
 
- return res.redirect('/');
+ res.redirect('/');
 }
 
 

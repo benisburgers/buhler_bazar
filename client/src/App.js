@@ -17,17 +17,14 @@ class App extends Component {
 
   state = {
     user: {
-      //get from userList
-      id: 1,
-      admin: true,
-      firstName: "Marko",
-      lastName: "Lukac",
-      email: "marko@buehler-buehler.ch",
-      picturePath: "https://pbs.twimg.com/profile_images/966014949377085440/4Ttk9Ose_400x400.jpg",
-      //get from userOrderTable_Marko
-      lastOrderDate: "2019-06-21T13:46:03.995Z",
-      lastOrder: [1, 2, 3],
-      favoriteProduct: 3
+      id: undefined,
+      firstName: undefined,
+      lastName: undefined,
+      email: undefined,
+      admin: undefined,
+      lastOrderDate: undefined,
+      lastOrderProducts: undefined,
+      picturePath: undefined
     },
     products: [
       {
@@ -88,9 +85,23 @@ class App extends Component {
     productTypes: ['fruit', 'snack']
   }
 
-  findProperItem(array, entry) {
-    return(array.find(fruit => fruit.id === entry));
+  updateCurrentUser = (input) => {
+    console.log('updateCurrentUser');
+    var clone = Object.assign({}, input)
+    clone.picturePath = `/images/users/${input.id}.${input.fileFormat}`
+    clone.lastOrderDate = clone.lastOrderDate === null ? undefined : clone.lastOrderDate
+    clone.lastOrderProducts = clone.lastOrderProducts === null ? undefined : clone.lastOrderProducts
+    delete clone.fileFormat;
+    var cloneJSON = JSON.stringify(clone);
+    var stateJSON = JSON.stringify(this.state.user);
+    if (cloneJSON !== stateJSON) {
+      this.setState({
+        user: clone
+      })
+    }
   }
+
+
   render() {
     return (
         <div className="App" id="main">
@@ -113,7 +124,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={ () => <Login joke={this.state.joke} />} />
               <Route exact path="/register" render={({history}) => <Register history={history} />} />
-              <Route exact path="/overview" component={ () => <Overview userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
+              <Route exact path="/overview" component={ () => <Overview updateCurrentUser={this.updateCurrentUser} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
               <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userInfo={this.state.user} /> } />
               <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userInfo={this.state.user} />} />
             </Switch>
