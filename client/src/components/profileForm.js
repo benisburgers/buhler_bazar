@@ -60,7 +60,9 @@ class ProfileForm extends FormComponent {
             email: email,
             firstName: firstName,
             lastName: lastName,
-            admin: admin
+            admin: admin,
+            base64: undefined,
+            fileFormat: undefined,
           }}
           validationSchema = {ValidationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -69,6 +71,7 @@ class ProfileForm extends FormComponent {
               resetForm();
               setSubmitting(false);
               //check if email exists in database
+              console.log(values);
               this.pushData(values, '/api/editUser');
               handleCloseModal();
             }, 200);
@@ -80,9 +83,14 @@ class ProfileForm extends FormComponent {
                 <input
                   id="file"
                   type="file"
-                  onChange={e => {
+                  accept="image/png, image/jpeg, image/jpg"
+                  onChange={async e => {
                     setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                     fileValidation.file = e.target.files[0];
+                    var fileFormat = e.target.files[0].type.split('/')[1];
+                    var base64 = await this.getBase64(e.target.files[0])
+                    setFieldValue('base64', base64);
+                    setFieldValue('fileFormat', fileFormat);
                   }}
                   name="file"
                   css={css`

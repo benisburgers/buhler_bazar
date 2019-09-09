@@ -8,6 +8,7 @@ import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitF
 import { css, jsx } from '@emotion/core';
 import StartScreen from '../components/images/startscreen.gif'
 import { FormComponent } from '../components/form'
+import { Redirect } from 'react-router'
 
 class Register extends Component {
   render() {
@@ -50,6 +51,10 @@ function LogInText(props) {
 
 class LogInForm extends FormComponent {
 
+  state = {
+    loggedIn: false
+  }
+
   render() {
     const { pushData, requiredError } = this;
     const LoginSchema = Yup.object().shape({
@@ -64,6 +69,11 @@ class LogInForm extends FormComponent {
 
     return (
       <div>
+        {
+        this.state.loggedIn ?
+         <Redirect to='/overview'/>
+         : null
+        }
         <Formik
           initialValues = {{
             email: '',
@@ -71,12 +81,16 @@ class LogInForm extends FormComponent {
           }}
           validationSchema = {LoginSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              console.log(JSON.stringify(values, null, 2));
+            setTimeout(async () => {
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              this.pushData(values, '/api/Login');
+              let result = await this.pushData(values, '/api/login');
+              if (result) {
+                this.setState({
+                  loggedIn: true,
+                })
+              }
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting }) => (

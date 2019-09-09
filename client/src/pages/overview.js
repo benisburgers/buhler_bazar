@@ -10,9 +10,12 @@ import ReactModal from 'react-modal';
 
 class Overview extends Component {
 
-  state = {
-    showModal: false,
-    modalContent: undefined
+  constructor(props){
+    super(props);
+    this.state = {
+      showModal: false,
+      modalContent: undefined
+    };
   }
 
   handleOpenModal = (content) => {
@@ -34,6 +37,16 @@ class Overview extends Component {
 
   componentDidMount() {
     ReactModal.setAppElement('#main');
+    this.fetchOverview();
+  }
+
+  fetchOverview = () => {
+    console.log('fetchOverview');
+    fetch('/api/overview')
+    .then(res => res.json())
+    .then(result => {
+      this.props.updateCurrentUser(result);
+    })
   }
 
   render() {
@@ -58,7 +71,11 @@ class Overview extends Component {
         >
           <OverviewButtons handleOpenModal={this.handleOpenModal} />
           <CountDown />
-          <PreviousOrder userInfo={userInfo} products={products} />
+          {
+            userInfo.lastOrderDate === undefined
+            ? null
+            : <PreviousOrder userInfo={userInfo} products={products} />
+          }
         </div>
         <ReactModal
           isOpen={this.state.showModal}
@@ -150,7 +167,7 @@ class PreviousOrder extends Component {
     })
 
 
-    const previousOrder = userInfo.lastOrder.map((entry, index) => {
+    const previousOrder = JSON.parse(userInfo.lastOrderProducts).map((entry, index) => {
       const specificProduct = products.find(product => product.id === entry)
       return (
         <li key={index}>

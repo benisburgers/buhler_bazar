@@ -14,9 +14,17 @@ export class FormComponent extends Component {
     })
   }
 
+  getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = error => reject(error);
+    });
+  }
+
   pushData = (input, url) => {
-    console.log(input);
-    console.log(url);
+    console.log('pushData');
     return new Promise((resolve, reject) => {
       (async () => {
         const rawResponse = await fetch(url, {
@@ -28,9 +36,7 @@ export class FormComponent extends Component {
           body: JSON.stringify(input)
         });
         const content = await rawResponse.json();
-
-        console.log(content);
-        resolve();
+        resolve(content);
       })();
     })
   }

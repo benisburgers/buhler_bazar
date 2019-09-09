@@ -46,7 +46,7 @@ class RegistrationForm extends FormComponent {
         .email('Muss gültig email sie')
         .required(requiredError),
       password: Yup.string()
-        .min(2, 'Mindestens zwei Zeiche')
+        .min(6, 'Mindestens 6 Zeiche')
         .max(20, 'Maximal 20 Zeiche')
         .required(requiredError)
     })
@@ -63,16 +63,24 @@ class RegistrationForm extends FormComponent {
             firstName: '',
             lastName: '',
             email: '',
-            password: ''
+            password: '',
+            base64: '',
+            fileFormat: '',
           }}
           validationSchema = {SignupSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
+            setTimeout(async () => {
               console.log(JSON.stringify(values, null, 2));
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              this.pushData(values, '/api/register');
+              let result = await this.pushData(values, '/api/register');
+              if (result === false) {
+                alert("Die Email wird scho benutzt. Sprich miteme Admin.")
+              }
+              else {
+                console.log('Log that user in and redirect to overview');
+              }
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, values, setFieldValue }) => (
@@ -106,9 +114,14 @@ class RegistrationForm extends FormComponent {
                 <input
                   id="file"
                   type="file"
-                  onChange={e => {
+                  accept="image/png, image/jpeg, image/jpg"
+                  onChange={async e => {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                      fileValidation.file = e.target.files[0];
+                     var fileFormat = e.target.files[0].type.split('/')[1];
+                     var base64 = await this.getBase64(e.target.files[0])
+                     setFieldValue('base64', base64);
+                     setFieldValue('fileFormat', fileFormat);
                   }}
                   name="file"
                   css={css`
