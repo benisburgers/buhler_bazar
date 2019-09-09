@@ -6,6 +6,7 @@ import ReactModal from 'react-modal';
 /** @jsx jsx */
 import { Global, css, jsx } from '@emotion/core'
 import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { UserProvider } from './components/UserContext'
 
 import Login from './pages/login';
 import Register from './pages/register';
@@ -85,22 +86,27 @@ class App extends Component {
     productTypes: ['fruit', 'snack']
   }
 
-  fetchUserData = () => {
+  fetchUserData = async () => {
     console.log('fetchUserData');
-    fetch('/api/overview')
+    fetch('/api/userData')
     .then(res => res.json())
     .then(result => {
       this.updateCurrentUser(result);
     })
+    return
   }
 
   updateCurrentUser = (input) => {
     console.log('updateCurrentUser');
     var clone = Object.assign({}, input)
+
+    //prepare input: replace null with undefiend, and set up image src, delete useless information (fileFormat)
     clone.picturePath = `/images/users/${input.id}.${input.fileFormat}`
     clone.lastOrderDate = clone.lastOrderDate === null ? undefined : clone.lastOrderDate
     clone.lastOrderProducts = clone.lastOrderProducts === null ? undefined : clone.lastOrderProducts
     delete clone.fileFormat;
+
+    //check if userinfo has changed from previous state. If yes: Update state
     var cloneJSON = JSON.stringify(clone);
     var stateJSON = JSON.stringify(this.state.user);
     if (cloneJSON !== stateJSON) {
@@ -113,6 +119,11 @@ class App extends Component {
 
   render() {
     return (
+      <UserProvider
+        value={{
+          fetchUserData: this.fetchUserData,
+        }}
+      >
         <div className="App" id="main">
         <Global
           styles={css`
@@ -139,6 +150,7 @@ class App extends Component {
             </Switch>
           </Router>
         </div>
+      </UserProvider>
     );
   }
 }

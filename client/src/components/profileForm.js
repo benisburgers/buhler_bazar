@@ -7,6 +7,7 @@ import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, Implic
 import Thumbnail from '../components/thumbnail';
 import { FormComponent } from '../components/form'
 import Select from 'react-select'
+import UserContext from './UserContext'
 
 class ProfileForm extends FormComponent {
 
@@ -19,11 +20,18 @@ class ProfileForm extends FormComponent {
     }
   }
 
+  static contextType = UserContext
+
+  // componentDidMount() {
+  //   console.log(this.context.fetchUserData);
+  // }
+
   render() {
     const { targetUser, handleCloseModal, currentUser } = this.props;
     const { id, picturePath, email, firstName, lastName, admin } = targetUser || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
     var { fileValidation, requiredError } = this;
+    var { fetchUserData } = this.context
 
     const ValidationSchema = Yup.object().shape({
       file: fileValidation.schema,
@@ -66,13 +74,12 @@ class ProfileForm extends FormComponent {
           }}
           validationSchema = {ValidationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            setTimeout(() => {
-              console.log(JSON.stringify(values, null, 2));
+            setTimeout(async () => {
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              console.log(values);
               this.pushData(values, '/api/editUser');
+              await fetchUserData();
               handleCloseModal();
             }, 200);
           }}

@@ -294,8 +294,8 @@ app.post('/api/login',
   }
 );
 
-app.get('/api/overview', isLoggedIn, function(req, res){
-  console.log('/api/overview');
+app.get('/api/userData', isLoggedIn, function(req, res){
+  console.log('/api/userData');
   var clone = Object.assign({}, req.user);
 
   //filter user object which is sent to client: delete password, delete id (not id), and change admin property to boolean
@@ -309,8 +309,11 @@ app.get('/api/overview', isLoggedIn, function(req, res){
 function isLoggedIn(req, res, next){
  console.log('isLoggedIn');
  if(req.isAuthenticated())
-  return next();
-
+ {
+   console.log(true);
+   return next();
+ }
+ console.log(false);
  res.redirect('/');
 }
 
@@ -326,7 +329,6 @@ isLoggedIn,
 async (req, res) => {
   console.log('/api/editUser');
   if (req.body.id === req.user.id) {
-    console.log('he is who he says he is');
     updateUser(req.body)
   }
   else {
