@@ -37,16 +37,7 @@ class Overview extends Component {
 
   componentDidMount() {
     ReactModal.setAppElement('#main');
-    this.fetchOverview();
-  }
-
-  fetchOverview = () => {
-    console.log('fetchOverview');
-    fetch('/api/overview')
-    .then(res => res.json())
-    .then(result => {
-      this.props.updateCurrentUser(result);
-    })
+    this.props.fetchUserData();
   }
 
   render() {

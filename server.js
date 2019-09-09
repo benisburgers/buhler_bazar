@@ -60,6 +60,7 @@ const checkUsersTable = () => {
     }
   });
 }
+checkUsersTable();
 
 const createUsersTable = () => {
   console.log('createUsersTable');

@@ -85,6 +85,15 @@ class App extends Component {
     productTypes: ['fruit', 'snack']
   }
 
+  fetchUserData = () => {
+    console.log('fetchUserData');
+    fetch('/api/overview')
+    .then(res => res.json())
+    .then(result => {
+      this.updateCurrentUser(result);
+    })
+  }
+
   updateCurrentUser = (input) => {
     console.log('updateCurrentUser');
     var clone = Object.assign({}, input)
@@ -124,7 +133,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={ () => <Login joke={this.state.joke} />} />
               <Route exact path="/register" render={({history}) => <Register history={history} />} />
-              <Route exact path="/overview" component={ () => <Overview updateCurrentUser={this.updateCurrentUser} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
+              <Route exact path="/overview" component={ () => <Overview fetchUserData={this.fetchUserData} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
               <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userInfo={this.state.user} /> } />
               <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userInfo={this.state.user} />} />
             </Switch>
