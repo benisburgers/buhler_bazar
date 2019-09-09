@@ -51,15 +51,6 @@ class RegistrationForm extends FormComponent {
         .required(requiredError)
     })
 
-    function getBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = error => reject(error);
-      });
-    }
-
     return (
       <div class="registrationFormContainer"
         css={css`
@@ -128,7 +119,7 @@ class RegistrationForm extends FormComponent {
                      setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                      fileValidation.file = e.target.files[0];
                      var fileFormat = e.target.files[0].type.split('/')[1];
-                     var base64 = await getBase64(e.target.files[0])
+                     var base64 = await this.getBase64(e.target.files[0])
                      setFieldValue('base64', base64);
                      setFieldValue('fileFormat', fileFormat);
                   }}

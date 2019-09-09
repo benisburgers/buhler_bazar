@@ -245,16 +245,13 @@ app.use(flash());
 
 passport.serializeUser(function(user, done){
   console.log('serializeUser');
-  console.log(user);
  done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done){
   console.log('deserializeUser');
-  console.log(id);
  connection.query("SELECT * FROM users WHERE id = ? ", [id],
   function(err, rows){
-    console.log(rows[0]);
    done(err, rows[0]);
   });
 });
@@ -287,13 +284,17 @@ passport.use(
 app.post('/api/login',
   passport.authenticate('local-login'),
   function(req, res){
+    if(req.body.remember){
+     req.session.cookie.maxAge = 1000 * 60 * 3;
+    }else{
+     req.session.cookie.expires = false;
+    }
     res.send(true)
   }
 );
 
 app.get('/api/overview', isLoggedIn, function(req, res){
-  console.log('HALTSTOP');
-  console.log(req.user);
+  console.log('/api/overview');
   var clone = Object.assign({}, req.user);
 
   //filter user object which is sent to client: delete password, delete id (not id), and change admin property to boolean
@@ -305,6 +306,7 @@ app.get('/api/overview', isLoggedIn, function(req, res){
 });
 
 function isLoggedIn(req, res, next){
+ console.log('isLoggedIn');
  if(req.isAuthenticated())
   return next();
 
@@ -316,6 +318,58 @@ function isLoggedIn(req, res, next){
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+app.post('/api/editUser',
+isLoggedIn,
+async (req, res) => {
+  console.log('/api/editUser');
+  if (req.body.id === req.user.id) {
+    console.log('he is who he says he is');
+    updateUser(req.body)
+  }
+  else {
+    console.log('he is not who he says he is');
+  }
+})
+
+const updateUser = async (input) => {
+  console.log('updateUser');
+
+  //see if a new image was uploaded by checking value of base64 (empty if no new picture was uploaded)
+  if (input.base64) {
+    // if yes: save new image (overwrite old image)
+    await saveImage(input.base64, input.fileFormat, input.id, 'client/public/images/users/')
+    connection.query('UPDATE users SET fileFormat = ? WHERE id = ?', [input.fileFormat, input.id], (error, results, fields) => {
+      if (error) throw error;
+    })
+
+    //delete old file ??
+  }
+
+  //update user values in databse
+  connection.query('UPDATE users SET firstName = ?, lastName = ?, email = ? WHERE id = ?', [input.firstName, input.lastName, input.email, input.id], (error, results, fields) => {
+    if (error) throw error;
+  })
+}
+
+
+// connection.query('UPDATE users SET foo = ?, bar = ?, baz = ? WHERE id = ?', ['a', 'b', 'c', userId], function (error, results, fields) {
+//   if (error) throw error;
+//   // ...
+// });
+//
+//
+// const createUser = async (input) => {
+//   console.log('createUser');
+//     var sql = "INSERT INTO users SET ?";
+//     connection.query(sql, [input], (err, result) => {
+//       if (err) throw err;
+//       // console.log(result);
+//       return;
+//     })
+// }
+
 
 
 
