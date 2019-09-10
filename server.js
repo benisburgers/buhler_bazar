@@ -74,7 +74,8 @@ const createUsersTable = () => {
     admin TINYINT(1) NOT NULL,
     lastOrderDate DATE,
     lastOrderProducts VARCHAR(30),
-    fileFormat VARCHAR(10)
+    fileFormat VARCHAR(10),
+    fileName VARCHAR(30)
   )`
   connection.query(sql, (err, result) => {
     if (err) throw err;
@@ -220,8 +221,12 @@ async (request, response) => {
   console.log('/api/regsiter');
   let filteredInput = await prepareUserInput(request.body)
   let result = await registerUser(filteredInput);
+  let fileName = shortid.generate()
   if (result) {
-    await saveImage(request.body.base64, request.body.fileFormat, filteredInput.id, 'client/public/images/users/')
+    connection.query('UPDATE users SET fileName = ? WHERE id = ?', [fileName, filteredInput.id], (error, results, fields) => {
+      if (error) throw error;
+    })
+    await saveImage(request.body.base64, request.body.fileFormat, fileName, 'client/public/images/users/')
   }
   response.send(result)
 })
@@ -336,14 +341,27 @@ async (req, res) => {
   }
 })
 
+const deleteImage = async (fileDirectory, fileName, fileFormat) => {
+  console.log('deleteImage');
+  fs.unlink(`${fileDirectory}${fileName}.${fileFormat}`, err => {
+    if (err) throw err;
+    console.log(`file ${fileName} deleted`);
+    return
+  })
+}
+
 const updateUser = async (input) => {
   console.log('updateUser');
 
   //see if a new image was uploaded by checking value of base64 (empty if no new picture was uploaded)
   if (input.base64) {
-    // if yes: save new image (overwrite old image)
-    await saveImage(input.base64, input.fileFormat, input.id, 'client/public/images/users/')
-    connection.query('UPDATE users SET fileFormat = ? WHERE id = ?', [input.fileFormat, input.id], (error, results, fields) => {
+    // if yes: save new image, delete old image
+    let fileName = shortid.generate()
+    await saveImage(input.base64, input.fileFormat, fileName, 'client/public/images/users/')
+    var oldFile = connection.query('SELECT fileName, fileFormat FROM users WHERE id = ?', [input.id], async (error, results, fields) => {
+      await deleteImage('client/public/images/users/', results[0].fileName, results[0].fileFormat)
+    })
+    connection.query('UPDATE users SET fileName = ?, fileFormat = ? WHERE id = ?', [fileName, input.fileFormat, input.id], (error, results, fields) => {
       if (error) throw error;
     })
 

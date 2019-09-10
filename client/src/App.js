@@ -101,7 +101,7 @@ class App extends Component {
     var clone = Object.assign({}, input)
 
     //prepare input: replace null with undefiend, and set up image src, delete useless information (fileFormat)
-    clone.picturePath = `/images/users/${input.id}.${input.fileFormat}`
+    clone.picturePath = `/images/users/${input.fileName}.${input.fileFormat}`
     clone.lastOrderDate = clone.lastOrderDate === null ? undefined : clone.lastOrderDate
     clone.lastOrderProducts = clone.lastOrderProducts === null ? undefined : clone.lastOrderProducts
     delete clone.fileFormat;
