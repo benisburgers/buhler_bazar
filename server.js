@@ -401,7 +401,7 @@ async (req, res) => {
   //access all users form databse
   connection.query('SELECT id, firstName, lastName, email, admin, fileFormat, fileName FROM users', (error, results, fields) => {
     if (error) throw error;
-    console.log(JSON.stringify(results));
+    res.send(JSON.stringify(results));
   })
 })
 

@@ -89,9 +89,27 @@ class AdminUserList extends Component {
     this.fetchUserList();
   }
 
+  processUserList = async (userList) => {
+    var result = userList.map(userObject => {
+      userObject.picturePath = `/images/users/${userObject.fileName}.${userObject.fileFormat}`
+      delete userObject.fileName;
+      delete userObject.fileFormat;
+      return userObject
+    });
+    return result;
+  }
+
+
   fetchUserList = async () => {
     console.log('fetchUserList');
     fetch('/api/userList')
+    .then(res => res.json())
+    .then(result => this.processUserList(result))
+    .then(userList => {
+      this.setState({
+        userList: userList
+      })
+    })
   }
 
   render() {
