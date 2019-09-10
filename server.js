@@ -334,7 +334,8 @@ isLoggedIn,
 async (req, res) => {
   console.log('/api/editUser');
   if (req.body.id === req.user.id) {
-    updateUser(req.body)
+    await updateUser(req.body)
+    res.send(true)
   }
   else {
     console.log('he is not who he says he is');

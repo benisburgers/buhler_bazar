@@ -78,9 +78,15 @@ class ProfileForm extends FormComponent {
               resetForm();
               setSubmitting(false);
               //check if email exists in database
-              this.pushData(values, '/api/editUser');
-              await fetchUserData();
-              handleCloseModal();
+              let result = await this.pushData(values, '/api/editUser');
+              if (result) {
+                await fetchUserData();
+                handleCloseModal();
+              }
+              else {
+                await alert('Öppis stimmt nöd. Versuechs bitte nomal.')
+                handleCloseModal();
+              }
             }, 200);
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values }) => (
