@@ -36,7 +36,6 @@ export class FormComponent extends Component {
           body: JSON.stringify(input)
         });
         const content = await rawResponse.json();
-        console.log(content);
         resolve(content);
       })();
     })

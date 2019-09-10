@@ -86,6 +86,12 @@ class AdminUserList extends Component {
 
   componentDidMount() {
     ReactModal.setAppElement('#main');
+    this.fetchUserList();
+  }
+
+  fetchUserList = async () => {
+    console.log('fetchUserList');
+    fetch('/api/userList')
   }
 
   render() {

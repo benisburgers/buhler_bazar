@@ -299,7 +299,9 @@ app.post('/api/login',
   }
 );
 
-app.get('/api/userData', isLoggedIn, function(req, res){
+app.get('/api/userData',
+isLoggedIn,
+function(req, res){
   console.log('/api/userData');
   var clone = Object.assign({}, req.user);
 
@@ -312,7 +314,7 @@ app.get('/api/userData', isLoggedIn, function(req, res){
 });
 
 function isLoggedIn(req, res, next){
- console.log('isLoggedIn');
+ console.log('isLoggedIn()');
  if(req.isAuthenticated())
  {
    console.log(true);
@@ -322,14 +324,24 @@ function isLoggedIn(req, res, next){
  res.redirect('/');
 }
 
-
+function isAdmin(req, res, next){
+ console.log('isAdmin()');
+ console.log(req.user.admin);
+ if(req.user.admin)
+ {
+   console.log(true);
+   return next();
+ }
+ console.log(false);
+ res.redirect('/');
+}
 
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-app.post('/api/editUser',
+app.get('/api/editUser',
 isLoggedIn,
 async (req, res) => {
   console.log('/api/editUser');
@@ -375,6 +387,23 @@ const updateUser = async (input) => {
   })
 }
 
+
+
+////////////////////
+
+
+app.get('/api/userList',
+isLoggedIn,
+isAdmin,
+async (req, res) => {
+  console.log('/api/userList');
+  console.log(req.user);
+  //access all users form databse
+  connection.query('SELECT id, firstName, lastName, email, admin, fileFormat, fileName FROM users', (error, results, fields) => {
+    if (error) throw error;
+    console.log(JSON.stringify(results));
+  })
+})
 
 // connection.query('UPDATE users SET foo = ?, bar = ?, baz = ? WHERE id = ?', ['a', 'b', 'c', userId], function (error, results, fields) {
 //   if (error) throw error;
