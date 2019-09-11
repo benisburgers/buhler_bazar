@@ -8,6 +8,8 @@ import Thumbnail from '../components/thumbnail';
 import { FormComponent } from '../components/form'
 import Select from 'react-select'
 import UserContext from './UserContext'
+import { history } from '../components/history'
+
 
 class ProfileForm extends FormComponent {
 
@@ -31,18 +33,24 @@ class ProfileForm extends FormComponent {
     const { id, picturePath, email, firstName, lastName, admin } = targetUser || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
     var { fileValidation, requiredError } = this;
-    var { fetchUserData } = this.context
+    var { fetchUserData } = this.context;
+
+    console.log(this.props);
 
     const deleteUser = async (input) => {
       //check if email exists in database
       let result = await this.removeUser(input);
-      if (result) {
+
+      //stay logged in
+      if (result.success && !(result.logout)) {
+        console.log('stay logged in');
         await fetchUserData();
         handleCloseModal();
       }
-      else {
-        await alert('Öppis stimmt nöd. Versuechs bitte nomal.')
+      //logout (if user has deleted themselves)
+      else if (result.success && result.logout){
         handleCloseModal();
+        history.push('/')
       }
     }
 
@@ -71,6 +79,7 @@ class ProfileForm extends FormComponent {
 
     return (
         <Formik
+          history = {this.props.history}
           initialValues = {{
             id: id,
             file: picturePath,

@@ -359,21 +359,38 @@ app.post('/api/deleteUser',
 isLoggedIn,
 async (req, res) => {
   console.log('/api/deleteUser');
-  console.log(req.user.id);
-  console.log(req.body.id);
   //check if user is who he says he is OR if user is admin
-  if ((req.body.id === req.user.id) || req.user.admin) {
+  if (req.body.id === req.user.id) {
     await deleteUser(req)
-    res.send(true)
+    res.send(JSON.stringify(
+      {
+        success: true,
+        logout: true
+      }
+    ))
+    req.logout();
+    console.log(req);
+  }
+  else if (req.user.admin) {
+    await deleteUser(req)
+    res.send(JSON.stringify(
+      {
+        success: true,
+        logout: false
+      }
+    ))
   }
   else {
-    console.log('he is not who he says he is');
+    res.send(JSON.stringify(
+      {
+        success: false
+      }
+    ))
   }
 })
 
 const deleteUser = async (req, res) => {
   console.log('deleteUser()');
-  console.log(req.body);
   //delete user entry in db
   connection.query('DELETE FROM users WHERE id = ?', [req.body.id], async (error, results, fields) => {
     if (error) throw error

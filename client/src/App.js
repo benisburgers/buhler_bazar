@@ -5,7 +5,7 @@ import ReactModal from 'react-modal';
 
 /** @jsx jsx */
 import { Global, css, jsx } from '@emotion/core'
-import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Router, Route, Link } from 'react-router-dom'
 import { UserProvider } from './components/UserContext'
 
 import Login from './pages/login';
@@ -13,6 +13,8 @@ import Register from './pages/register';
 import Overview from './pages/overview';
 import AdminUserList from './pages/admin_userList';
 import AdminProducts from './pages/admin_productList';
+
+import { history } from './components/history'
 
 class App extends Component {
 
@@ -118,7 +120,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log('APP componentDidMount');
-    if (this.state.user.id === undefined) {      
+    if (this.state.user.id === undefined) {
       this.fetchUserData();
     }
   }
@@ -131,32 +133,30 @@ class App extends Component {
           fetchUserData: this.fetchUserData,
         }}
       >
-        <div className="App" id="main">
-        <Global
-          styles={css`
-            html, body, #root, #main {
-              height: 100%;
-            }
-            * {
-              &:active {
-                -webkit-tap-highlight-color: transparent;
+        <Router history={history}>
+          <div className="App" id="main">
+            <Global
+            styles={css`
+              html, body, #root, #main {
+                height: 100%;
               }
-              &:focus {
-                outline-color: transparent;
-              }
-            }
-          `}
-        />
-          <Router>
-            <Switch>
-              <Route exact path="/" component={ () => <Login joke={this.state.joke} />} />
-              <Route exact path="/register" render={({history}) => <Register history={history} />} />
-              <Route exact path="/overview" component={ () => <Overview fetchUserData={this.fetchUserData} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
-              <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userInfo={this.state.user} /> } />
-              <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userInfo={this.state.user} />} />
-            </Switch>
-          </Router>
-        </div>
+              * {
+                &:active {
+                  -webkit-tap-highlight-color: transparent;
+                }
+                &:focus {
+                  outline-color: transparent;
+                }
+                }
+            `}
+            />
+            <Route exact path="/" component={ () => <Login joke={this.state.joke} />} />
+            <Route exact path="/register" render={() => <Register />} />
+            <Route exact path="/overview" component={ () => <Overview fetchUserData={this.fetchUserData} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
+            <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userInfo={this.state.user} /> } />
+            <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userInfo={this.state.user} />} />
+          </div>
+        </Router>
       </UserProvider>
     );
   }

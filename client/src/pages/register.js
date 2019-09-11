@@ -8,10 +8,10 @@ import { css, jsx } from '@emotion/core'
 import register_thumbnail_icon from '../components/images/register-thumbnail-icon.png';
 import { FormComponent } from '../components/form'
 import alert_triangle from '../components/images/alert-triangle.svg'
+import { history } from '../components/history'
 
 class Register extends Component {
   render() {
-    const { history } = this.props
     return (
       <FullHeightSection className="registration"
         css={css`
