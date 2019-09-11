@@ -362,14 +362,15 @@ async (req, res) => {
   //check if user is who he says he is OR if user is admin
   if (req.body.id === req.user.id) {
     await deleteUser(req)
-    res.send(JSON.stringify(
-      {
-        success: true,
-        logout: true
-      }
-    ))
-    req.logout();
-    console.log(req);
+    await req.session.destroy(function (err) {
+      res.send(JSON.stringify(
+        {
+          success: true,
+          logout: true
+        }
+      ))
+    });
+    console.log(req.body);
   }
   else if (req.user.admin) {
     await deleteUser(req)
