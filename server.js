@@ -345,7 +345,8 @@ app.post('/api/editUser',
 isLoggedIn,
 async (req, res) => {
   console.log('/api/editUser');
-  if (req.body.id === req.user.id) {
+  //check if user is who he says he is OR if user is admin
+  if ((req.body.id === req.user.id) || req.user.admin) {
     await updateUser(req.body)
     res.send(true)
   }

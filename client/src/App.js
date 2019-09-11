@@ -116,6 +116,13 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log('APP componentDidMount');
+    if (this.state.user.id === undefined) {      
+      this.fetchUserData();
+    }
+  }
+
 
   render() {
     return (
