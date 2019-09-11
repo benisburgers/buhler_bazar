@@ -76,8 +76,9 @@ class AdminUserList extends Component {
     });
   }
 
-  handleCloseModal = () => {
+  handleCloseModal = async () => {
     console.log('handleCloseModal');
+    await this.fetchUserList();
     this.setState({
       showModal: false,
       activeUserId: undefined
