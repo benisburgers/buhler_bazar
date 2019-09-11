@@ -79,7 +79,7 @@ class RegistrationForm extends FormComponent {
                 alert("Die Email wird scho benutzt. Sprich miteme Admin.")
               }
               else {
-                console.log('Log that user in and redirect to overview');
+                history.goBack()
               }
             }, 200);
           }}
