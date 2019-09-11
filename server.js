@@ -355,6 +355,36 @@ async (req, res) => {
   }
 })
 
+app.post('/api/deleteUser',
+isLoggedIn,
+async (req, res) => {
+  console.log('/api/deleteUser');
+  console.log(req.user.id);
+  console.log(req.body.id);
+  //check if user is who he says he is OR if user is admin
+  if ((req.body.id === req.user.id) || req.user.admin) {
+    await deleteUser(req)
+    res.send(true)
+  }
+  else {
+    console.log('he is not who he says he is');
+  }
+})
+
+const deleteUser = async (req, res) => {
+  console.log('deleteUser()');
+  console.log(req.body);
+  //delete user entry in db
+  connection.query('DELETE FROM users WHERE id = ?', [req.body.id], async (error, results, fields) => {
+    if (error) throw error
+  })
+  //delete user image
+  fs.unlink(`client/public${req.body.file}`, err => {
+    if (err) throw err;
+    console.log('file deleted');
+  })
+}
+
 const deleteImage = async (fileDirectory, fileName, fileFormat) => {
   console.log('deleteImage');
   fs.unlink(`${fileDirectory}${fileName}.${fileFormat}`, err => {

@@ -41,6 +41,25 @@ export class FormComponent extends Component {
     })
   }
 
+  removeUser = (input) => {
+    console.log('deleteUser');
+    console.log(input);
+    return new Promise((resolve, reject) => {
+      (async () => {
+        const rawResponse = await fetch('/api/deleteUser', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(input)
+        });
+        const content = await rawResponse.json();
+        resolve(content);
+      })();
+    })
+  }
+
   reactSelectStyles = {
     control: (provided, state) => ({
       ...provided,

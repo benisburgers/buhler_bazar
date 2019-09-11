@@ -33,6 +33,19 @@ class ProfileForm extends FormComponent {
     var { fileValidation, requiredError } = this;
     var { fetchUserData } = this.context
 
+    const deleteUser = async (input) => {
+      //check if email exists in database
+      let result = await this.removeUser(input);
+      if (result) {
+        await fetchUserData();
+        handleCloseModal();
+      }
+      else {
+        await alert('Öppis stimmt nöd. Versuechs bitte nomal.')
+        handleCloseModal();
+      }
+    }
+
     const ValidationSchema = Yup.object().shape({
       file: fileValidation.schema,
 
@@ -50,10 +63,6 @@ class ProfileForm extends FormComponent {
         .max(20, 'Maximal 20 Zeiche')
         .required(requiredError)
     })
-
-    const deleteUser = function() {
-      console.log('deleteUser');
-    }
 
     var options = [
       { value: true, label: 'ja' },
@@ -171,7 +180,7 @@ class ProfileForm extends FormComponent {
                 `}
               >
                 <PrimaryButton width="50%" type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
-                <PrimaryButton negative width="40%" onClick={ (e) => deleteUser() }>LÖSCHÄ</PrimaryButton>
+                <PrimaryButton negative width="40%" type="button" onClick={ () => deleteUser(values) }>LÖSCHÄ</PrimaryButton>
               </div>
             </ImplicitForm>
           )}
