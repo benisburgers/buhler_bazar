@@ -35,15 +35,12 @@ class ProfileForm extends FormComponent {
     var { fileValidation, requiredError } = this;
     var { fetchUserData } = this.context;
 
-    console.log(this.props);
-
     const deleteUser = async (input) => {
       //check if email exists in database
       let result = await this.removeUser(input);
 
       //stay logged in
       if (result.success && !(result.logout)) {
-        console.log('stay logged in');
         await fetchUserData();
         handleCloseModal();
       }

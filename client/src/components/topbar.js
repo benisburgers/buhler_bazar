@@ -6,7 +6,7 @@ import ExitButtonContainer from '../components/exitButton.js'
 import { StyledMenuLink, SecondaryButton } from "../styling/theme"
 import ReactModal from 'react-modal';
 import ProfileModal from '../components/profileModal.js'
-
+import { history } from '../components/history'
 
 class TopBarContainer extends Component {
 
@@ -223,6 +223,13 @@ class HamburgerBar extends Component {
 
 class Menu extends Component {
   render() {
+    const logout = async () => {
+      fetch('/api/logout')
+      .then(res => res.json())
+      .then(result => {
+        history.push('/')
+      })
+    }
     const isAdmin = this.props.userInfo.admin
     const { handleCloseModal } = this.props;
     return (
@@ -255,16 +262,14 @@ class Menu extends Component {
         ) : (
             <BasicMenuOptions />
         )}
-        <Link to={'/logout'}
+        <SecondaryButton width="50%" negative onClick={() => logout()}
           css={css`
-            text-decoration: none;
-            color: inherit;
+            margin-left: auto;
+            margin-right: auto;
           `}
         >
-          <SecondaryButton negative width="auto">
-            Logout
-          </SecondaryButton>
-        </Link>
+          Logout
+        </SecondaryButton>
       </div>
     )
   }

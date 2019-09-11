@@ -454,6 +454,22 @@ async (req, res) => {
   })
 })
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+app.get('/api/logout',
+async(req, res) => {
+  console.log('/api/logout');
+  await req.session.destroy(function (err) {
+    if (err) throw err;
+    res.send(true)
+  });
+}
+)
+
+
+
 // connection.query('UPDATE users SET foo = ?, bar = ?, baz = ? WHERE id = ?', ['a', 'b', 'c', userId], function (error, results, fields) {
 //   if (error) throw error;
 //   // ...
