@@ -107,7 +107,7 @@ const createProductsTable = () => {
     id VARCHAR(30) PRIMARY KEY,
     productName VARCHAR(50) NOT NULL,
     productType VARCHAR(20) NOT NULL,
-    popularity INT,
+    numberOfVotes INT,
     lastOrderDate INT,
     fileFormat VARCHAR(10),
     fileName VARCHAR(30)
@@ -509,6 +509,16 @@ const createNewProduct = async (input) => {
   })
   return true
 }
+
+app.get('/api/productsData',
+async (req, res) => {
+  console.log('/api/productsData');
+  //access all users form databse
+  connection.query('SELECT * FROM products', (error, results, fields) => {
+    if (error) throw error;
+    res.send(JSON.stringify(results));
+  })
+})
 
 // connection.query('UPDATE users SET foo = ?, bar = ?, baz = ? WHERE id = ?', ['a', 'b', 'c', userId], function (error, results, fields) {
 //   if (error) throw error;

@@ -89,13 +89,42 @@ class App extends Component {
   }
 
   fetchUserData = async () => {
-    console.log('fetchUserData');
+    console.log('fetchUserData()');
     fetch('/api/userData')
     .then(res => res.json())
     .then(result => {
       this.updateCurrentUser(result);
     })
     return
+  }
+
+  fetchProductsData = async () => {
+    console.log('fetchProductsData()');
+    fetch('/api/productsData')
+    .then(res => res.json())
+    .then(result => {
+      return this.processProdutsData(result)
+    })
+    .then(result => {
+      this.setState({
+        products: result
+      })
+    })
+  }
+
+  processProdutsData = async (products) => {
+    var processedProducts = await products.map(entry => {
+      var clone = {
+        id: entry.id,
+        name: entry.productName,
+        type: entry.productType,
+        picturePath: `/images/products/${entry.fileName}.${entry.fileFormat}`,
+        lastOrderDate: entry.lastOrderDate,
+        numberOfVotes: entry.numberOfVotes
+      }
+      return clone;
+    })
+    return processedProducts
   }
 
   updateCurrentUser = (input) => {
@@ -122,7 +151,8 @@ class App extends Component {
     console.log('APP componentDidMount');
     if (this.state.user.id === undefined) {
       this.fetchUserData();
-    }
+    };
+    this.fetchProductsData();
   }
 
 
