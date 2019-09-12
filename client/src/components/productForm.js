@@ -22,8 +22,38 @@ class ProductForm extends FormComponent {
 
   render() {
 
-    const deleteProduct = function() {
-      console.log('deleteProduct');
+    const deleteProduct = async (input) => {
+      console.log('deleteProduct()');
+      console.log(input);
+      let result = await removeProduct(input)
+      console.log(result);
+      if (result) {
+        await fetchProductsData()
+        handleCloseModal()
+      }
+      else {
+        await alert('Öppis stimmt nöd. Versuechs bitte nomal.')
+        handleCloseModal();
+      }
+    }
+
+    const removeProduct = (input) => {
+      console.log('removeProduct()');
+      console.log(input);
+      return new Promise((resolve, reject) => {
+        (async () => {
+          const rawResponse = await fetch('/api/deleteProduct', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(input)
+          });
+          const content = await rawResponse.json();
+          resolve(content);
+        })();
+      })
     }
 
     const { product, productTypes, handleCloseModal } = this.props;
@@ -73,11 +103,12 @@ class ProductForm extends FormComponent {
             let result = await this.pushData(values, '/api/editProduct');
             if (result) {
               await fetchProductsData();
+              handleCloseModal();
             }
             else {
               await alert('Öppis stimmt nöd. Versuechs bitte nomal.')
+              handleCloseModal();
             }
-            handleCloseModal();
           }, 200);
         }}
         render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values, handleChange }) => (
@@ -141,7 +172,7 @@ class ProductForm extends FormComponent {
               `}
             >
               <PrimaryButton width="50%" type="submit" disabled={isSubmitting}>SPEICHÄRÄ</PrimaryButton>
-              <PrimaryButton negative width="40%" onClick={ (e) => deleteProduct() }>LÖSCHÄ</PrimaryButton>
+              <PrimaryButton negative width="40%" type="button" onClick={ () => deleteProduct(values) }>LÖSCHÄ</PrimaryButton>
             </div>
           </ImplicitForm>
         )}

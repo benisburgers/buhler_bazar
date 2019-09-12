@@ -36,18 +36,23 @@ class ProfileForm extends FormComponent {
     var { fetchUserData } = this.context;
 
     const deleteUser = async (input) => {
-      //check if email exists in database
       let result = await this.removeUser(input);
 
-      //stay logged in
+      //stay logged in (if admin has deleted somebody else)
       if (result.success && !(result.logout)) {
         await fetchUserData();
         handleCloseModal();
       }
+
       //logout (if user has deleted themselves)
       else if (result.success && result.logout){
         handleCloseModal();
         history.push('/')
+      }
+
+      else {
+        await alert('Öppis stimmt nöd. Versuechs bitte nomal.')
+        handleCloseModal();
       }
     }
 

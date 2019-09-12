@@ -552,6 +552,28 @@ async (req, res) => {
   })
 })
 
+app.post('/api/deleteProduct',
+async (req, res) => {
+  console.log('/api/deleteProduct');
+  let result = await deleteProduct(req)
+  res.send(JSON.stringify(result))
+})
+
+const deleteProduct = async (req, res) => {
+  console.log('deleteProduct()');
+  console.log(req.body);
+  //delete product entry in db
+  await connection.query('DELETE FROM products WHERE id = ?', [req.body.id], async (error, results, fields) => {
+    if (error) throw error
+  })
+  //delete product image
+  await fs.unlink(`client/public${req.body.file}`, err => {
+    if (err) throw err;
+    console.log('file deleted');
+  })
+  return true
+}
+
 // connection.query('UPDATE users SET foo = ?, bar = ?, baz = ? WHERE id = ?', ['a', 'b', 'c', userId], function (error, results, fields) {
 //   if (error) throw error;
 //   // ...
