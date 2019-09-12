@@ -161,6 +161,7 @@ class App extends Component {
       <UserProvider
         value={{
           fetchUserData: this.fetchUserData,
+          fetchProductsData: this.fetchProductsData,
         }}
       >
         <Router history={history}>

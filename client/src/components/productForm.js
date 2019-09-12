@@ -7,6 +7,7 @@ import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, Implic
 import { css, jsx } from '@emotion/core'
 import Select from 'react-select'
 import { FormComponent } from '../components/form'
+import UserContext from './UserContext'
 
 class ProductForm extends FormComponent {
 
@@ -16,6 +17,8 @@ class ProductForm extends FormComponent {
       productType: true
     }
   }
+
+  static contextType = UserContext
 
   render() {
 
@@ -27,6 +30,8 @@ class ProductForm extends FormComponent {
     const { id, name, type, picturePath } = product || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
     var { fileValidation, requiredError } = this;
+    var { fetchProductsData } = this.context;
+    console.log(fetchProductsData);
 
     var reactSelectOptions = [];
 
@@ -66,6 +71,12 @@ class ProductForm extends FormComponent {
             resetForm();
             setSubmitting(false);
             let result = await this.pushData(values, '/api/editProduct');
+            if (result) {
+              await fetchProductsData();
+            }
+            else {
+              await alert('Öppis stimmt nöd. Versuechs bitte nomal.')
+            }
             handleCloseModal();
           }, 200);
         }}
