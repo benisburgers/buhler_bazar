@@ -13,16 +13,40 @@ class VotingModal extends Component {
     highlightCredits: false
   }
 
-  submitVote = () => {
+  submitVote = async () => {
     console.log('submitVote');
-    //push selected fruits to database -- what format?
+    //convert selectedProducts array (object array) into simple array of integers (ids)
     let chosenProductIDs = [];
     this.state.selectedProducts.forEach((entry, index) => {
       chosenProductIDs = [...chosenProductIDs, entry.id]
     })
+
+    //push array of IDs to server
+    let result = await this.pushProductIds(chosenProductIDs)
+    console.log(result);
+
     // close voting modal
     this.props.handleCloseModal();
     //refresh overview page (update/fetch 'previous voting')
+  }
+
+  pushProductIds = (input) => {
+    console.log('pushProductIds()');
+    console.log(input);
+    return new Promise((resolve, reject) => {
+      (async () => {
+        const rawResponse = await fetch('/api/voteProducts', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(input)
+        });
+        const content = await rawResponse.json();
+        resolve(content);
+      })();
+    })
   }
 
   highlightCredit = () => {

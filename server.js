@@ -574,22 +574,18 @@ const deleteProduct = async (req, res) => {
   return true
 }
 
-// connection.query('UPDATE users SET foo = ?, bar = ?, baz = ? WHERE id = ?', ['a', 'b', 'c', userId], function (error, results, fields) {
-//   if (error) throw error;
-//   // ...
-// });
-//
-//
-// const createUser = async (input) => {
-//   console.log('createUser');
-//     var sql = "INSERT INTO users SET ?";
-//     connection.query(sql, [input], (err, result) => {
-//       if (err) throw err;
-//       // console.log(result);
-//       return;
-//     })
-// }
 
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
+app.post('/api/voteProducts',
+async (req, res) => {
+  console.log('/api/voteProducts');
+  console.log(req.body);
+  // let result = await deleteProduct(req)
+  res.send(true)
+})
 
 
 

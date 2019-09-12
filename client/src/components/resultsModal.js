@@ -10,14 +10,6 @@ class ResultsModal extends Component {
   state = {
     rawResults:
     [
-      [1, 7, 5],
-      [3, 9, 5],
-      [4, 3, 1],
-      [4, 3, 1],
-      [4, 3, 1],
-      [4, 3, 1],
-      [4, 3, 1],
-      [9, 1, 5]
     ]
   }
 
