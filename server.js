@@ -98,15 +98,19 @@ const checkProductsTable = () => {
     }
   });
 }
+checkProductsTable()
 
 const createProductsTable = () => {
   console.log('createProductsTable');
   var sql =
   `CREATE TABLE products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id VARCHAR(30) PRIMARY KEY,
     productName VARCHAR(50) NOT NULL,
     productType VARCHAR(20) NOT NULL,
-    id VARCHAR(30)
+    popularity INT,
+    lastOrderDate INT,
+    fileFormat VARCHAR(10),
+    fileName VARCHAR(30)
   )`
   connection.query(sql, (err, result) => {
     if (err) throw err;
@@ -459,16 +463,52 @@ async (req, res) => {
 //////////////////////////////////////////////////////
 
 app.get('/api/logout',
-async(req, res) => {
-  console.log('/api/logout');
-  await req.session.destroy(function (err) {
-    if (err) throw err;
-    res.send(true)
-  });
-}
+  async(req, res) => {
+    console.log('/api/logout');
+    await req.session.destroy(function (err) {
+      if (err) throw err;
+      res.send(true)
+    });
+  }
 )
 
 
+///////
+///////
+///////
+///////
+
+
+app.post('/api/editProduct',
+  async(req, res) => {
+    console.log('/api/editProduct');
+    //differentiate between old products (update) and new products
+    if (req.body.id) {
+      //old product
+      console.log('old product');
+      //update old product (image and db)
+    }
+    else if (!req.body.id) {
+      //new product
+      console.log('new product');
+      //create new product (image and db)
+      let result = await createNewProduct(req.body)
+      res.send(result)
+      return
+    }
+  }
+)
+
+const createNewProduct = async (input) => {
+  console.log('createNewProduct()');
+  var productId = shortid.generate();
+  var fileName = shortid.generate();
+  await saveImage(input.base64, input.fileFormat, fileName, 'client/public/images/products/')
+  connection.query('INSERT INTO products SET id = ?, productName = ?, productType = ?, fileName = ?, fileFormat = ?', [productId, input.productName, input.productType, fileName, input.fileFormat], (error, results, fields) => {
+    if (error) throw error;
+  })
+  return true
+}
 
 // connection.query('UPDATE users SET foo = ?, bar = ?, baz = ? WHERE id = ?', ['a', 'b', 'c', userId], function (error, results, fields) {
 //   if (error) throw error;

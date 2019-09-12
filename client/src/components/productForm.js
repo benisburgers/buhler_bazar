@@ -56,15 +56,16 @@ class ProductForm extends FormComponent {
           productName: name,
           productType: type,
           file: picturePath,
+          base64: undefined,
+          fileFormat: undefined,
         }}
         validationSchema = {ValidationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          setTimeout(() => {
-            console.log(JSON.stringify(values, null, 2));
+          setTimeout(async () => {
+            // console.log(JSON.stringify(values, null, 2));
             resetForm();
             setSubmitting(false);
-            //check if email exists in database
-            this.pushData(values, '/api/editProduct');
+            let result = await this.pushData(values, '/api/editProduct');
             handleCloseModal();
           }, 200);
         }}
@@ -76,9 +77,13 @@ class ProductForm extends FormComponent {
                 id="file"
                 type="file"
                 accept="image/png, image/jpeg, image/jpg"
-                onChange={e => {
+                onChange={async e => {
                    setFieldValue('file', URL.createObjectURL(e.target.files[0]));
                    fileValidation.file = e.target.files[0];
+                   var fileFormat = e.target.files[0].type.split('/')[1];
+                   var base64 = await this.getBase64(e.target.files[0])
+                   setFieldValue('base64', base64);
+                   setFieldValue('fileFormat', fileFormat);
                 }}
                 name="file"
                 css={css`
