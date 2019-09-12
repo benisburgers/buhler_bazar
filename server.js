@@ -430,8 +430,6 @@ const updateUser = async (input) => {
     connection.query('UPDATE users SET fileName = ?, fileFormat = ? WHERE id = ?', [fileName, input.fileFormat, input.id], (error, results, fields) => {
       if (error) throw error;
     })
-
-    //delete old file ??
   }
 
   //update user values in databse
@@ -487,6 +485,9 @@ app.post('/api/editProduct',
       //old product
       console.log('old product');
       //update old product (image and db)
+      let result = await updateProduct(req.body)
+      res.send(result)
+      return
     }
     else if (!req.body.id) {
       //new product
@@ -498,6 +499,37 @@ app.post('/api/editProduct',
     }
   }
 )
+
+const updateProduct = async (input) => {
+  console.log('updateProduct()');
+
+  //see if a new image was uploaded by checking value of base64 (empty if no new picture was uploaded)
+  if (input.base64) {
+    //generate new image name
+    let fileName = shortid.generate()
+
+    //access old file name and format
+    await connection.query('SELECT fileName, fileFormat FROM products WHERE id = ?', [input.id], async (error, results, fields) => {
+      if (error) throw error
+      //delete old file
+      await deleteImage('client/public/images/products/', results[0].fileName, results[0].fileFormat)
+    })
+
+    //save new image with new name
+    await saveImage(input.base64, input.fileFormat, fileName, 'client/public/images/products/')
+
+    //update product (fileName and fileFormat) in DB
+    await connection.query('UPDATE products SET fileName = ?, fileFormat = ? WHERE id = ?', [fileName, input.fileFormat, input.id], (error, results, fields) => {
+      if (error) throw error;
+    })
+  }
+
+  //update product values in databse
+  await connection.query('UPDATE products SET productName = ?, productType = ? WHERE id = ?', [input.productName, input.productType, input.id], (error, results, fields) => {
+    if (error) throw error;
+  })
+  return true
+}
 
 const createNewProduct = async (input) => {
   console.log('createNewProduct()');
