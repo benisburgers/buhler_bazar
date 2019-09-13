@@ -13,6 +13,9 @@ export const Button = styled.button`
 
 export const PrimaryButton = styled(Button)`
   font-family: "Avenir Next";
+  visibility: ${props =>
+    props.inactive ? 'hidden' : 'visible'
+  };
   color: #363636;
   font-weight: bold;
   font-size: 16px;

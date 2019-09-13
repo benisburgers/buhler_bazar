@@ -148,7 +148,13 @@ class ModalButtons extends Component {
           display: flex;
         `}
       >
-        <PrimaryButton width="75%" onClick={submitVote}
+        <PrimaryButton width="75%"
+          onClick={
+            e => { if (selectedProducts.length > 0) { submitVote() } }
+          }
+          inactive={
+            selectedProducts.length > 0 ? false : true
+          }
           css={css`
             margin-right: 10px;
           `}>
