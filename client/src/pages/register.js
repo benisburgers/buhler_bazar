@@ -70,7 +70,7 @@ class RegistrationForm extends FormComponent {
           validationSchema = {SignupSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             setTimeout(async () => {
-              console.log(JSON.stringify(values, null, 2));
+              // console.log(JSON.stringify(values, null, 2));
               resetForm();
               setSubmitting(false);
               //check if email exists in database
