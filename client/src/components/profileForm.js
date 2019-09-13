@@ -24,23 +24,19 @@ class ProfileForm extends FormComponent {
 
   static contextType = UserContext
 
-  // componentDidMount() {
-  //   console.log(this.context.fetchUserData);
-  // }
-
   render() {
     const { targetUser, handleCloseModal, currentUser } = this.props;
     const { id, picturePath, email, firstName, lastName, admin } = targetUser || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
     var { fileValidation, requiredError } = this;
-    var { fetchUserData } = this.context;
+    var { updateUserData } = this.context;
 
     const deleteUser = async (input) => {
       let result = await this.removeUser(input);
 
       //stay logged in (if admin has deleted somebody else)
       if (result.success && !(result.logout)) {
-        await fetchUserData();
+        await updateUserData();
         handleCloseModal();
       }
 
@@ -100,7 +96,7 @@ class ProfileForm extends FormComponent {
               //check if email exists in database
               let result = await this.pushData(values, '/api/editUser');
               if (result) {
-                await fetchUserData();
+                await updateUserData();
                 handleCloseModal();
               }
               else {
