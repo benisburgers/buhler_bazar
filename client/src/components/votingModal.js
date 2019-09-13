@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/core'
 import { MediumHeader, PrimaryButton, ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
 import PointsLeft from '../components/pieChart.js'
 import ExitButtonContainer from '../components/exitButton.js'
+import UserContext from './UserContext'
 
 class VotingModal extends Component {
   state = {
@@ -12,6 +13,8 @@ class VotingModal extends Component {
     credits: 4,
     highlightCredits: false
   }
+
+  static contextType = UserContext
 
   submitVote = async () => {
     console.log('submitVote');
@@ -21,18 +24,21 @@ class VotingModal extends Component {
       chosenProductIDs = [...chosenProductIDs, entry.id]
     })
 
-    //push array of IDs to server
-    let result = await this.pushProductIds(chosenProductIDs)
-    console.log(result);
+    //convert array to string to make it sql-compatible
+    let arrayString = chosenProductIDs;
 
-    // close voting modal
-    this.props.handleCloseModal();
-    //refresh overview page (update/fetch 'previous voting')
+    let result = await this.pushProductIds(arrayString)
+    // console.log(result);
+
+    if (result) {
+      await this.context.fetchUserData()
+      this.props.handleCloseModal();
+    }
   }
 
   pushProductIds = (input) => {
     console.log('pushProductIds()');
-    console.log(input);
+    console.log(JSON.stringify(input));
     return new Promise((resolve, reject) => {
       (async () => {
         const rawResponse = await fetch('/api/voteProducts', {
@@ -103,6 +109,7 @@ class VotingModal extends Component {
     const { products, handleCloseModal, modalOpen, productTypes } = this.props;
     const { credits, selectedProducts, highlightCredits } = this.state;
     const { chooseProduct, submitVote } = this;
+
     return (
       <ModalContent className="votingModal">
         <ModalMainPart className="mainPart">

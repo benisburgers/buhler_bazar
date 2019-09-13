@@ -29,62 +29,7 @@ class App extends Component {
       lastOrderProducts: undefined,
       picturePath: undefined
     },
-    products: [
-      {
-        id: 1,
-        name: "Banane",
-        type: "fruit",
-        picturePath: "https://bit.ly/2OAYdUz"
-      },
-      {
-        id: 2,
-        name: "Apfel",
-        type: "fruit",
-        picturePath: "https://bit.ly/2FxkRIR"
-      },
-      {
-        id: 3,
-        name: "Birre",
-        type: "fruit",
-        picturePath: "https://bit.ly/2LWtD5A"
-      },
-      {
-        id: 4,
-        name: "Pfirsich",
-        type: "fruit",
-        picturePath: "https://bit.ly/2LWtD5A"
-      },
-      {
-        id: 5,
-        name: "Truube",
-        type: "fruit",
-        picturePath: "https://bit.ly/2FxkRIR"
-      },
-      {
-        id: 6,
-        name: "Avocado",
-        type: "fruit",
-        picturePath: "https://bit.ly/2OAYdUz"
-      },
-      {
-        id: 7,
-        name: "Chips",
-        type: "snack",
-        picturePath: "https://bit.ly/2OAYdUz"
-      },
-      {
-        id: 8,
-        name: "Cashew",
-        type: "snack",
-        picturePath: "https://bit.ly/2LWtD5A"
-      },
-      {
-        id: 9,
-        name: "Troche Ananas",
-        type: "snack",
-        picturePath: "https://bit.ly/2LWtD5A"
-      }
-    ],
+    products: [],
     productTypes: ['fruit', 'snack']
   }
 
@@ -106,10 +51,9 @@ class App extends Component {
       return this.processProdutsData(result)
     })
     .then(result => {
-      this.setState({
-        products: result
-      })
+      this.updateProductsList(result);
     })
+    return
   }
 
   processProdutsData = async (products) => {
@@ -127,8 +71,21 @@ class App extends Component {
     return processedProducts
   }
 
+  updateProductsList = (input) => {
+    //compare current state and new product list. Only update if change has occured (not equal). Avoid infinite loop.
+    console.log('updateProductsList()');
+    var newList = JSON.stringify(input);
+    var oldList = JSON.stringify(this.state.products);
+    if (newList != oldList) {
+      console.log(true);
+      this.setState({
+        products: input
+      })
+    }
+  }
+
   updateCurrentUser = (input) => {
-    console.log('updateCurrentUser');
+    console.log('updateCurrentUser()');
     var clone = Object.assign({}, input)
 
     //prepare input: replace null with undefiend, and set up image src, delete useless information (fileFormat)
@@ -141,6 +98,7 @@ class App extends Component {
     var cloneJSON = JSON.stringify(clone);
     var stateJSON = JSON.stringify(this.state.user);
     if (cloneJSON !== stateJSON) {
+      console.log(true);
       this.setState({
         user: clone
       })
@@ -148,11 +106,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('APP componentDidMount');
-    if (this.state.user.id === undefined) {
-      this.fetchUserData();
-    };
-    this.fetchProductsData();
+    console.log('componentDidMount() App.js');
+    // if (this.state.user.id === undefined) {
+    //   this.fetchUserData();
+    // };
+    // this.fetchProductsData();
   }
 
 
@@ -183,7 +141,7 @@ class App extends Component {
             />
             <Route exact path="/" component={ () => <Login joke={this.state.joke} />} />
             <Route exact path="/register" render={() => <Register />} />
-            <Route exact path="/overview" component={ () => <Overview fetchUserData={this.fetchUserData} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
+            <Route exact path="/overview" component={ () => <Overview fetchProductsData={this.fetchProductsData} fetchUserData={this.fetchUserData} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
             <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userInfo={this.state.user} /> } />
             <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userInfo={this.state.user} />} />
           </div>

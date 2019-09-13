@@ -104,9 +104,7 @@ class LogInForm extends FormComponent {
                   <StyledErrorMessage component="p" name="password" />
                 </ExplicitLabel>
               <PrimaryButton type="submit" disabled={isSubmitting}>
-                <NakedLink to={'/overview'}>
-                  LOG DI I
-                </NakedLink>
+                LOG DI I
               </PrimaryButton>
             </ExplicitForm>
           )}

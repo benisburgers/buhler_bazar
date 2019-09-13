@@ -564,7 +564,7 @@ const deleteProduct = async (req, res) => {
   console.log(req.body);
   //delete product entry in db
   await connection.query('DELETE FROM products WHERE id = ?', [req.body.id], async (error, results, fields) => {
-    if (error) throw error
+    if (error) throw error;
   })
   //delete product image
   await fs.unlink(`client/public${req.body.file}`, err => {
@@ -582,10 +582,30 @@ const deleteProduct = async (req, res) => {
 app.post('/api/voteProducts',
 async (req, res) => {
   console.log('/api/voteProducts');
-  console.log(req.body);
+  //update user list (user's last order and order date)
+  updateUserVoting(req, res)
+  .then(result => console.log(result))
+
+
   // let result = await deleteProduct(req)
   res.send(true)
 })
+
+const updateUserVoting = async(req, res) => {
+  console.log('updateUserVoting()');
+  var arrayString = req.body.join()
+  var currentDate = new Date();
+  currentDate = currentDate.toISOString();
+  currentDate = currentDate.split("T")[0];
+  console.log(currentDate);
+
+  // this is the funciton which updates the user row in user list when the user submits vote
+  await connection.query('UPDATE users SET lastOrderProducts = ?, lastOrderDate = ? WHERE id = ?', [arrayString, currentDate, req.user.id], (error, results, fields) => {
+    if (error) throw error;
+    console.log('User in database updated');
+  })
+  return true
+}
 
 
 

@@ -19,8 +19,7 @@ class Overview extends Component {
   }
 
   handleOpenModal = (content) => {
-    console.log('handleOpenModal');
-    console.log(content);
+    console.log('handleOpenModal()');
     this.setState({
       modalContent: content,
       showModal: true
@@ -36,12 +35,15 @@ class Overview extends Component {
   }
 
   componentDidMount() {
+    console.log('componentDidMount() overview.js');
     ReactModal.setAppElement('#main');
+    this.props.fetchProductsData();
     this.props.fetchUserData();
   }
 
   render() {
     const { userInfo, products, productTypes } = this.props;
+    console.log(this.props);
     return (
       <FullHeightSection className="overview"
         css={css`
@@ -157,8 +159,7 @@ class PreviousOrder extends Component {
       return previousOrderDate.toLocaleDateString('de-DE', options);
     })
 
-
-    const previousOrder = JSON.parse(userInfo.lastOrderProducts).map((entry, index) => {
+    const previousOrder = userInfo.lastOrderProducts.split(",").map((entry, index) => {
       const specificProduct = products.find(product => product.id === entry)
       return (
         <li key={index}>
