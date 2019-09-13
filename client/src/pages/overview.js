@@ -34,16 +34,13 @@ class Overview extends Component {
     });
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log('componentDidMount() overview.js');
-    ReactModal.setAppElement('#main');
-    this.props.fetchProductsData();
-    this.props.fetchUserData();
+    this.props.mountOverview();
   }
 
   render() {
     const { userInfo, products, productTypes } = this.props;
-    console.log(this.props);
     return (
       <FullHeightSection className="overview"
         css={css`

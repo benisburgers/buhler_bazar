@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/core';
 import StartScreen from '../components/images/startscreen.gif'
 import { FormComponent } from '../components/form'
 import { Redirect } from 'react-router'
+import { history } from '../components/history'
 
 class Register extends Component {
   render() {
@@ -26,7 +27,7 @@ class Register extends Component {
           `}
         />
         <LogInText/>
-        <LogInForm />
+        <LogInForm login={this.props.login}/>
         <RegistrationButton />
       </FullHeightSection>
     )
@@ -51,10 +52,6 @@ function LogInText(props) {
 
 class LogInForm extends FormComponent {
 
-  state = {
-    loggedIn: false
-  }
-
   render() {
     const { pushData, requiredError } = this;
     const LoginSchema = Yup.object().shape({
@@ -69,11 +66,6 @@ class LogInForm extends FormComponent {
 
     return (
       <div>
-        {
-        this.state.loggedIn ?
-         <Redirect to='/overview'/>
-         : null
-        }
         <Formik
           initialValues = {{
             email: '',
@@ -87,9 +79,7 @@ class LogInForm extends FormComponent {
               //check if email exists in database
               let result = await this.pushData(values, '/api/login');
               if (result) {
-                this.setState({
-                  loggedIn: true,
-                })
+                history.push('/overview')
               }
             }, 200);
           }}

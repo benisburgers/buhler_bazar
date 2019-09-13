@@ -30,33 +30,41 @@ class App extends Component {
       picturePath: undefined
     },
     products: [],
-    productTypes: ['fruit', 'snack']
+    productTypes: ['fruit', 'snack'],
+    overviewMounted: false
+  }
+
+  mountOverview = async () => {
+    console.log('mountOverview()');
+    if (!this.state.overviewMounted) {
+      let userInfo = await this.fetchUserData();
+      let productsList = await this.fetchProductsData();
+      this.setState({
+        user: userInfo,
+        products: productsList,
+        overviewMounted: true
+      })
+    }
   }
 
   fetchUserData = async () => {
     console.log('fetchUserData()');
-    fetch('/api/userData')
-    .then(res => res.json())
-    .then(result => {
-      this.updateCurrentUser(result);
-    })
-    return
+    let result = await fetch('/api/userData')
+    result = await result.json()
+    result = await this.processUserData(result)
+    return result
   }
 
   fetchProductsData = async () => {
     console.log('fetchProductsData()');
-    fetch('/api/productsData')
-    .then(res => res.json())
-    .then(result => {
-      return this.processProdutsData(result)
-    })
-    .then(result => {
-      this.updateProductsList(result);
-    })
-    return
+    let result = await fetch('/api/productsData');
+    result = await result.json();
+    result = await this.processProdutsData(result);
+    return result;
   }
 
   processProdutsData = async (products) => {
+    console.log('processProdutsData()');
     var processedProducts = await products.map(entry => {
       var clone = {
         id: entry.id,
@@ -71,21 +79,8 @@ class App extends Component {
     return processedProducts
   }
 
-  updateProductsList = (input) => {
-    //compare current state and new product list. Only update if change has occured (not equal). Avoid infinite loop.
-    console.log('updateProductsList()');
-    var newList = JSON.stringify(input);
-    var oldList = JSON.stringify(this.state.products);
-    if (newList != oldList) {
-      console.log(true);
-      this.setState({
-        products: input
-      })
-    }
-  }
-
-  updateCurrentUser = (input) => {
-    console.log('updateCurrentUser()');
+  processUserData = async (input) => {
+    console.log('processUserData()');
     var clone = Object.assign({}, input)
 
     //prepare input: replace null with undefiend, and set up image src, delete useless information (fileFormat)
@@ -93,24 +88,11 @@ class App extends Component {
     clone.lastOrderDate = clone.lastOrderDate === null ? undefined : clone.lastOrderDate
     clone.lastOrderProducts = clone.lastOrderProducts === null ? undefined : clone.lastOrderProducts
     delete clone.fileFormat;
-
-    //check if userinfo has changed from previous state. If yes: Update state
-    var cloneJSON = JSON.stringify(clone);
-    var stateJSON = JSON.stringify(this.state.user);
-    if (cloneJSON !== stateJSON) {
-      console.log(true);
-      this.setState({
-        user: clone
-      })
-    }
+    return clone
   }
 
   componentDidMount() {
     console.log('componentDidMount() App.js');
-    // if (this.state.user.id === undefined) {
-    //   this.fetchUserData();
-    // };
-    // this.fetchProductsData();
   }
 
 
@@ -139,9 +121,9 @@ class App extends Component {
                 }
             `}
             />
-            <Route exact path="/" component={ () => <Login joke={this.state.joke} />} />
+            <Route exact path="/" component={ () => <Login />} />
             <Route exact path="/register" render={() => <Register />} />
-            <Route exact path="/overview" component={ () => <Overview fetchProductsData={this.fetchProductsData} fetchUserData={this.fetchUserData} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
+            <Route exact path="/overview" component={ () => <Overview mountOverview={this.mountOverview} fetchProductsData={this.fetchProductsData} fetchUserData={this.fetchUserData} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
             <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userInfo={this.state.user} /> } />
             <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userInfo={this.state.user} />} />
           </div>
