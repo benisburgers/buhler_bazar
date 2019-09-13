@@ -31,14 +31,13 @@ class VotingModal extends Component {
     // console.log(result);
 
     if (result) {
-      await this.context.fetchUserData()
+      await this.context.updateUserData()
       this.props.handleCloseModal();
     }
   }
 
   pushProductIds = (input) => {
     console.log('pushProductIds()');
-    console.log(JSON.stringify(input));
     return new Promise((resolve, reject) => {
       (async () => {
         const rawResponse = await fetch('/api/voteProducts', {
