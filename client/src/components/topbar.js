@@ -16,7 +16,7 @@ class TopBarContainer extends Component {
   }
 
   handleOpenModal = (content) => {
-    console.log(content);
+    console.log('handleOpenModal()');
     this.setState({
       modalContent: content,
       showModal: true
@@ -24,6 +24,7 @@ class TopBarContainer extends Component {
   }
 
   handleCloseModal = () => {
+    console.log('handleCloseModal()');
     this.setState({
       showModal: false,
       modalContent: undefined
