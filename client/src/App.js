@@ -55,6 +55,14 @@ class App extends Component {
     })
   }
 
+  updateProductsData = async () => {
+    console.log('updateProductsData()');
+    let result = await this.fetchProductsData();
+    this.setState({
+      products: result
+    })
+  }
+
   fetchUserData = async () => {
     console.log('fetchUserData()');
     let result = await fetch('/api/userData')
@@ -111,6 +119,7 @@ class App extends Component {
           fetchUserData: this.fetchUserData,
           fetchProductsData: this.fetchProductsData,
           updateUserData: this.updateUserData,
+          updateProductsData: this.updateProductsData
         }}
       >
         <Router history={history}>

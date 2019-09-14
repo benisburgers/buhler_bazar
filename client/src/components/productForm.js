@@ -24,11 +24,9 @@ class ProductForm extends FormComponent {
 
     const deleteProduct = async (input) => {
       console.log('deleteProduct()');
-      console.log(input);
       let result = await removeProduct(input)
-      console.log(result);
       if (result) {
-        await fetchProductsData()
+        await updateProductsData()
         handleCloseModal()
       }
       else {
@@ -39,7 +37,6 @@ class ProductForm extends FormComponent {
 
     const removeProduct = (input) => {
       console.log('removeProduct()');
-      console.log(input);
       return new Promise((resolve, reject) => {
         (async () => {
           const rawResponse = await fetch('/api/deleteProduct', {
@@ -60,8 +57,7 @@ class ProductForm extends FormComponent {
     const { id, name, type, picturePath } = product || '';
     const { toggleFields, pushData, reactSelectStyles } = this;
     var { fileValidation, requiredError } = this;
-    var { fetchProductsData } = this.context;
-    console.log(fetchProductsData);
+    var { updateProductsData } = this.context;
 
     var reactSelectOptions = [];
 
@@ -97,12 +93,11 @@ class ProductForm extends FormComponent {
         validationSchema = {ValidationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setTimeout(async () => {
-            // console.log(JSON.stringify(values, null, 2));
             resetForm();
             setSubmitting(false);
             let result = await this.pushData(values, '/api/editProduct');
             if (result) {
-              await fetchProductsData();
+              await updateProductsData();
               handleCloseModal();
             }
             else {
@@ -152,8 +147,6 @@ class ProductForm extends FormComponent {
                   value={reactSelectOptions.find(option => option.value === values.productType)}
                   onChange={
                     e => {
-                      console.log(e);
-                      console.log(reactSelectOptions.find(option => option.value === values.productType));
                       setFieldValue('productType', e.value);
                     }
                   }
