@@ -12,7 +12,7 @@ const bcrypt = require('bcrypt');
 const flash = require('connect-flash');
 
 // var tk = require('timekeeper');
-// var time = new Date("September 28, 2019 11:13:00"); // January 1, 2030 00:00:00
+// var time = new Date("September 20, 2019 11:13:00"); // January 1, 2030 00:00:00
 //
 // tk.travel(time); // Travel to that date.
 
@@ -709,13 +709,27 @@ updateVotesTable = (req, res) => {
 ////////////////////////////////////////////////////////////////////////
 
 app.get('/api/resultsData',
-function(req, res){
+async (req, res) => {
   console.log('/api/resultsData');
-  connection.query('SELECT voteProducts FROM votes', (error, results, fields) => {
-    if (error) throw error;
-    res.send(results)
-  })
+
+  //check if any of the votes have been cast before last saturday ==> if yes: discard
+  await resetVotesTable(req, res);
+
+  let results = await getResults(req, res)
+
+  res.send(results)
+
 });
+
+getResults = (req, res) => {
+  return new Promise((resolve, reject) => {
+    console.log('getResults()');
+    connection.query('SELECT voteProducts FROM votes', (error, results, fields) => {
+      if (error) throw error;
+      resolve(results)
+    })
+  })
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
