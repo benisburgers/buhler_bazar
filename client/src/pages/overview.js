@@ -138,10 +138,10 @@ class CountDown extends Component {
 }
 
 function DaysLeft(props) {
-  var nextMonday = new Date();
+  var nextFriday = new Date();
   var today = new Date();
-  nextMonday.setDate(nextMonday.getDate() + (1 + 7 - nextMonday.getDay()) % 7);
-  const diffTime = Math.abs(nextMonday.getTime() - today.getTime());
+  nextFriday.setDate(nextFriday.getDate() + (5 + 7 - nextFriday.getDay()) % 7);
+  const diffTime = Math.abs(nextFriday.getTime() - today.getTime());
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return diffDays;
 }
