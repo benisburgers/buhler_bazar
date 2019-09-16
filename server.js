@@ -11,6 +11,11 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcrypt');
 const flash = require('connect-flash');
 
+// var tk = require('timekeeper');
+// var time = new Date("September 28, 2019 11:13:00"); // January 1, 2030 00:00:00
+//
+// tk.travel(time); // Travel to that date.
+
 var salt = bcrypt.genSaltSync(10);
 
 // parse application/x-www-form-urlencoded
@@ -36,8 +41,40 @@ connection.connect((err) => {
 
 //create database
 const createDataBase = () => {
-  console.log('createDataBase');
+  console.log('createDataBase()');
   var sql = `CREATE DATABASE bazar;`
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+  });
+}
+
+//check if votes table exists
+const checkVotesTable = () => {
+  console.log('checkVotesTable()');
+  var sql = `
+    SELECT *
+    FROM information_schema.tables
+    WHERE table_schema = 'bazar'
+        AND table_name = 'votes'
+    LIMIT 1;
+  `
+  connection.query(sql, (err, result) => {
+    if (err) throw err;
+    if (result.length === 0) {
+      createVotesTable();
+    }
+  });
+}
+checkVotesTable();
+
+const createVotesTable = () => {
+  console.log('createVotesTable()');
+  var sql =
+  `CREATE TABLE votes (
+    id VARCHAR(30) PRIMARY KEY,
+    voteProducts VARCHAR(30),
+    voteDate DATE
+  )`
   connection.query(sql, (err, result) => {
     if (err) throw err;
   });
@@ -45,7 +82,7 @@ const createDataBase = () => {
 
 //check if user table exists
 const checkUsersTable = () => {
-  console.log('checkUsersTable');
+  console.log('checkUsersTable()');
   var sql = `
     SELECT *
     FROM information_schema.tables
@@ -83,7 +120,7 @@ const createUsersTable = () => {
 }
 
 const checkProductsTable = () => {
-  console.log('checkProductsTable');
+  console.log('checkProductsTable()');
   var sql = `
     SELECT *
     FROM information_schema.tables
@@ -579,33 +616,98 @@ const deleteProduct = async (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 
+var todaysDate = new Date().toISOString().split("T")[0]
+console.log(todaysDate);
+
+var prevSaturday = new Date();
+prevSaturday.setDate(prevSaturday.getDate() - (prevSaturday.getDay() + 1) % 7);
+prevSaturday = prevSaturday.toISOString().split("T")[0];
+console.log(prevSaturday);
+
+
 app.post('/api/voteProducts',
+isLoggedIn,
 async (req, res) => {
   console.log('/api/voteProducts');
+
   //update user list (user's last order and order date)
-  updateUserVoting(req, res)
-  .then(result => console.log(result))
+  await updateUserTable(req, res)
 
+  //potentially reset votes table
+  await resetVotesTable(req, res);
 
-  // let result = await deleteProduct(req)
+  //update votes table
+  await updateVotesTable(req, res)
+
   res.send(true)
 })
 
-const updateUserVoting = async(req, res) => {
-  console.log('updateUserVoting()');
-  var arrayString = req.body.join()
-  var currentDate = new Date();
-  currentDate = currentDate.toISOString();
-  currentDate = currentDate.split("T")[0];
-  console.log(currentDate);
-
-  // this is the funciton which updates the user row in user list when the user submits vote
-  await connection.query('UPDATE users SET lastOrderProducts = ?, lastOrderDate = ? WHERE id = ?', [arrayString, currentDate, req.user.id], (error, results, fields) => {
-    if (error) throw error;
-    console.log('User in database updated');
+updateUserTable = (req, res) => {
+  return new Promise((resolve, reject) => {
+    console.log('updateUserTable()');
+    // this is the funciton which updates the user row in user list when the user submits vote
+    connection.query('UPDATE users SET lastOrderProducts = ?, lastOrderDate = ? WHERE id = ?', [req.body.join(), todaysDate, req.user.id], (error, results, fields) => {
+      if (error) throw error;
+      resolve()
+    })
   })
-  return true
 }
+
+resetVotesTable = (req, res) => {
+  return new Promise((resolve, rejet) => {
+    console.log('resetVotesTable()');
+    //check if any votes have been cast before last saturday
+    connection.query('SELECT * FROM votes WHERE voteDate < ?', [prevSaturday], (error, results, fields) => {
+      if (error) throw error;
+
+      //if yes: reset votes table
+      else if (results.length > 0) {
+        console.log('reset table');
+        connection.query('TRUNCATE TABLE votes', (error, results, fields) => {
+          console.log(true);
+          if (error) throw error;
+          resolve()
+        })
+      }
+
+      //if no: don't reset tables
+      else {
+        console.log(false);
+        resolve()
+      }
+    })
+  })
+}
+
+updateVotesTable = (req, res) => {
+  return new Promise((resolve, reject) => {
+    console.log('updateVotesTable()');
+    //has this user voted before
+    connection.query('SELECT * FROM votes WHERE id = ?', [req.user.id], async (error, results, fields) => {
+      if (error) throw error;
+
+      else if (results.length > 0) {
+        //if user HAS voted before: update user entry
+        await connection.query('UPDATE votes SET voteProducts = ?, voteDate = ? WHERE id = ?', [req.body.join(), todaysDate, req.user.id], (error, results, fields) => {
+          if (error) throw error;
+          resolve()
+        })
+      }
+
+      else if (results.length === 0) {
+        //if user HAS NOT voted before: create new user entry
+        await connection.query('INSERT INTO votes SET id = ?, voteProducts = ?, voteDate = ?', [req.user.id, req.body.join(), todaysDate], (error, results, fields) => {
+          if (error) throw error
+          resolve()
+        })
+      }
+    })
+  })
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
