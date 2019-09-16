@@ -8,9 +8,24 @@ import ExitButtonContainer from '../components/exitButton.js'
 
 class ResultsModal extends Component {
   state = {
-    rawResults:
-    [
-    ]
+    rawResults: undefined
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount ResultsModal.js');
+    fetch('/api/resultsData')
+    .then(response => response.json())
+    .then(results => {
+      let combinedResults = results.map((vote) => {
+        return Object.values(vote).toString().split(',');
+      })
+      return combinedResults
+    })
+    .then(resultsArray => {
+      this.setState({
+        rawResults: resultsArray
+      })
+    })
   }
 
   render() {
@@ -135,7 +150,6 @@ class ProductList extends Component {
   render() {
     // access raw results from state (each array represents one user's choice for the week) (rawResults)
     const { products, rawResults } = this.props;
-
     //merge all these choices into one array (mergedResults)
     var mergedResults = [].concat.apply([], rawResults);
 
@@ -145,10 +159,10 @@ class ProductList extends Component {
       counts[vote] = counts[vote] ? counts[vote] + 1 : 1;
     }
 
-    // create an array of sub-array pairs [product.id, votes for this product] (sortedCounts)
+    // create an array of sub-array pairs [product.id: votes for this product] (sortedCounts)
     var sortedCounts = [];
     for (let eachCount in counts) {
-      sortedCounts.push([parseInt(eachCount), counts[eachCount]])
+      sortedCounts.push([eachCount, counts[eachCount]])
     };
 
     //sort this array by votes (the more votes a product has, the earlier it is in the arrray)
@@ -157,8 +171,6 @@ class ProductList extends Component {
     //map through each product in sortedCounts and return the number of hands for each of its votes
     let productItems = sortedCounts.map((entry, index) => {
       let specificProduct = products.find(product => product.id === entry[0])
-      console.log(specificProduct);
-      console.log(entry[1]);
         return (
           <li key={index} className="oneProduct"
             css={css`
