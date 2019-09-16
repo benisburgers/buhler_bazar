@@ -327,17 +327,28 @@ passport.use(
  })
 );
 
-app.post('/api/login',
-  passport.authenticate('local-login'),
-  function(req, res){
-    if(req.body.remember){
-     req.session.cookie.maxAge = 1000 * 60 * 3;
-    }else{
-     req.session.cookie.expires = false;
-    }
-    res.send(true)
-  }
-);
+// app.post('/api/login', function(req,res, next) {
+//   passport.authenticate('local-login'),
+//   function(req, res){
+//     if(req.body.remember){
+//      req.session.cookie.maxAge = 1000 * 60 * 3;
+//     }else{
+//      req.session.cookie.expires = false;
+//     }
+//     res.send(true)
+//   }
+// });
+
+app.post('/api/login', function(req, res, next) {
+  passport.authenticate('local-login', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.send(false); }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.send(true);
+    });
+  })(req, res, next);
+});
 
 app.get('/api/userData',
 isLoggedIn,

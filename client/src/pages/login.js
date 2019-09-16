@@ -78,8 +78,12 @@ class LogInForm extends FormComponent {
               setSubmitting(false);
               //check if email exists in database
               let result = await this.pushData(values, '/api/login');
+              console.log(result);
               if (result) {
                 history.push('/overview')
+              }
+              else if (!result) {
+                alert('Versuechs nomal oder sprich en Admin ah.');
               }
             }, 200);
           }}
