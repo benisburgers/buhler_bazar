@@ -190,7 +190,6 @@ const createUser = async (input) => {
     var sql = "INSERT INTO users SET ?";
     connection.query(sql, [input], (err, result) => {
       if (err) throw err;
-      // console.log(result);
       return;
     })
 }
@@ -387,7 +386,7 @@ async (req, res) => {
   console.log('/api/editUser');
   //check if user is who he says he is OR if user is admin
   if ((req.body.id === req.user.id) || req.user.admin) {
-    await updateUser(req.body)
+    await updateUser(req.body, req.user)
     res.send(true)
   }
   else {
@@ -452,8 +451,10 @@ const deleteImage = async (fileDirectory, fileName, fileFormat) => {
   })
 }
 
-const updateUser = async (input) => {
+const updateUser = async (input, currentUser) => {
   console.log('updateUser');
+  console.log(input);
+  console.log(currentUser);
 
   //see if a new image was uploaded by checking value of base64 (empty if no new picture was uploaded)
   if (input.base64) {
@@ -472,6 +473,13 @@ const updateUser = async (input) => {
   connection.query('UPDATE users SET firstName = ?, lastName = ?, email = ? WHERE id = ?', [input.firstName, input.lastName, input.email, input.id], (error, results, fields) => {
     if (error) throw error;
   })
+
+  //if current user is admin: update admin value of target user in database
+  if (currentUser.admin) {
+    connection.query('UPDATE users SET admin = ? WHERE id = ?', [input.admin, input.id], (error, results, fields) => {
+      if (error) throw error;
+    })
+  }
 }
 
 
@@ -484,7 +492,6 @@ isLoggedIn,
 isAdmin,
 async (req, res) => {
   console.log('/api/userList');
-  console.log(req.user);
   //access all users form databse
   connection.query('SELECT id, firstName, lastName, email, admin, fileFormat, fileName FROM users', (error, results, fields) => {
     if (error) throw error;
@@ -602,7 +609,6 @@ async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   console.log('deleteProduct()');
-  console.log(req.body);
   //delete product entry in db
   await connection.query('DELETE FROM products WHERE id = ?', [req.body.id], async (error, results, fields) => {
     if (error) throw error;
@@ -621,12 +627,10 @@ const deleteProduct = async (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////
 
 var todaysDate = new Date().toISOString().split("T")[0]
-console.log(todaysDate);
 
 var prevSaturday = new Date();
 prevSaturday.setDate(prevSaturday.getDate() - (prevSaturday.getDay() + 1) % 7);
 prevSaturday = prevSaturday.toISOString().split("T")[0];
-console.log(prevSaturday);
 
 
 app.post('/api/voteProducts',
