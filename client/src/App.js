@@ -31,7 +31,9 @@ class App extends Component {
     },
     products: [],
     productTypes: ['fruit', 'snack'],
-    overviewMounted: false
+    overviewMounted: false,
+    productListMounted: false,
+    userListMounted: false
   }
 
   mountOverview = async () => {
@@ -45,6 +47,39 @@ class App extends Component {
         overviewMounted: true
       })
     }
+  }
+
+  mountUserList = async () => {
+    console.log('mountUserList()');
+    if (!this.state.userListMounted) {
+      let userInfo = await this.fetchUserData();
+      let productsList = await this.fetchProductsData();
+      this.setState({
+        user: userInfo,
+        products: productsList,
+        userListMounted: true
+      })
+    }
+  }
+
+  mountProductList = async () => {
+    console.log('mountProductList()');
+    if (!this.state.productListMounted) {
+      let userInfo = await this.fetchUserData();
+      let productsList = await this.fetchProductsData();
+      this.setState({
+        user: userInfo,
+        products: productsList,
+        productListMounted: true
+      })
+    }
+  }
+
+  login = async () => {
+    this.setState({
+      isLoggedIn: true
+    })
+    return
   }
 
   updateUserData = async () => {
@@ -142,8 +177,8 @@ class App extends Component {
             <Route exact path="/" component={ () => <Login />} />
             <Route exact path="/register" render={() => <Register />} />
             <Route exact path="/overview" component={ () => <Overview mountOverview={this.mountOverview} fetchProductsData={this.fetchProductsData} fetchUserData={this.fetchUserData} userInfo={this.state.user} products={this.state.products} productTypes={this.state.productTypes} /> } />
-            <Route exact path="/admin/admin_userList" component={ () => <AdminUserList userInfo={this.state.user} /> } />
-            <Route exact path="/admin/admin_productList" component={ () => <AdminProducts products={this.state.products} productTypes={this.state.productTypes} userInfo={this.state.user} />} />
+            <Route exact path="/admin/admin_userList" component={ () => <AdminUserList mountUserList={this.mountUserList} userInfo={this.state.user} /> } />
+            <Route exact path="/admin/admin_productList" component={ () => <AdminProducts mountProductList={this.mountProductList} products={this.state.products} productTypes={this.state.productTypes} userInfo={this.state.user} />} />
           </div>
         </Router>
       </UserProvider>

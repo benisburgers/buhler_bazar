@@ -33,6 +33,7 @@ class AdminProducts extends Component {
 
   componentDidMount() {
     ReactModal.setAppElement('#main');
+    this.props.mountProductList();
   }
 
   render() {
