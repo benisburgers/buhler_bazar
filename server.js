@@ -514,6 +514,8 @@ app.get('/api/logout',
 
 
 app.post('/api/editProduct',
+isLoggedIn,
+isAdmin,
   async(req, res) => {
     console.log('/api/editProduct');
     //differentiate between old products (update) and new products
@@ -579,6 +581,7 @@ const createNewProduct = async (input) => {
 }
 
 app.get('/api/productsData',
+isLoggedIn,
 async (req, res) => {
   console.log('/api/productsData');
   //access all users form databse
@@ -589,6 +592,8 @@ async (req, res) => {
 })
 
 app.post('/api/deleteProduct',
+isLoggedIn,
+isAdmin,
 async (req, res) => {
   console.log('/api/deleteProduct');
   let result = await deleteProduct(req)
@@ -709,6 +714,7 @@ updateVotesTable = (req, res) => {
 ////////////////////////////////////////////////////////////////////////
 
 app.get('/api/resultsData',
+isLoggedIn,
 async (req, res) => {
   console.log('/api/resultsData');
 

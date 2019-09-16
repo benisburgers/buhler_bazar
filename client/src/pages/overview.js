@@ -158,22 +158,27 @@ class PreviousOrder extends Component {
 
     const previousOrder = userInfo.lastOrderProducts.split(",").map((entry, index) => {
       const specificProduct = products.find(product => product.id === entry)
-      return (
-        <li key={index}>
-          <img src={ specificProduct.picturePath } alt={ specificProduct.name }
-            css={css`
-              height: 100px;
-              width: 100px;
-              `
-            }
-          />
-          <span
-            css={css`
-            display: block;
-          `}
-          >{ specificProduct.name }</span>
-        </li>
-      )
+      if (specificProduct) {
+        return (
+          <li key={index}>
+            <img src={ specificProduct.picturePath } alt={ specificProduct.name }
+              css={css`
+                height: 100px;
+                width: 100px;
+                `
+              }
+            />
+            <span
+              css={css`
+              display: block;
+            `}
+            >{ specificProduct.name }</span>
+          </li>
+        )
+      }
+      else {
+        return null;
+      }
     })
 
     return (
