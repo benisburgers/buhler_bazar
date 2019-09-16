@@ -229,6 +229,12 @@ export const InfoText = styled('span') `
   line-height: 23px;
   display: inline-block;
 `
+export const InfoTextNoBackGround = styled(InfoText) `
+  background: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+`
 
 export const MediumHeader = styled('h2') `
   font-size: 34px;

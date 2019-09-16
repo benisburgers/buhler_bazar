@@ -5,7 +5,7 @@ import './css/overview.css'
 import TopBarContainer from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
 import ResultsModal from '../components/resultsModal.js'
-import { PrimaryButton, PrimaryButtonLink, InfoText, FullHeightSection, NakedUl } from "../styling/theme"
+import { PrimaryButton, PrimaryButtonLink, InfoText, FullHeightSection, NakedUl, InfoTextNoBackGround } from "../styling/theme"
 import ReactModal from 'react-modal';
 
 class Overview extends Component {
@@ -168,11 +168,14 @@ class PreviousOrder extends Component {
                 `
               }
             />
-            <span
+            <InfoTextNoBackGround
               css={css`
               display: block;
+              color: red;
             `}
-            >{ specificProduct.name }</span>
+            >
+              { specificProduct.name }
+            </InfoTextNoBackGround>
           </li>
         )
       }
