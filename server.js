@@ -9,7 +9,6 @@ const fs = require('fs');
 const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcrypt');
-const flash = require('connect-flash');
 
 // var tk = require('timekeeper');
 // var time = new Date("September 20, 2019 11:13:00"); // January 1, 2030 00:00:00
@@ -154,37 +153,6 @@ const createProductsTable = () => {
   })
 }
 
-const checkUserEmail = async (input) => {
-  console.log('checkUserEmail');
-  var sql = "SELECT 1 FROM users WHERE email = ?"
-  connection.query(sql, [input.email], (err, result) => {
-    if (err) throw err;
-    if (result.length === 0) {
-      console.log("User does not exist");
-      return true;
-    }
-    else if (result.length === 1) {
-      console.log("User does exist");
-      return false;
-    }
-    else {
-      console.log("Something is weird. See result:");
-      console.log(result);
-    }
-  })
-}
-
-var beni = {
-  firstName: "beni",
-  lastName: "bargera",
-  email: "benibargera@gmail.com",
-  password: "yolo",
-  id: "3",
-  admin: true,
-  lastOrderDate: '2008-11-11',
-  lastOrderProducts: '[1, 2, 3, 4]'
-}
-
 const createUser = async (input) => {
   console.log('createUser');
     var sql = "INSERT INTO users SET ?";
@@ -287,7 +255,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 
 passport.serializeUser(function(user, done){
   console.log('serializeUser');
@@ -326,18 +293,6 @@ passport.use(
   });
  })
 );
-
-// app.post('/api/login', function(req,res, next) {
-//   passport.authenticate('local-login'),
-//   function(req, res){
-//     if(req.body.remember){
-//      req.session.cookie.maxAge = 1000 * 60 * 3;
-//     }else{
-//      req.session.cookie.expires = false;
-//     }
-//     res.send(true)
-//   }
-// });
 
 app.post('/api/login', function(req, res, next) {
   passport.authenticate('local-login', function(err, user, info) {
@@ -386,11 +341,6 @@ function isAdmin(req, res, next){
  res.redirect('/');
 }
 
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 app.post('/api/editUser',
 isLoggedIn,
 async (req, res) => {
@@ -420,7 +370,6 @@ async (req, res) => {
         }
       ))
     });
-    console.log(req.body);
   }
   else if (req.user.admin) {
     await deleteUser(req)
@@ -464,8 +413,6 @@ const deleteImage = async (fileDirectory, fileName, fileFormat) => {
 
 const updateUser = async (input, currentUser) => {
   console.log('updateUser');
-  console.log(input);
-  console.log(currentUser);
 
   //see if a new image was uploaded by checking value of base64 (empty if no new picture was uploaded)
   if (input.base64) {
@@ -493,11 +440,6 @@ const updateUser = async (input, currentUser) => {
   }
 }
 
-
-
-////////////////////
-
-
 app.get('/api/userList',
 isLoggedIn,
 isAdmin,
@@ -510,10 +452,6 @@ async (req, res) => {
   })
 })
 
-//////////////////////////////////////////////////////
-//////////////////////////////////////////////////////
-//////////////////////////////////////////////////////
-
 app.get('/api/logout',
   async(req, res) => {
     console.log('/api/logout');
@@ -523,13 +461,6 @@ app.get('/api/logout',
     });
   }
 )
-
-
-///////
-///////
-///////
-///////
-
 
 app.post('/api/editProduct',
 isLoggedIn,
@@ -632,11 +563,6 @@ const deleteProduct = async (req, res) => {
   return true
 }
 
-
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-
 var todaysDate = new Date().toISOString().split("T")[0]
 
 var prevSaturday = new Date();
@@ -724,10 +650,6 @@ updateVotesTable = (req, res) => {
   })
 }
 
-
-////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////
-
 app.get('/api/resultsData',
 isLoggedIn,
 async (req, res) => {
@@ -751,7 +673,6 @@ getResults = (req, res) => {
     })
   })
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/api/isLoggedIn',
 async (req, res) => {
@@ -763,11 +684,6 @@ async (req, res) => {
     res.send(false)
   }
 });
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 const port = 5000;
 
