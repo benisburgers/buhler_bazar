@@ -171,6 +171,7 @@ class ProductList extends Component {
     //map through each product in sortedCounts and return the number of hands for each of its votes
     let productItems = sortedCounts.map((entry, index) => {
       let specificProduct = products.find(product => product.id === entry[0])
+      if (specificProduct) {
         return (
           <li key={index} className="oneProduct"
             css={css`
@@ -207,7 +208,8 @@ class ProductList extends Component {
             `}
           />
           </li>
-        )
+        )  
+      }
     })
 
     return (
