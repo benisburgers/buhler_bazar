@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import ProfileForm from '../components/profileForm.js'
-import { MediumHeader, PrimaryButton, SmallHeader, ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
+import { ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
 import ExitButtonContainer from '../components/exitButton.js'
 
 

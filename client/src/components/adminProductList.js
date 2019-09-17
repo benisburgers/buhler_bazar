@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import withFilter from '../components/withFilter'
 import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styling/theme";
 import ChevronButton from '../components/chevronButton'

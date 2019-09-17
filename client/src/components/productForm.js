@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Thumbnail from '../components/thumbnail'
-import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel, PrimaryColor, StyledErrorMessage } from "../styling/theme"
+import { StyledLabel, TextButton, PrimaryButton, ImplicitField, ImplicitForm, ImplicitLabel, StyledErrorMessage } from "../styling/theme"
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import Select from 'react-select'
@@ -55,7 +54,7 @@ class ProductForm extends FormComponent {
 
     const { product, productTypes, handleCloseModal } = this.props;
     const { id, name, type, picturePath } = product || '';
-    const { toggleFields, pushData, reactSelectStyles } = this;
+    const { toggleFields, reactSelectStyles } = this;
     var { fileValidation, requiredError } = this;
     var { updateProductsData } = this.context;
 

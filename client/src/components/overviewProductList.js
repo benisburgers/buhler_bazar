@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import withFilter from './withFilter'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'

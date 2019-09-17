@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import { MediumHeader, PrimaryButton, SmallHeader, ModalContent, ModalMainPart, ModalHeader, PrimaryColor, NakedUl } from "../styling/theme"
@@ -208,8 +208,9 @@ class ProductList extends Component {
             `}
           />
           </li>
-        )  
+        )
       }
+      else return null;
     })
 
     return (

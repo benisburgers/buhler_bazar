@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 import OverviewProductList from '../components/overviewProductList.js'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
@@ -11,7 +11,6 @@ class VotingModal extends Component {
   state = {
     selectedProducts: [],
     credits: 4,
-    highlightCredits: false
   }
 
   static contextType = UserContext
@@ -56,7 +55,6 @@ class VotingModal extends Component {
 
   highlightCredit = () => {
     console.log('highlightCredit');
-    const { highlightCredits } = this.state;
     this.setState({
       highlightCredits: true
     })
@@ -105,7 +103,7 @@ class VotingModal extends Component {
   }
 
   render() {
-    const { products, handleCloseModal, modalOpen, productTypes } = this.props;
+    const { products, handleCloseModal, productTypes } = this.props;
     const { credits, selectedProducts, highlightCredits } = this.state;
     const { chooseProduct, submitVote } = this;
 

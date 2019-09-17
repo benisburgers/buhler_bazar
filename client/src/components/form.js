@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { PrimaryColor } from "../styling/theme"
 import * as Yup from 'yup';
 
@@ -65,11 +65,9 @@ export class FormComponent extends Component {
       ...provided,
       color: "#515151",
       fontFamily: "Avenir Next",
-      textAlign: "center",
       fontSize: "21px",
       fontWeight: "bold",
       lineHeight: "29px",
-      textAlign: "left",
       backgroundColor: "transparent",
       borderColor: state.isFocused ? PrimaryColor : "#c2c2c2",
       // This line disable the blue border

@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { PrimaryButton, BackLink, ExplicitForm, ExplicitLabel, ExplicitField, StyledErrorMessage, StyledLabel, FullHeightSection } from "../styling/theme"
-import Thumbnail from '../components/thumbnail';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import register_thumbnail_icon from '../components/images/register-thumbnail-icon.png';
@@ -25,8 +24,6 @@ class Register extends Component {
     )
   }
 }
-
-var userExists;
 
 class RegistrationForm extends FormComponent {
 

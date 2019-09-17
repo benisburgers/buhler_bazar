@@ -1,4 +1,3 @@
-import React from 'react'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import thumbnail_icon from '../components/images/thumbnail-icon.svg';

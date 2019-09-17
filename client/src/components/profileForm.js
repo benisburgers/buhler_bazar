@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { StyledLabel, TextButton, PrimaryButton, NegativeSecondaryButton, ImplicitField, ImplicitForm, ImplicitLabel, PrimaryColor, StyledErrorMessage } from "../styling/theme"
+import { StyledLabel, TextButton, PrimaryButton, ImplicitField, ImplicitForm, ImplicitLabel, StyledErrorMessage } from "../styling/theme"
 import Thumbnail from '../components/thumbnail';
 import { FormComponent } from '../components/form'
 import Select from 'react-select'
@@ -27,7 +26,7 @@ class ProfileForm extends FormComponent {
   render() {
     const { targetUser, handleCloseModal, currentUser } = this.props;
     const { id, picturePath, email, firstName, lastName, admin } = targetUser || '';
-    const { toggleFields, pushData, reactSelectStyles } = this;
+    const { toggleFields, reactSelectStyles } = this;
     var { fileValidation, requiredError } = this;
     var { updateUserData } = this.context;
 
@@ -150,7 +149,7 @@ class ProfileForm extends FormComponent {
                   //currentUser is who's using the app. TragetUser is whose0 profile is being displayed.
                   (currentUser && targetUser)
                   // then check if currentUser DOES NOT equal targetUser. Why? Because a user cannot change his own admin status
-                  && (currentUser.id != targetUser.id)
+                  && (currentUser.id !== targetUser.id)
                   // then check if currentUser is admin
                   && (currentUser.admin)
                   ?

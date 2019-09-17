@@ -1,10 +1,9 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import './css/overview.css';
 import TopBarContainer from '../components/topbar.js'
 import ChevronButton from '../components/chevronButton'
-import { Link } from 'react-router-dom';
 import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl, FullHeightSection, PrimaryColor } from "../styling/theme";
 import starIcon from "../components/images/star.svg"
 import ReactModal from 'react-modal';

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import TopBarContainer from '../components/topbar.js'
 import PlusPuttonContainer from '../components/plusButton.js'
 import AdminProductList from '../components/adminProductList.js'
-import { NakedLink, FullHeightSection } from "../styling/theme";
+import { FullHeightSection } from "../styling/theme";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import ReactModal from 'react-modal';

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  PieChart, Pie, Sector, Cell, ResponsiveContainer
+  PieChart, Pie, Cell
 } from 'recharts';
 
 class PointsLeft extends PureComponent {
@@ -10,8 +10,6 @@ class PointsLeft extends PureComponent {
     const creditsLeft = credits - selectedProducts.length
 
     const data = [];
-    const activeColor = 'green';
-    const inactiveColor = 'red';
 
     for (var i = 0; i < credits; i++) {
       data.push(

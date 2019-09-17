@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 import { Field, ErrorMessage, Form } from 'formik';
-import ReactModal from 'react-modal';
 
 export const PrimaryColor = "#A9EEC2"
 
@@ -72,15 +71,6 @@ export const StyledMenuLink = styled(StyledRouterLink)`
 `
 
 export const StyledRouterButton = PrimaryButton.withComponent(NakedLink)
-
-export const NegativeSecondaryButton = styled('span') `
-  background-color: red;
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 18px;
-  padding: 1px 15px;
-  border-radius: 11px;
-`
 
 export const SecondaryButton = styled(PrimaryButton) `
   font-size: 13px;

@@ -1,14 +1,11 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import styled from '@emotion/styled'
-import { Link } from 'react-router-dom'
-import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitField, StyledErrorMessage, FullHeightSection, StyledParagraph, NakedLink } from "../styling/theme"
+import { PrimaryButton, StyledRouterLink, ExplicitForm, ExplicitLabel, ExplicitField, StyledErrorMessage, FullHeightSection, StyledParagraph } from "../styling/theme"
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import StartScreen from '../components/images/startscreen.gif'
 import { FormComponent } from '../components/form'
-import { Redirect } from 'react-router'
 import { history } from '../components/history'
 
 class Register extends Component {
@@ -53,7 +50,7 @@ function LogInText(props) {
 class LogInForm extends FormComponent {
 
   render() {
-    const { pushData, requiredError } = this;
+    const { requiredError } = this;
     const LoginSchema = Yup.object().shape({
       email: Yup.string()
         .email('Muss gültig email sie')

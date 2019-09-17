@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { Cta } from "../styling/theme";

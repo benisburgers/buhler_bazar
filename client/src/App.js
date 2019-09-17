@@ -1,11 +1,10 @@
 // import Customers from './components/customers/customers';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './App.css';
-import ReactModal from 'react-modal';
 
 /** @jsx jsx */
 import { Global, css, jsx } from '@emotion/core'
-import { Router, Route, Link } from 'react-router-dom'
+import { Router, Route } from 'react-router-dom'
 import { UserProvider } from './components/UserContext'
 
 import Login from './pages/login';

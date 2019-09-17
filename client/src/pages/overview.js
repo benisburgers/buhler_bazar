@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import './css/overview.css'
 import TopBarContainer from '../components/topbar.js'
 import VotingModal from '../components/votingModal.js'
 import ResultsModal from '../components/resultsModal.js'
-import { PrimaryButton, PrimaryButtonLink, InfoText, FullHeightSection, NakedUl, InfoTextNoBackGround } from "../styling/theme"
+import { PrimaryButton, InfoText, FullHeightSection, NakedUl, InfoTextNoBackGround } from "../styling/theme"
 import ReactModal from 'react-modal';
 
 class Overview extends Component {

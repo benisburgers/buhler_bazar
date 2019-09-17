@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ExitButton, PosExitButtonLine, NegExitButtonLine } from "../styling/theme"
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core'
-
 
 function ExitButtonContainer(props) {
   return (

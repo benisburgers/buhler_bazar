@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { MediumHeader, ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
+import { Component } from 'react'
+import { ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
 import ProductForm from '../components/productForm.js'
 import ExitButtonContainer from '../components/exitButton.js'
 /** @jsx jsx */

@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { Link } from 'react-router-dom'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
 import ExitButtonContainer from '../components/exitButton.js'
