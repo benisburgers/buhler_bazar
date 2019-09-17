@@ -15,8 +15,7 @@ class AdminProducts extends Component {
   }
 
   handleOpenModal = (content) => {
-    console.log('handleOpenModal');
-    console.log(content);
+    console.log('handleOpenModal()');
     this.setState({
       activeProductId: content,
       showModal: true
@@ -24,7 +23,7 @@ class AdminProducts extends Component {
   }
 
   handleCloseModal = () => {
-    console.log('handleCloseModal');
+    console.log('handleCloseModal()');
     this.setState({
       showModal: false,
       activeProductId: undefined

@@ -18,7 +18,7 @@ class AdminUserList extends Component {
   }
 
   handleOpenModal = (content) => {
-    console.log('handleOpenModal');
+    console.log('handleOpenModal()');
     this.setState({
       activeUserId: content,
       showModal: true
@@ -26,7 +26,7 @@ class AdminUserList extends Component {
   }
 
   handleCloseModal = async () => {
-    console.log('handleCloseModal');
+    console.log('handleCloseModal()');
     await this.fetchUserList();
     this.setState({
       showModal: false,
@@ -52,7 +52,7 @@ class AdminUserList extends Component {
 
 
   fetchUserList = async () => {
-    console.log('fetchUserList');
+    console.log('fetchUserList()');
     fetch('/api/userList')
     .then(res => res.json())
     .then(result => this.processUserList(result))

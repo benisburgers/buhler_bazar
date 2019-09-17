@@ -12,7 +12,7 @@ class ResultsModal extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount ResultsModal.js');
+    console.log('componentDidMount() ResultsModal.js');
     fetch('/api/resultsData')
     .then(response => response.json())
     .then(results => {

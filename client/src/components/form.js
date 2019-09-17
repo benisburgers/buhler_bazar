@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 export class FormComponent extends Component {
 
   toggleFields(context, fieldName) {
-    console.log('toggleFields');
+    console.log('toggleFields()');
     let origDisabledFields = context.state.disabledFields;
     let newDisabledFields = Object.assign({}, ...Object.keys(origDisabledFields).map(k => ({[k]: true})));
     newDisabledFields[fieldName] = false;
@@ -24,7 +24,7 @@ export class FormComponent extends Component {
   }
 
   pushData = (input, url) => {
-    console.log('pushData');
+    console.log('pushData()');
     return new Promise((resolve, reject) => {
       (async () => {
         const rawResponse = await fetch(url, {

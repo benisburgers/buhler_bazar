@@ -27,7 +27,7 @@ class Overview extends Component {
   }
 
   handleCloseModal = () => {
-    console.log('handleCloseModal');
+    console.log('handleCloseModal()');
     this.setState({
       modalContent: undefined,
       showModal: false
