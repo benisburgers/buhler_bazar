@@ -111,7 +111,7 @@ const withFilter = (WrappedComponent, test) => {
           <NakedUl
             css={css`
               display: flex;
-              justify-content: space-around;
+              justify-content: space-between;
             `}
           >
             {types}
