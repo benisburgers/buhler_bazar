@@ -52,6 +52,7 @@ class App extends Component {
   mountUserList = async () => {
     console.log('mountUserList()');
     await this.checkLoggedIn();
+    await this.checkAdmin();
     if (!this.state.userListMounted) {
       let userInfo = await this.fetchUserData();
       let productsList = await this.fetchProductsData();
@@ -66,6 +67,7 @@ class App extends Component {
   mountProductList = async () => {
     console.log('mountProductList()');
     await this.checkLoggedIn();
+    await this.checkAdmin();
     if (!this.state.productListMounted) {
       let userInfo = await this.fetchUserData();
       let productsList = await this.fetchProductsData();
@@ -78,8 +80,17 @@ class App extends Component {
   }
 
   checkLoggedIn = async () => {
-    console.log('checkLoggedIn');
+    console.log('checkLoggedIn()');
     let result = await fetch('/api/isLoggedIn')
+    result = await result.json();
+    if (!result) {
+      history.push('/')
+    }
+  }
+
+  checkAdmin = async () => {
+    console.log('checkAdmin()');
+    let result = await fetch('/api/isAdmin')
     result = await result.json();
     if (!result) {
       history.push('/')

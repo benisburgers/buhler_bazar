@@ -685,6 +685,17 @@ async (req, res) => {
   }
 });
 
+app.get('/api/isAdmin',
+async (req, res) => {
+  console.log('/api/isAdmin');
+  if(req.user.admin) {
+    res.send(true)
+  }
+  else {
+    res.send(false)
+  }
+});
+
 const port = 5000;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
