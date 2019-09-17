@@ -101,7 +101,7 @@ class ProfileButton extends Component {
   render() {
     const { userInfo, userImageHeight, userNameHeight, handleOpenModal } = this.props;
     return (
-      <div className="profileButton" userInfo={userInfo} onClick={() => handleOpenModal('profile')}
+      <div className="profileButton" onClick={() => handleOpenModal('profile')}
         css={css`
           margin-left: -20px;
           flex: 1;

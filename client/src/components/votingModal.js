@@ -2,7 +2,7 @@ import { Component } from 'react';
 import OverviewProductList from '../components/overviewProductList.js'
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { MediumHeader, PrimaryButton, ModalContent, ModalMainPart, ModalHeader } from "../styling/theme"
+import { MediumHeader, PrimaryButton, ModalContent, ModalMainPart, ModalHeader, SmallInfoText } from "../styling/theme"
 import PointsLeft from '../components/pieChart.js'
 import ExitButtonContainer from '../components/exitButton.js'
 import UserContext from './UserContext'
@@ -130,6 +130,7 @@ class CreditScore extends Component {
     return (
       <div className="pieChart-container">
         <PointsLeft credits={credits} selectedProducts={selectedProducts} highlightCredits={highlightCredits} />
+        <SmallInfoText>CRÄDITS</SmallInfoText>
       </div>
     )
   }

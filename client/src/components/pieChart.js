@@ -28,15 +28,6 @@ class PointsLeft extends PureComponent {
           >
             {creditsLeft}
           </text>
-          <text x='50%' y="100%" textAnchor="middle" dominantBaseline="text-top"
-            style={{
-              fontSize: 12,
-              fontWeight: 'bold',
-              fill: '#515151'
-            }}
-          >
-            CRÄDITS
-          </text>
           <Pie
             data={data}
             innerRadius={20}

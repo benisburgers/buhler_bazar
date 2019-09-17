@@ -106,7 +106,7 @@ class ProfileForm extends FormComponent {
           }}
           render = {({ errors, touched, isSubmitting, setFieldValue, enableInputField, values }) => (
             <ImplicitForm className="profileForm">
-              <div class="thumbnailContainer">
+              <div className="thumbnailContainer">
                 <Thumbnail values={values} />
                 <input
                   id="file"
@@ -128,7 +128,7 @@ class ProfileForm extends FormComponent {
                 <StyledLabel htmlFor="file">{ values.file ? "Bild Wächsle" : "Bild Uelade" }</StyledLabel>
                 <StyledErrorMessage component="p" name="file" />
               </div>
-              <div class="textFieldsContainer">
+              <div className="textFieldsContainer">
                 <ImplicitLabel>
                   <ImplicitField type="email" name="email" placeholder="du@buehler-buehler.ch" disabled={this.state.disabledFields.email} />
                   <TextButton onClick={e => toggleFields(this, "email")}>Email { values.email ? "ändere" : "hinzuefüege" }</TextButton>
@@ -164,8 +164,6 @@ class ProfileForm extends FormComponent {
                       value={options.find(option => option.value === values.admin)}
                       onChange={
                         e => {
-                          console.log(options.value);
-                          console.log(values.admin);
                           setFieldValue('admin', e.value);
                         }
                       }

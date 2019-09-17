@@ -6,7 +6,6 @@ import ExitButtonContainer from '../components/exitButton.js'
 
 
 function ProfileModal(props) {
-  console.log(props);
   return (
     <ModalContent>
       <ModalMainPart className="modalMainPart"

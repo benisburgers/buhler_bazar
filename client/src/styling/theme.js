@@ -226,6 +226,12 @@ export const InfoTextNoBackGround = styled(InfoText) `
   display: block;
 `
 
+export const SmallInfoText = styled('span') `
+  font-size: 12px;
+  font-weight: bold;
+  color: #515151;
+`
+
 export const MediumHeader = styled('h2') `
   font-size: 34px;
   font-weight: bold;

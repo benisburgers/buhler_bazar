@@ -1,7 +1,7 @@
 import { Component } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { MediumHeader, PrimaryButton, SmallHeader, ModalContent, ModalMainPart, ModalHeader, PrimaryColor, NakedUl } from "../styling/theme"
+import { MediumHeader, PrimaryButton, SmallHeader, ModalContent, ModalMainPart, ModalHeader, PrimaryColor, NakedUl, SmallInfoText } from "../styling/theme"
 import handIcon from "../components/images/hand.png"
 import ExitButtonContainer from '../components/exitButton.js'
 
@@ -86,15 +86,13 @@ class WeekNumber extends Component {
             {getWeekNumber(new Date())}
           </span>
         </div>
-        <text x='50%' y="100%" textAnchor="middle" dominantBaseline="text-top"
-          style={{
-            fontSize: 12,
-            fontWeight: 'bold',
-            fill: '#515151'
-          }}
+        <SmallInfoText
+          css={css`
+            margin-top: 3px;
+          `}
         >
           Kaländerwuche
-        </text>
+        </SmallInfoText>
       </div>
     )
   }
