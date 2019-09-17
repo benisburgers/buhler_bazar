@@ -258,9 +258,9 @@ class Menu extends Component {
           <ExitButtonContainer lineColor="#A9EEC2" />
         </div>
         {isAdmin ? (
-            <AdminMenuOptions />
+            <AdminMenuOptions handleCloseModal={handleCloseModal} />
         ) : (
-            <BasicMenuOptions />
+            <BasicMenuOptions handleCloseModal={handleCloseModal} />
         )}
         <SecondaryButton width="50%" negative onClick={() => logout()}
           css={css`
@@ -284,7 +284,7 @@ function BasicMenuOptions(props) {
       `}
     >
       <li>
-        <StyledMenuLink to={'/overview'}>Owerwiu</StyledMenuLink>
+        <StyledMenuLink to={'/overview'} onClick={() => props.handleCloseModal()}>Owerwiu</StyledMenuLink>
       </li>
     </ul>
   )
@@ -299,13 +299,13 @@ function AdminMenuOptions(props) {
       `}
     >
       <li>
-        <StyledMenuLink to={'/overview'}>Owerwiu</StyledMenuLink>
+        <StyledMenuLink to={'/overview'} onClick={() => props.handleCloseModal()}>Owerwiu</StyledMenuLink>
       </li>
       <li>
-        <StyledMenuLink to={'/admin/admin_userList'}>Benutzer</StyledMenuLink>
+        <StyledMenuLink to={'/admin/admin_userList'} onClick={() => props.handleCloseModal()}>Benutzer</StyledMenuLink>
       </li>
       <li>
-        <StyledMenuLink to={'/admin/admin_productList'}>Produkt</StyledMenuLink>
+        <StyledMenuLink to={'/admin/admin_productList'} onClick={() => props.handleCloseModal()}>Produkt</StyledMenuLink>
       </li>
     </ul>
   )
