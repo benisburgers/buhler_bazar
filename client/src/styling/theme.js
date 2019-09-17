@@ -181,6 +181,7 @@ export const ExplicitField = styled (StyledField) `
 `
 
 export const StyledErrorMessage = styled (ErrorMessage) `
+  font-family: "Avenir Next";
   font-size: 12px;
   color: #FF665A;
   font-weight: bold;
@@ -211,6 +212,7 @@ export const ImplicitField = styled (StyledField) `
 // other components
 
 export const InfoText = styled('span') `
+  font-family: "Avenir Next";
   font-size: 17px;
   border-radius: 17px;
   color: #515151;
@@ -220,10 +222,11 @@ export const InfoText = styled('span') `
   display: inline-block;
 `
 export const InfoTextNoBackGround = styled(InfoText) `
+  display: block;
+  font-family: "Avenir Next";
   background: none;
   padding: 0;
   margin: 0;
-  display: block;
 `
 
 export const SmallInfoText = styled('span') `

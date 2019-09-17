@@ -122,6 +122,7 @@ class ProfileButton extends Component {
           <span
             className="userName"
             css={css`
+              font-family: "Avenir Next";
               background-color: #363636;
               color: #A9EEC2;
               font-weight: 500;

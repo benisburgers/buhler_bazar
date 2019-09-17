@@ -168,12 +168,7 @@ class PreviousOrder extends Component {
                 `
               }
             />
-            <InfoTextNoBackGround
-              css={css`
-              display: block;
-              color: red;
-            `}
-            >
+            <InfoTextNoBackGround>
               { specificProduct.name }
             </InfoTextNoBackGround>
           </li>
