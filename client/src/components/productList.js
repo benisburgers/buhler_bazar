@@ -4,7 +4,7 @@ import { VerySmallHeader, ListImage, ProductsUsersItem, NakedUl } from "../styli
 import ChevronButton from '../components/chevronButton'
 
 
-class AdminProductList extends Component {
+class ProductList extends Component {
 
   render() {
     const { filteredProducts, handleOpenModal } = this.props;
@@ -25,4 +25,4 @@ class AdminProductList extends Component {
   }
 }
 
-export default withFilter(AdminProductList)
+export default withFilter(ProductList)

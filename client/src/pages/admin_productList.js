@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import TopBarContainer from '../components/topbar.js'
 import PlusPuttonContainer from '../components/plusButton.js'
-import AdminProductList from '../components/adminProductList.js'
+import ProductList from '../components/productList.js'
 import { FullHeightSection } from "../styling/theme";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
@@ -56,7 +56,7 @@ class AdminProducts extends Component {
         >
           <PlusPuttonContainer />
         </div>
-        <AdminProductList productTypes={productTypes} products={products} handleOpenModal={this.handleOpenModal} />
+        <ProductList productTypes={productTypes} products={products} handleOpenModal={this.handleOpenModal} />
         <ReactModal
           isOpen={this.state.showModal}
           contentLabel="Menu Modal"
