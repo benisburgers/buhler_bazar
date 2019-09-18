@@ -15,6 +15,29 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, '/client/build')));
 
 
+app.use(cookieParser());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+// parse application/json
+app.use(bodyParser.json())
+
+app.set('view engine', 'ejs');
+
+app.use(session({
+ secret: 'justasecret',
+ resave:true,
+ saveUninitialized: true
+}));
+
+// app.use(connect.cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 }}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 // Handles any requests that don't match the ones above
 
 // var tk = require('timekeeper');
@@ -285,28 +308,6 @@ passport.use(
   });
  })
 );
-
-app.use(cookieParser());
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
-// parse application/json
-app.use(bodyParser.json())
-
-app.set('view engine', 'ejs');
-
-app.use(session({
- secret: 'justasecret',
- resave:true,
- saveUninitialized: true
-}));
-
-// app.use(connect.cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 }}));
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.post('/api/login', function(req, res, next) {
   passport.authenticate('local-login', function(err, user, info) {
