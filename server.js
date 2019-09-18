@@ -9,6 +9,13 @@ const fs = require('fs');
 const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcrypt');
+const path = require('path');
+
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, '/client/build')));
+
+
+// Handles any requests that don't match the ones above
 
 // var tk = require('timekeeper');
 // var time = new Date("September 20, 2019 11:13:00"); // January 1, 2030 00:00:00
@@ -16,14 +23,6 @@ const bcrypt = require('bcrypt');
 // tk.travel(time); // Travel to that date.
 
 var salt = bcrypt.genSaltSync(10);
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
-// parse application/json
-app.use(bodyParser.json())
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -245,17 +244,6 @@ async (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-var user = undefined;
-
-app.use(session({
- secret: 'justasecret',
- resave:true,
- saveUninitialized: true
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 passport.serializeUser(function(user, done){
   console.log('serializeUser');
  done(null, user.id);
@@ -293,6 +281,26 @@ passport.use(
   });
  })
 );
+
+app.use(cookieParser());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+// parse application/json
+app.use(bodyParser.json())
+
+app.set('view engine', 'ejs');
+
+app.use(session({
+ secret: 'justasecret',
+ resave:true,
+ saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.post('/api/login', function(req, res, next) {
   passport.authenticate('local-login', function(err, user, info) {
@@ -694,6 +702,10 @@ async (req, res) => {
   else {
     res.send(false)
   }
+});
+
+app.get('/*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
 const port = 5000;
