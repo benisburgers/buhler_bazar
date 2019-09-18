@@ -228,7 +228,8 @@ const saveImage = async (base64, fileFormat, fileName, fileDirectory) => {
 
 app.post('/api/register',
 async (request, response) => {
-  console.log('/api/regsiter');
+  console.log('/api/register');
+  console.log(request.body);
   let filteredInput = await prepareUserInput(request.body)
   let result = await registerUser(filteredInput);
   let fileName = shortid.generate()
