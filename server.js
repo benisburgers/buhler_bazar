@@ -32,16 +32,6 @@ var salt = bcrypt.genSaltSync(10);
 //   database: 'bazar'
 // })
 
-
-//production connection
-// const connection = mysql.createConnection({
-//   host: 'nr84dudlpkazpylz.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
-//   user: 'x4ombikkgj8m18f2',
-//   password: 'pcp7yln084jaa0w4',
-//   port: 3306,
-//   database: 'vw0iyuuac3o6eolw'
-// })
-
 const connection = mysql.createConnection('mysql://mg4opeawp8ui3iid:kmfa3zmrbah3kdlv@b8rg15mwxwynuk9q.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/wu7l1lxe3pwecdjb')
 
 
