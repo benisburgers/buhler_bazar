@@ -65,7 +65,7 @@ const checkVotesTable = () => {
   var sql = `
     SELECT *
     FROM information_schema.tables
-    WHERE table_schema = 'bazar'
+    WHERE table_schema = 'vw0iyuuac3o6eolw'
         AND table_name = 'votes'
     LIMIT 1;
   `
@@ -97,7 +97,7 @@ const checkUsersTable = () => {
   var sql = `
     SELECT *
     FROM information_schema.tables
-    WHERE table_schema = 'bazar'
+    WHERE table_schema = 'vw0iyuuac3o6eolw'
         AND table_name = 'users'
     LIMIT 1;
   `
@@ -135,7 +135,7 @@ const checkProductsTable = () => {
   var sql = `
     SELECT *
     FROM information_schema.tables
-    WHERE table_schema = 'bazar'
+    WHERE table_schema = 'vw0iyuuac3o6eolw'
         AND table_name = 'products'
     LIMIT 1;
   `
@@ -312,11 +312,18 @@ app.use(session({
  saveUninitialized: true
 }));
 
+app.use(connect.cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 }}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/api/login', function(req, res, next) {
   passport.authenticate('local-login', function(err, user, info) {
+    // if(req.body.remember){
+    //  req.session.cookie.maxAge = 1000 * 60 * 3;
+    // }else{
+    //  req.session.cookie.expires = false;
+    // }
     if (err) { return next(err); }
     if (!user) { return res.send(false); }
     req.logIn(user, function(err) {
