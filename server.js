@@ -25,11 +25,11 @@ app.use(express.static(path.join(__dirname, '/client/build')));
 var salt = bcrypt.genSaltSync(10);
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
-  database: 'bazar'
+  host: 'nr84dudlpkazpylz.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
+  user: 'x4ombikkgj8m18f2',
+  password: 'pcp7yln084jaa0w4',
+  port: 3306,
+  database: 'vw0iyuuac3o6eolw'
 })
 
 connection.connect((err) => {
