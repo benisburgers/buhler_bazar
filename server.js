@@ -302,7 +302,7 @@ app.use(session({
  saveUninitialized: true
 }));
 
-app.use(connect.cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 }}));
+// app.use(connect.cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 }}));
 
 app.use(passport.initialize());
 app.use(passport.session());
