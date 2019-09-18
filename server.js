@@ -55,7 +55,7 @@ const checkVotesTable = () => {
   var sql = `
     SELECT *
     FROM information_schema.tables
-    WHERE table_schema = 'vw0iyuuac3o6eolw'
+    WHERE table_schema = 'wu7l1lxe3pwecdjb'
         AND table_name = 'votes'
     LIMIT 1;
   `
@@ -87,7 +87,7 @@ const checkUsersTable = () => {
   var sql = `
     SELECT *
     FROM information_schema.tables
-    WHERE table_schema = 'vw0iyuuac3o6eolw'
+    WHERE table_schema = 'wu7l1lxe3pwecdjb'
         AND table_name = 'users'
     LIMIT 1;
   `
@@ -125,7 +125,7 @@ const checkProductsTable = () => {
   var sql = `
     SELECT *
     FROM information_schema.tables
-    WHERE table_schema = 'vw0iyuuac3o6eolw'
+    WHERE table_schema = 'wu7l1lxe3pwecdjb'
         AND table_name = 'products'
     LIMIT 1;
   `
