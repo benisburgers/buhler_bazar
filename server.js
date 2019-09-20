@@ -10,10 +10,15 @@ const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcrypt');
 const path = require('path');
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.WS_SECRET_ACCESS_KEY
+});
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, '/client/build')));
-
 
 app.use(cookieParser());
 
@@ -47,16 +52,17 @@ app.use(passport.session());
 
 var salt = bcrypt.genSaltSync(10);
 
-// const connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'root',
-//   socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
-//   database: 'bazar'
-// })
+var databaseName = process.env.DB_NAME || 'bazar'
 
-const connection = mysql.createConnection('mysql://mg4opeawp8ui3iid:kmfa3zmrbah3kdlv@b8rg15mwxwynuk9q.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/wu7l1lxe3pwecdjb')
+var localConnection = {
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
+  database: databaseName
+}
 
+const connection = mysql.createConnection(process.env.DB_STRING || localConnection)
 
 connection.connect((err) => {
   if (err) throw err;
@@ -78,11 +84,11 @@ const checkVotesTable = () => {
   var sql = `
     SELECT *
     FROM information_schema.tables
-    WHERE table_schema = 'wu7l1lxe3pwecdjb'
+    WHERE table_schema = ?
         AND table_name = 'votes'
     LIMIT 1;
   `
-  connection.query(sql, (err, result) => {
+  connection.query(sql, [databaseName], (err, result) => {
     if (err) throw err;
     if (result.length === 0) {
       createVotesTable();
@@ -99,7 +105,7 @@ const createVotesTable = () => {
     voteProducts VARCHAR(30),
     voteDate DATE
   )`
-  connection.query(sql, (err, result) => {
+  connection.query(sql, [databaseName], (err, result) => {
     if (err) throw err;
   });
 }
@@ -110,11 +116,11 @@ const checkUsersTable = () => {
   var sql = `
     SELECT *
     FROM information_schema.tables
-    WHERE table_schema = 'wu7l1lxe3pwecdjb'
+    WHERE table_schema = ?
         AND table_name = 'users'
     LIMIT 1;
   `
-  connection.query(sql, (err, result) => {
+  connection.query(sql, [databaseName], (err, result) => {
     if (err) throw err;
     if (result.length === 0) {
       createUsersTable();
@@ -148,11 +154,11 @@ const checkProductsTable = () => {
   var sql = `
     SELECT *
     FROM information_schema.tables
-    WHERE table_schema = 'wu7l1lxe3pwecdjb'
+    WHERE table_schema = ?
         AND table_name = 'products'
     LIMIT 1;
   `
-  connection.query(sql, (err, result) => {
+  connection.query(sql, [databaseName], (err, result) => {
     if (err) throw err;
     if (result.length === 0) {
       createProductsTable();
@@ -242,8 +248,15 @@ const prepareUserInput = async (input) => {
 }
 
 const saveImage = async (base64, fileFormat, fileName, fileDirectory) => {
-  console.log('saveImage');
-  fs.writeFile(`${fileDirectory}${fileName}.${fileFormat}`, base64, 'base64', function(err) {
+  let buffer = new Buffer.from(base64, "base64")
+  const params = {
+    Bucket: 'bbbazar', // pass your bucket name
+    Key: `${fileDirectory}${fileName}.${fileFormat}`, // file will be saved as testBucket/contacts.csv
+    Body: buffer,
+    ContentEncoding: 'base64',
+    ContentType: `image/${fileFormat}`
+  };
+  s3.upload(params, function(err, data) {
     if (err) throw err;
   });
   return;
@@ -252,7 +265,6 @@ const saveImage = async (base64, fileFormat, fileName, fileDirectory) => {
 app.post('/api/register',
 async (request, response) => {
   console.log('/api/register');
-  console.log(request.body);
   let filteredInput = await prepareUserInput(request.body)
   let result = await registerUser(filteredInput);
   let fileName = shortid.generate()
@@ -416,19 +428,35 @@ const deleteUser = async (req, res) => {
     if (error) throw error
   })
   //delete user image
-  fs.unlink(`client/public${req.body.file}`, err => {
-    if (err) throw err;
-    console.log('file deleted');
-  })
+  // fs.unlink(`client/public${req.body.file}`, err => {
+  //   if (err) throw err;
+  //   console.log('file deleted');
+  // })
+  var params = {
+   Bucket: "bbbazar",
+   Key: `client/public/${req.body.file}`, // file will be saved as testBucket/contacts.csv
+  };
+  s3.deleteObject(params, function(err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else console.log('file deleted');           // successful response
+  });
 }
 
 const deleteImage = async (fileDirectory, fileName, fileFormat) => {
   console.log('deleteImage');
-  fs.unlink(`${fileDirectory}${fileName}.${fileFormat}`, err => {
-    if (err) throw err;
-    console.log(`file ${fileName} deleted`);
-    return
-  })
+  // fs.unlink(`${fileDirectory}${fileName}.${fileFormat}`, err => {
+  //   if (err) throw err;
+  //   console.log(`file ${fileName} deleted`);
+  //   return
+  // })
+  var params = {
+   Bucket: "bbbazar",
+   Key: `${fileDirectory}${fileName}.${fileFormat}`, // file will be saved as testBucket/contacts.csv
+  };
+  s3.deleteObject(params, function(err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else console.log('file deleted');           // successful response
+  });
 }
 
 const updateUser = async (input, currentUser) => {

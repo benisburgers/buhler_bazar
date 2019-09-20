@@ -42,7 +42,7 @@ class AdminUserList extends Component {
 
   processUserList = async (userList) => {
     var result = userList.map(userObject => {
-      userObject.picturePath = `/images/users/${userObject.fileName}.${userObject.fileFormat}`
+      userObject.picturePath = `https://bbbazar.s3.eu-central-1.amazonaws.com/client/public/images/users/${userObject.fileName}.${userObject.fileFormat}`
       delete userObject.fileName;
       delete userObject.fileFormat;
       return userObject

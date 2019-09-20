@@ -136,7 +136,7 @@ class App extends Component {
         id: entry.id,
         name: entry.productName,
         type: entry.productType,
-        picturePath: `/images/products/${entry.fileName}.${entry.fileFormat}`,
+        picturePath: `https://bbbazar.s3.eu-central-1.amazonaws.com/client/public/images/products/${entry.fileName}.${entry.fileFormat}`,
         lastOrderDate: entry.lastOrderDate,
         numberOfVotes: entry.numberOfVotes
       }
@@ -150,7 +150,7 @@ class App extends Component {
     var clone = Object.assign({}, input)
 
     //prepare input: replace null with undefiend, and set up image src, delete useless information (fileFormat)
-    clone.picturePath = `/images/users/${input.fileName}.${input.fileFormat}`
+    clone.picturePath = `https://bbbazar.s3.eu-central-1.amazonaws.com/client/public/images/users/${input.fileName}.${input.fileFormat}`
     clone.lastOrderDate = clone.lastOrderDate === null ? undefined : clone.lastOrderDate
     clone.lastOrderProducts = clone.lastOrderProducts === null ? undefined : clone.lastOrderProducts
     delete clone.fileFormat;
