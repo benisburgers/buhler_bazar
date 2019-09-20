@@ -49,7 +49,7 @@ class Overview extends Component {
           height: 100%;
         `}
       >
-        <TopBarContainer userInfo={userInfo} title="OVERVIEW" />
+        <TopBarContainer userInfo={userInfo} title="OVERVIEW2" />
         <div className="mainPart"
           css={css`
             height: 100%;
