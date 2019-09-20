@@ -2,6 +2,9 @@
   "name": "web",
   "version": "1.0.0",
   "description": "boilerplate for react and express",
+  "engines": {
+    "node": "12.5.0"
+  },
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,7 +12,7 @@
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "beni",
   "license": "MIT",
